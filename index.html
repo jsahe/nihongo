@@ -1,0 +1,3743 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nihongo">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16171a" media="(prefers-color-scheme: dark)">
+<title>Nihongo</title>
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<style>
+:root{
+  --bg:#f6f5f2; --card:#ffffff; --text:#1c1d20; --muted:#6b6e76; --line:#e2e0db;
+  --accent:#c2410c; --accent-ink:#ffffff; --ok:#1a7f37; --ok-bg:#e3f4e8; --bad:#c62f2f; --bad-bg:#fbe6e6;
+  --warn:#8a5a00; --warn-bg:#fff3d6; --chip:#eceae5;
+  --p0:#1f6feb; --p1:#d1242f; --pn:#c26a00; --po:#1a7f37; --ink:#1c1d20; --grid:#e6e3dc; --model:#9a9ca3;
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16171a; --card:#212328; --text:#ecebe8; --muted:#9a9ca3; --line:#33363d;
+    --accent:#ff8a4c; --accent-ink:#1a0d05; --ok:#5fd07e; --ok-bg:#183223; --bad:#ff7b7b; --bad-bg:#3a1d1f;
+    --warn:#f0c46a; --warn-bg:#3a3018; --chip:#2c2f35;
+    --p0:#79a8ff; --p1:#ff8a8a; --pn:#ffb15c; --po:#66d38a; --ink:#ecebe8; --grid:#33363d; --model:#6b6e76;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text)}
+body{font:17px/1.55 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","SF Pro Text","Noto Sans JP",sans-serif;
+  padding:calc(var(--safe-t) + 8px) calc(var(--safe-r) + 16px) calc(var(--safe-b) + 84px) calc(var(--safe-l) + 16px);
+  -webkit-text-size-adjust:100%}
+h1{font-size:28px;line-height:1.2;margin:8px 0 4px}
+h2{font-size:21px;line-height:1.25;margin:20px 0 8px}
+h3{font-size:18px;margin:16px 0 6px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.small{font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+button,.btn{font:inherit;font-size:17px;min-height:44px;min-width:44px;border-radius:12px;border:1px solid var(--line);
+  background:var(--card);color:var(--text);padding:10px 16px;cursor:pointer}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+button.big{width:100%;min-height:54px;font-size:18px}
+button:disabled{opacity:.45}
+button.link{border:none;background:none;color:var(--accent);padding:10px 4px}
+input[type=text],textarea,select{font:inherit;font-size:17px;width:100%;min-height:44px;border-radius:10px;border:1px solid var(--line);
+  background:var(--bg);color:var(--text);padding:10px 12px}
+textarea{min-height:96px;resize:vertical}
+input.blank{display:inline-block;width:auto;min-width:90px;max-width:100%;margin:2px 4px;padding:6px 10px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row > *{flex:1 1 auto}
+.bar{height:8px;border-radius:4px;background:var(--chip);overflow:hidden;margin:8px 0}
+.bar > div{height:100%;background:var(--accent);transition:width .25s}
+.chip{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--chip);font-size:14px;margin:2px 4px 2px 0}
+.ok{color:var(--ok)} .bad{color:var(--bad)}
+.fb{border-radius:10px;padding:10px 12px;margin-top:10px;font-size:16px}
+.fb.ok{background:var(--ok-bg)} .fb.bad{background:var(--bad-bg)} .fb.warn{background:var(--warn-bg);color:var(--warn)}
+.opt{display:block;width:100%;text-align:left;margin:6px 0}
+.opt.sel-ok{background:var(--ok-bg);border-color:var(--ok)}
+.opt.sel-bad{background:var(--bad-bg);border-color:var(--bad)}
+.item{border-top:1px solid var(--line);padding:14px 0}
+.item:first-child{border-top:none}
+.prompt{font-size:19px;margin-bottom:8px}
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);
+  padding:4px calc(var(--safe-r) + 2px) calc(var(--safe-b) + 4px) calc(var(--safe-l) + 2px);z-index:5}
+.tabbar button{flex:1;border:none;background:none;border-radius:10px;font-size:12px;min-height:52px;color:var(--muted);padding:6px 0;min-width:0}
+.tabbar button .ic{display:block;font-size:19px;line-height:1.15}
+.tabbar button.on{color:var(--accent);font-weight:600}
+.day{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:8px 0;padding:12px 14px}
+.day .dot{width:14px;height:14px;border-radius:50%;flex:0 0 14px;border:2px solid var(--muted)}
+.day .dot.done{background:var(--ok);border-color:var(--ok)}
+.day .dot.part{background:linear-gradient(90deg,var(--accent) 50%,transparent 50%);border-color:var(--accent)}
+.day .grow{flex:1}
+.day.today{border-color:var(--accent)}
+.overlay{position:fixed;inset:0;background:var(--bg);z-index:10;display:none;flex-direction:column}
+.overlay.open{display:flex}
+.ohead{padding:calc(var(--safe-t) + 6px) calc(var(--safe-r) + 12px) 6px calc(var(--safe-l) + 12px);border-bottom:1px solid var(--line);background:var(--card)}
+.obody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px calc(var(--safe-r) + 16px) 24px calc(var(--safe-l) + 16px)}
+.ofoot{display:flex;gap:10px;padding:10px calc(var(--safe-r) + 12px) calc(var(--safe-b) + 10px) calc(var(--safe-l) + 12px);border-top:1px solid var(--line);background:var(--card)}
+.ofoot > button{flex:1}
+.otitle{flex:1;text-align:center;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flip{display:block;width:100%;min-height:96px;margin:8px 0;text-align:center;font-size:24px;font-weight:600}
+.flip .ex{display:block;font-size:15px;font-weight:400;color:var(--muted);margin-top:6px}
+.flip.back{background:var(--chip)}
+.tokens{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.tokens button{padding:8px 12px}
+.built{min-height:52px;border:1px dashed var(--line);border-radius:10px;padding:4px}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.match button{width:100%;text-align:left;font-size:16px}
+.match button.picked{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.match button.done{background:var(--ok-bg);border-color:var(--ok)}
+.match button.flash{background:var(--bad-bg);border-color:var(--bad)}
+.md table{border-collapse:collapse;width:100%;font-size:16px;margin:8px 0;display:block;overflow-x:auto}
+.md th,.md td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+.md ul,.md ol{padding-left:22px;margin:6px 0}
+.jp{font-size:19px;line-height:2.0}
+ruby rt{font-size:.55em;color:var(--muted)}
+.fw{border-bottom:1px dotted transparent;cursor:pointer}
+.fw.show{border-bottom-color:var(--muted)}
+.fw .tip{display:none}
+.fw.show .tip{display:inline;font-size:.6em;color:var(--accent);margin-left:1px}
+pre.report{white-space:pre-wrap;word-break:break-word;font:14px/1.45 ui-monospace,Menlo,monospace;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.rate button{flex:1}
+.rate button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--safe-b) + 90px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:20;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+/* pitch accent */
+.pitch{display:inline-flex;align-items:flex-end;font-size:1em;letter-spacing:.02em}
+.pitch .m{display:inline-block;padding-top:3px;border-top:2px solid transparent}
+.pitch .m.hi{border-top-color:currentColor}
+.pitch .m.drop{border-right:2px solid currentColor}
+.pitch .pn{font-size:.7em;margin-left:4px;opacity:.8}
+.pa-0{color:var(--p0)} .pa-1{color:var(--p1)} .pa-n{color:var(--pn)} .pa-o{color:var(--po)}
+/* flashcards */
+.fc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0;text-align:center}
+.fc-en{font-size:22px;font-weight:600}
+.fc-jp{font-size:40px;font-weight:600;margin:6px 0;line-height:1.3}
+.fc-sub{color:var(--muted);font-size:16px;margin:4px 0}
+.fc-read{font-size:24px;margin:6px 0}
+.fc-ex{font-size:19px;margin-top:12px;line-height:2}
+.fc-notes{font-size:15px;color:var(--muted);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;text-align:left}
+.fc-tag{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.imgbox img{max-width:100%;max-height:200px;border-radius:12px;display:block;margin:12px auto 4px}
+.credit{font-size:12px;color:var(--muted)} .credit a{color:var(--muted)}
+.spk{min-width:44px;min-height:44px;padding:4px 8px;border:none;background:none;font-size:20px;vertical-align:middle}
+.small-btn{font-size:15px}
+.rategrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%}
+.rb{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 4px;font-weight:600;font-size:16px;min-height:56px}
+.rb .ivl{font-size:13px;font-weight:400;color:var(--muted)}
+.rb.again{color:var(--bad)} .rb.good{color:var(--ok)} .rb.easy{color:var(--accent)}
+.rb.sug{box-shadow:0 0 0 2px var(--accent) inset}
+.stats3{display:flex;text-align:center} .stats3>div{flex:1} .stats3 strong{display:block;font-size:30px} .stats3 span{font-size:14px;color:var(--muted)}
+.c-new{color:var(--p0)} .c-learn{color:var(--bad)} .c-rev{color:var(--ok)}
+.warnbox{background:var(--warn-bg);border-color:var(--warn)}
+hr{border:none;border-top:1px solid var(--line);margin:14px 0}
+.vrow{display:flex;align-items:center;gap:6px} .vrow .flip{flex:1}
+.setrow{display:flex;align-items:center;gap:12px;margin:10px 0} .setrow > span{flex:1}
+.setrow input,.setrow select{width:auto;min-width:120px;flex:0 0 auto}
+input[type=number]{font:inherit;font-size:17px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--text);padding:10px 12px}
+/* writing pad */
+.pad{position:relative;margin:10px auto;border:1px solid var(--line);border-radius:14px;background:var(--card);touch-action:none;-webkit-user-select:none;user-select:none;overflow:hidden}
+.pad svg,.pad canvas{position:absolute;inset:0;width:100%;height:100%}
+.pad canvas{touch-action:none}
+.pad .gl{stroke:var(--grid);stroke-width:.6;stroke-dasharray:2 2;fill:none}
+.pad .ms{fill:none;stroke:var(--ink);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round}
+.pad .ms.ghost{stroke:var(--model);opacity:.35}
+.pad .ms.hint{stroke:var(--accent);opacity:.75}
+.pad .ms.bad{stroke:var(--bad)}
+.pad .num{font-size:5px;fill:var(--accent)}
+.padbar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.padbar button{font-size:15px;min-height:40px;padding:6px 12px}
+.padmsg{text-align:center;min-height:24px;font-size:15px;margin:4px 0}
+.model{width:120px;height:120px;margin:4px auto;display:block}
+.model path{fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.blankword{font-size:32px;letter-spacing:.05em}
+.blankword .bk{display:inline-block;width:1.05em;border-bottom:3px solid var(--accent);margin:0 2px;color:transparent}
+/* kanji map */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:4px}
+.kgrid button{min-height:38px;min-width:0;padding:0;font-size:20px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
+.kgrid .s-read{background:color-mix(in srgb,var(--p0) 18%,var(--card))}
+.kgrid .s-learn{background:color-mix(in srgb,var(--pn) 30%,var(--card))}
+.kgrid .s-write{background:color-mix(in srgb,var(--po) 35%,var(--card))}
+.legend span{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin:0 4px 0 10px;border:1px solid var(--line)}
+.kbig{font-size:64px;text-align:center;line-height:1.1}
+.comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;font-size:16px}
+.comps div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.comps b{font-size:22px;margin-right:8px;font-weight:500}
+</style>
+</head>
+<body>
+<main id="app"></main>
+
+<nav class="tabbar" id="tabbar">
+  <button data-tab="today"><span class="ic">☀︎</span>今日</button>
+  <button data-tab="cards"><span class="ic">🂠</span>カード</button>
+  <button data-tab="week"><span class="ic">▦</span>週</button>
+  <button data-tab="kanji"><span class="ic">字</span>漢字</button>
+  <button data-tab="report"><span class="ic">✓</span>報告</button>
+  <button data-tab="settings"><span class="ic">⚙︎</span>設定</button>
+</nav>
+
+<section id="player" class="overlay" aria-modal="true">
+  <div class="ohead">
+    <div class="row" style="flex-wrap:nowrap">
+      <button class="link" id="pClose" style="flex:0 0 auto">✕ Close</button>
+      <div id="pTitle" class="otitle"></div>
+      <div id="pCount" class="muted small" style="flex:0 0 auto;text-align:right;min-width:56px"></div>
+    </div>
+    <div class="bar"><div id="pBar" style="width:0"></div></div>
+  </div>
+  <div id="pBody" class="obody"></div>
+  <div id="pFoot" class="ofoot">
+    <button id="pBack">‹ Back</button>
+    <button id="pNext" class="primary">Next ›</button>
+  </div>
+</section>
+
+<section id="study" class="overlay" aria-modal="true">
+  <div class="ohead">
+    <div class="row" style="flex-wrap:nowrap">
+      <button class="link" id="sClose" style="flex:0 0 auto">✕ Close</button>
+      <div id="sCount" class="otitle"></div>
+      <button class="link" id="sUndo" style="flex:0 0 auto">↶ Undo</button>
+    </div>
+  </div>
+  <div id="sBody" class="obody"></div>
+  <div id="sFoot" class="ofoot"></div>
+</section>
+
+<section id="sheet" class="overlay" aria-modal="true">
+  <div class="ohead">
+    <div class="row" style="flex-wrap:nowrap">
+      <button class="link" id="xClose" style="flex:0 0 auto">✕ Close</button>
+      <div id="xTitle" class="otitle"></div>
+      <div id="xCount" class="muted small" style="flex:0 0 auto;text-align:right;min-width:56px"></div>
+    </div>
+    <div class="bar" id="xBarWrap"><div id="xBar" style="width:0"></div></div>
+  </div>
+  <div id="xBody" class="obody"></div>
+  <div id="xFoot" class="ofoot"></div>
+</section>
+
+<div class="toast" id="toast"></div>
+<script>
+/* ts-fsrs 5.4.2 (FSRS spaced-repetition scheduler), https://github.com/open-spaced-repetition/ts-fsrs
+MIT License
+
+Copyright (c) 2026 Open Spaced Repetition
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+  typeof define === 'function' && define.amd ? define(['exports'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FSRS = {}));
+})(this, (function (exports) { 'use strict';
+
+  class FSRSError extends Error {
+    constructor(message = "FSRS Error") {
+      var _a;
+      super(message);
+      this.name = "FSRSError";
+      (_a = Error.captureStackTrace) == null ? void 0 : _a.call(Error, this, FSRSError);
+    }
+  }
+  class FSRSValidationError extends FSRSError {
+    constructor(message) {
+      var _a;
+      super(message);
+      this.name = "FSRSValidationError";
+      (_a = Error.captureStackTrace) == null ? void 0 : _a.call(Error, this, FSRSValidationError);
+    }
+  }
+
+  var State = /* @__PURE__ */ ((State2) => {
+    State2[State2["New"] = 0] = "New";
+    State2[State2["Learning"] = 1] = "Learning";
+    State2[State2["Review"] = 2] = "Review";
+    State2[State2["Relearning"] = 3] = "Relearning";
+    return State2;
+  })(State || {});
+  var Rating = /* @__PURE__ */ ((Rating2) => {
+    Rating2[Rating2["Manual"] = 0] = "Manual";
+    Rating2[Rating2["Again"] = 1] = "Again";
+    Rating2[Rating2["Hard"] = 2] = "Hard";
+    Rating2[Rating2["Good"] = 3] = "Good";
+    Rating2[Rating2["Easy"] = 4] = "Easy";
+    return Rating2;
+  })(Rating || {});
+
+  var __defProp$6 = Object.defineProperty;
+  var __defProps$2 = Object.defineProperties;
+  var __getOwnPropDescs$2 = Object.getOwnPropertyDescriptors;
+  var __getOwnPropSymbols$2 = Object.getOwnPropertySymbols;
+  var __hasOwnProp$2 = Object.prototype.hasOwnProperty;
+  var __propIsEnum$2 = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp$6 = (obj, key, value) => key in obj ? __defProp$6(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues$2 = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp$2.call(b, prop))
+        __defNormalProp$6(a, prop, b[prop]);
+    if (__getOwnPropSymbols$2)
+      for (var prop of __getOwnPropSymbols$2(b)) {
+        if (__propIsEnum$2.call(b, prop))
+          __defNormalProp$6(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps$2 = (a, b) => __defProps$2(a, __getOwnPropDescs$2(b));
+  class TypeConvert {
+    static card(card) {
+      return __spreadProps$2(__spreadValues$2({}, card), {
+        state: TypeConvert.state(card.state),
+        due: TypeConvert.time(card.due),
+        last_review: card.last_review ? TypeConvert.time(card.last_review) : void 0
+      });
+    }
+    static rating(value) {
+      if (typeof value === "string") {
+        const firstLetter = value.charAt(0).toUpperCase();
+        const restOfString = value.slice(1).toLowerCase();
+        const ret = Rating[`${firstLetter}${restOfString}`];
+        if (ret === void 0) {
+          throw new FSRSValidationError(`Invalid rating:[${value}]`);
+        }
+        return ret;
+      } else if (typeof value === "number") {
+        return value;
+      }
+      throw new FSRSValidationError(`Invalid rating:[${value}]`);
+    }
+    static state(value) {
+      if (typeof value === "string") {
+        const firstLetter = value.charAt(0).toUpperCase();
+        const restOfString = value.slice(1).toLowerCase();
+        const ret = State[`${firstLetter}${restOfString}`];
+        if (ret === void 0) {
+          throw new FSRSValidationError(`Invalid state:[${value}]`);
+        }
+        return ret;
+      } else if (typeof value === "number") {
+        return value;
+      }
+      throw new FSRSValidationError(`Invalid state:[${value}]`);
+    }
+    static time(value) {
+      if (value instanceof Date) {
+        return value;
+      }
+      const date = new Date(value);
+      if (typeof value === "object" && value !== null && !Number.isNaN(Date.parse(value) || +date)) {
+        return date;
+      } else if (typeof value === "string") {
+        const timestamp = Date.parse(value);
+        if (!Number.isNaN(timestamp)) {
+          return new Date(timestamp);
+        } else {
+          throw new FSRSValidationError(`Invalid date:[${value}]`);
+        }
+      } else if (typeof value === "number") {
+        return new Date(value);
+      }
+      throw new FSRSValidationError(`Invalid date:[${value}]`);
+    }
+    static review_log(log) {
+      return __spreadProps$2(__spreadValues$2({}, log), {
+        due: TypeConvert.time(log.due),
+        rating: TypeConvert.rating(log.rating),
+        state: TypeConvert.state(log.state),
+        review: TypeConvert.time(log.review)
+      });
+    }
+  }
+
+  /* istanbul ignore next -- @preserve */
+  Date.prototype.scheduler = function(t, isDay) {
+    return date_scheduler(this, t, isDay);
+  };
+  /* istanbul ignore next -- @preserve */
+  Date.prototype.diff = function(pre, unit) {
+    return date_diff(this, pre, unit);
+  };
+  /* istanbul ignore next -- @preserve */
+  Date.prototype.format = function() {
+    return formatDate(this);
+  };
+  /* istanbul ignore next -- @preserve */
+  Date.prototype.dueFormat = function(last_review, unit, timeUnit) {
+    return show_diff_message(this, last_review, unit, timeUnit);
+  };
+  function date_scheduler(now, t, isDay) {
+    return new Date(
+      isDay ? TypeConvert.time(now).getTime() + t * 24 * 60 * 60 * 1e3 : TypeConvert.time(now).getTime() + t * 60 * 1e3
+    );
+  }
+  function date_diff(now, pre, unit) {
+    if (!now || !pre) {
+      throw new FSRSValidationError("Invalid date");
+    }
+    const diff = TypeConvert.time(now).getTime() - TypeConvert.time(pre).getTime();
+    let r = 0;
+    switch (unit) {
+      case "days":
+        r = Math.floor(diff / (24 * 60 * 60 * 1e3));
+        break;
+      case "minutes":
+        r = Math.floor(diff / (60 * 1e3));
+        break;
+    }
+    return r;
+  }
+  function formatDate(dateInput) {
+    const date = TypeConvert.time(dateInput);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    return `${year}-${padZero(month)}-${padZero(day)} ${padZero(hours)}:${padZero(
+    minutes
+  )}:${padZero(seconds)}`;
+  }
+  function padZero(num) {
+    return num < 10 ? `0${num}` : `${num}`;
+  }
+  const TIMEUNIT = [60, 60, 24, 31, 12];
+  const TIMEUNITFORMAT = ["second", "min", "hour", "day", "month", "year"];
+  function show_diff_message(due, last_review, unit, timeUnit = TIMEUNITFORMAT) {
+    due = TypeConvert.time(due);
+    last_review = TypeConvert.time(last_review);
+    if (timeUnit.length !== TIMEUNITFORMAT.length) {
+      timeUnit = TIMEUNITFORMAT;
+    }
+    let diff = due.getTime() - last_review.getTime();
+    let i = 0;
+    diff /= 1e3;
+    for (i = 0; i < TIMEUNIT.length; i++) {
+      if (diff < TIMEUNIT[i]) {
+        break;
+      } else {
+        diff /= TIMEUNIT[i];
+      }
+    }
+    return `${Math.floor(diff)}${unit ? timeUnit[i] : ""}`;
+  }
+  /* istanbul ignore next -- @preserve */
+  function fixDate(value) {
+    return TypeConvert.time(value);
+  }
+  /* istanbul ignore next -- @preserve */
+  function fixState(value) {
+    return TypeConvert.state(value);
+  }
+  /* istanbul ignore next -- @preserve */
+  function fixRating(value) {
+    return TypeConvert.rating(value);
+  }
+  const Grades = Object.freeze([
+    Rating.Again,
+    Rating.Hard,
+    Rating.Good,
+    Rating.Easy
+  ]);
+  const FUZZ_RANGES = [
+    {
+      start: 2.5,
+      end: 7,
+      factor: 0.15
+    },
+    {
+      start: 7,
+      end: 20,
+      factor: 0.1
+    },
+    {
+      start: 20,
+      end: Infinity,
+      factor: 0.05
+    }
+  ];
+  function get_fuzz_range(interval, elapsed_days, maximum_interval) {
+    let delta = 1;
+    for (const range of FUZZ_RANGES) {
+      delta += range.factor * Math.max(Math.min(interval, range.end) - range.start, 0);
+    }
+    interval = Math.min(interval, maximum_interval);
+    let min_ivl = Math.max(2, Math.round(interval - delta));
+    const max_ivl = Math.min(Math.round(interval + delta), maximum_interval);
+    if (interval > elapsed_days) {
+      min_ivl = Math.max(min_ivl, elapsed_days + 1);
+    }
+    min_ivl = Math.min(min_ivl, max_ivl);
+    return { min_ivl, max_ivl };
+  }
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+  function roundTo(num, decimals) {
+    const factor = 10 ** decimals;
+    return Math.round(num * factor) / factor;
+  }
+  function dateDiffInDays(last, cur) {
+    const utc1 = Date.UTC(
+      last.getUTCFullYear(),
+      last.getUTCMonth(),
+      last.getUTCDate()
+    );
+    const utc2 = Date.UTC(
+      cur.getUTCFullYear(),
+      cur.getUTCMonth(),
+      cur.getUTCDate()
+    );
+    return Math.floor(
+      (utc2 - utc1) / 864e5
+      /** 1000 * 60 * 60 * 24*/
+    );
+  }
+
+  const ConvertStepUnitToMinutes = (step) => {
+    const unit = step.slice(-1);
+    const value = parseInt(step.slice(0, -1), 10);
+    if (Number.isNaN(value) || !Number.isFinite(value) || value < 0) {
+      throw new FSRSValidationError(`Invalid step value: ${step}`);
+    }
+    switch (unit) {
+      case "m":
+        return value;
+      case "h":
+        return value * 60;
+      case "d":
+        return value * 1440;
+      default:
+        throw new FSRSValidationError(
+          `Invalid step unit: ${step}, expected m/h/d`
+        );
+    }
+  };
+  const BasicLearningStepsStrategy = (params, state, cur_step) => {
+    const learning_steps = state === State.Relearning || state === State.Review ? params.relearning_steps : params.learning_steps;
+    const steps_length = learning_steps.length;
+    if (steps_length === 0 || cur_step >= steps_length) return {};
+    const firstStep = learning_steps[0];
+    const toMinutes = ConvertStepUnitToMinutes;
+    const getAgainInterval = () => {
+      return toMinutes(firstStep);
+    };
+    const getHardInterval = () => {
+      if (steps_length === 1) return Math.round(toMinutes(firstStep) * 1.5);
+      const nextStep = learning_steps[1];
+      return Math.round((toMinutes(firstStep) + toMinutes(nextStep)) / 2);
+    };
+    const getStepInfo = (index) => {
+      if (index < 0 || index >= steps_length) {
+        return null;
+      } else {
+        return learning_steps[index];
+      }
+    };
+    const getGoodMinutes = (step) => {
+      return toMinutes(step);
+    };
+    const result = {};
+    const step_info = getStepInfo(Math.max(0, cur_step));
+    if (state === State.Review) {
+      result[Rating.Again] = {
+        scheduled_minutes: toMinutes(step_info),
+        next_step: 0
+      };
+      return result;
+    } else {
+      result[Rating.Again] = {
+        scheduled_minutes: getAgainInterval(),
+        next_step: 0
+      };
+      result[Rating.Hard] = {
+        scheduled_minutes: getHardInterval(),
+        next_step: cur_step
+      };
+      const next_info = getStepInfo(cur_step + 1);
+      if (next_info) {
+        const nextMin = getGoodMinutes(next_info);
+        if (nextMin) {
+          result[Rating.Good] = {
+            scheduled_minutes: Math.round(nextMin),
+            next_step: cur_step + 1
+          };
+        }
+      }
+    }
+    return result;
+  };
+
+  function DefaultInitSeedStrategy() {
+    const time = this.review_time.getTime();
+    const reps = this.current.reps;
+    const mul = this.current.difficulty * this.current.stability;
+    return `${time}_${reps}_${mul}`;
+  }
+  function GenSeedStrategyWithCardId(card_id_field) {
+    return function() {
+      var _a;
+      const card_id = (_a = Reflect.get(this.current, card_id_field)) != null ? _a : 0;
+      const reps = this.current.reps;
+      return String(card_id + reps || 0);
+    };
+  }
+
+  var StrategyMode = /* @__PURE__ */ ((StrategyMode2) => {
+    StrategyMode2["SCHEDULER"] = "Scheduler";
+    StrategyMode2["LEARNING_STEPS"] = "LearningSteps";
+    StrategyMode2["SEED"] = "Seed";
+    return StrategyMode2;
+  })(StrategyMode || {});
+
+  var __defProp$5 = Object.defineProperty;
+  var __defNormalProp$5 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField$5 = (obj, key, value) => __defNormalProp$5(obj, typeof key !== "symbol" ? key + "" : key, value);
+  class AbstractScheduler {
+    // init
+    constructor(card, now, algorithm, strategies) {
+      __publicField$5(this, "last");
+      __publicField$5(this, "current");
+      __publicField$5(this, "review_time");
+      __publicField$5(this, "next", /* @__PURE__ */ new Map());
+      __publicField$5(this, "algorithm");
+      __publicField$5(this, "strategies");
+      __publicField$5(this, "elapsed_days", 0);
+      this.algorithm = algorithm;
+      this.last = TypeConvert.card(card);
+      this.current = TypeConvert.card(card);
+      this.review_time = TypeConvert.time(now);
+      this.strategies = strategies;
+      this.init();
+    }
+    checkGrade(grade) {
+      if (!Number.isFinite(grade) || grade < 1 || grade > 4) {
+        throw new FSRSValidationError(`Invalid grade "${grade}",expected 1-4`);
+      }
+    }
+    init() {
+      const { state, last_review } = this.current;
+      let interval = 0;
+      if (state !== State.New && last_review) {
+        interval = dateDiffInDays(last_review, this.review_time);
+      }
+      this.current.last_review = this.review_time;
+      this.elapsed_days = interval;
+      this.current.elapsed_days = interval;
+      this.current.reps += 1;
+      let seed_strategy = DefaultInitSeedStrategy;
+      if (this.strategies) {
+        const custom_strategy = this.strategies.get(StrategyMode.SEED);
+        if (custom_strategy) {
+          seed_strategy = custom_strategy;
+        }
+      }
+      this.algorithm.seed = seed_strategy.call(this);
+    }
+    preview() {
+      return {
+        [Rating.Again]: this.review(Rating.Again),
+        [Rating.Hard]: this.review(Rating.Hard),
+        [Rating.Good]: this.review(Rating.Good),
+        [Rating.Easy]: this.review(Rating.Easy),
+        [Symbol.iterator]: this.previewIterator.bind(this)
+      };
+    }
+    *previewIterator() {
+      for (const grade of Grades) {
+        yield this.review(grade);
+      }
+    }
+    review(grade) {
+      const { state } = this.last;
+      let item;
+      this.checkGrade(grade);
+      switch (state) {
+        case State.New:
+          item = this.newState(grade);
+          break;
+        case State.Learning:
+        case State.Relearning:
+          item = this.learningState(grade);
+          break;
+        case State.Review:
+          item = this.reviewState(grade);
+          break;
+      }
+      return item;
+    }
+    buildLog(rating) {
+      const { last_review, due, elapsed_days } = this.last;
+      return {
+        rating,
+        state: this.current.state,
+        due: last_review || due,
+        stability: this.current.stability,
+        difficulty: this.current.difficulty,
+        elapsed_days: this.elapsed_days,
+        last_elapsed_days: elapsed_days,
+        scheduled_days: this.current.scheduled_days,
+        learning_steps: this.current.learning_steps,
+        review: this.review_time
+      };
+    }
+  }
+
+  var __defProp$4 = Object.defineProperty;
+  var __defNormalProp$4 = (obj, key, value) => key in obj ? __defProp$4(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField$4 = (obj, key, value) => __defNormalProp$4(obj, typeof key !== "symbol" ? key + "" : key, value);
+  class Alea {
+    constructor(seed) {
+      __publicField$4(this, "c");
+      __publicField$4(this, "s0");
+      __publicField$4(this, "s1");
+      __publicField$4(this, "s2");
+      const mash = Mash();
+      this.c = 1;
+      this.s0 = mash(" ");
+      this.s1 = mash(" ");
+      this.s2 = mash(" ");
+      if (seed == null) seed = Date.now();
+      this.s0 -= mash(seed);
+      if (this.s0 < 0) this.s0 += 1;
+      this.s1 -= mash(seed);
+      if (this.s1 < 0) this.s1 += 1;
+      this.s2 -= mash(seed);
+      if (this.s2 < 0) this.s2 += 1;
+    }
+    next() {
+      const t = 2091639 * this.s0 + this.c * 23283064365386963e-26;
+      this.s0 = this.s1;
+      this.s1 = this.s2;
+      this.c = t | 0;
+      this.s2 = t - this.c;
+      return this.s2;
+    }
+    set state(state) {
+      this.c = state.c;
+      this.s0 = state.s0;
+      this.s1 = state.s1;
+      this.s2 = state.s2;
+    }
+    get state() {
+      return {
+        c: this.c,
+        s0: this.s0,
+        s1: this.s1,
+        s2: this.s2
+      };
+    }
+  }
+  function Mash() {
+    let n = 4022871197;
+    return function mash(data) {
+      data = String(data);
+      for (let i = 0; i < data.length; i++) {
+        n += data.charCodeAt(i);
+        let h = 0.02519603282416938 * n;
+        n = h >>> 0;
+        h -= n;
+        h *= n;
+        n = h >>> 0;
+        h -= n;
+        n += h * 4294967296;
+      }
+      return (n >>> 0) * 23283064365386963e-26;
+    };
+  }
+  function alea(seed) {
+    const xg = new Alea(seed);
+    const prng = () => xg.next();
+    prng.int32 = () => xg.next() * 4294967296 | 0;
+    prng.double = () => prng() + (prng() * 2097152 | 0) * 11102230246251565e-32;
+    prng.state = () => xg.state;
+    prng.importState = (state) => {
+      xg.state = state;
+      return prng;
+    };
+    return prng;
+  }
+
+  const version="5.4.2";
+
+  const default_request_retention = 0.9;
+  const default_maximum_interval = 36500;
+  const default_enable_fuzz = false;
+  const default_enable_short_term = true;
+  const default_learning_steps = Object.freeze([
+    "1m",
+    "10m"
+  ]);
+  const default_relearning_steps = Object.freeze([
+    "10m"
+  ]);
+  const FSRSVersion = `v${version} using FSRS-6.0`;
+  const S_MIN = 1e-3;
+  const S_MAX = 36500;
+  const INIT_S_MAX = 100;
+  const FSRS5_DEFAULT_DECAY = 0.5;
+  const FSRS6_DEFAULT_DECAY = 0.1542;
+  const default_w = Object.freeze([
+    0.212,
+    1.2931,
+    2.3065,
+    8.2956,
+    6.4133,
+    0.8334,
+    3.0194,
+    1e-3,
+    1.8722,
+    0.1666,
+    0.796,
+    1.4835,
+    0.0614,
+    0.2629,
+    1.6483,
+    0.6014,
+    1.8729,
+    0.5425,
+    0.0912,
+    0.0658,
+    FSRS6_DEFAULT_DECAY
+  ]);
+  const W17_W18_Ceiling = 2;
+  const CLAMP_PARAMETERS = (w17_w18_ceiling, enable_short_term = default_enable_short_term) => [
+    [S_MIN, INIT_S_MAX],
+    [S_MIN, INIT_S_MAX],
+    [S_MIN, INIT_S_MAX],
+    [S_MIN, INIT_S_MAX],
+    [1, 10],
+    [1e-3, 4],
+    [1e-3, 4],
+    [1e-3, 0.75],
+    [0, 4.5],
+    [0, 0.8],
+    [1e-3, 3.5],
+    [1e-3, 5],
+    [1e-3, 0.25],
+    [1e-3, 0.9],
+    [0, 4],
+    [0, 1],
+    [1, 6],
+    [0, w17_w18_ceiling],
+    [0, w17_w18_ceiling],
+    [
+      enable_short_term ? 0.01 : 0,
+      0.8
+    ],
+    [0.1, 0.8]
+  ];
+
+  const clipParameters = (parameters, numRelearningSteps, enableShortTerm = default_enable_short_term) => {
+    const clip = CLAMP_PARAMETERS(W17_W18_Ceiling, enableShortTerm).slice(
+      0,
+      parameters.length
+    );
+    if (Math.max(0, numRelearningSteps) > 1) {
+      const w11 = clamp(parameters[11] || 0, clip[11][0], clip[11][1]);
+      const w13 = clamp(parameters[13] || 0, clip[13][0], clip[13][1]);
+      const w14 = clamp(parameters[14] || 0, clip[14][0], clip[14][1]);
+      const value = -(Math.log(w11) + Math.log(Math.pow(2, w13) - 1) + w14 * 0.3) / numRelearningSteps;
+      const w17_w18_ceiling = clamp(
+        roundTo(Math.sqrt(Math.max(value, 0)), 8),
+        0.01,
+        W17_W18_Ceiling
+      );
+      if (clip[17]) clip[17] = [clip[17][0], w17_w18_ceiling];
+      if (clip[18]) clip[18] = [clip[18][0], w17_w18_ceiling];
+    }
+    return clip.map(
+      ([min, max], index) => clamp(parameters[index] || 0, min, max)
+    );
+  };
+  const checkParameters = (parameters) => {
+    const invalid = parameters.find((param) => !Number.isFinite(param));
+    if (invalid !== void 0) {
+      throw new FSRSValidationError(
+        `Non-finite or NaN value in parameters ${parameters}`
+      );
+    } else if (![17, 19, 21].includes(parameters.length)) {
+      throw new FSRSValidationError(
+        `Invalid parameter length: ${parameters.length}. Must be 17, 19 or 21 for FSRSv4, 5 and 6 respectively.`
+      );
+    }
+    return parameters;
+  };
+  const migrateParameters = (parameters, numRelearningSteps = 0, enableShortTerm = default_enable_short_term) => {
+    if (parameters === void 0) {
+      return [...default_w];
+    }
+    switch (parameters.length) {
+      case 21:
+        return clipParameters(
+          Array.from(parameters),
+          numRelearningSteps,
+          enableShortTerm
+        );
+      case 19:
+        console.debug("[FSRS-6]auto fill w from 19 to 21 length");
+        return clipParameters(
+          Array.from(parameters),
+          numRelearningSteps,
+          enableShortTerm
+        ).concat([0, FSRS5_DEFAULT_DECAY]);
+      case 17: {
+        const w = clipParameters(
+          Array.from(parameters),
+          numRelearningSteps,
+          enableShortTerm
+        );
+        w[4] = +(w[5] * 2 + w[4]).toFixed(8);
+        w[5] = +(Math.log(w[5] * 3 + 1) / 3).toFixed(8);
+        w[6] = +(w[6] + 0.5).toFixed(8);
+        console.debug("[FSRS-6]auto fill w from 17 to 21 length");
+        return w.concat([0, 0, 0, FSRS5_DEFAULT_DECAY]);
+      }
+      default:
+        console.warn("[FSRS]Invalid parameters length, using default parameters");
+        return [...default_w];
+    }
+  };
+  const generatorParameters = (props) => {
+    var _a, _b;
+    const learning_steps = Array.isArray(props == null ? void 0 : props.learning_steps) ? props.learning_steps : default_learning_steps;
+    const relearning_steps = Array.isArray(props == null ? void 0 : props.relearning_steps) ? props.relearning_steps : default_relearning_steps;
+    const enable_short_term = (_a = props == null ? void 0 : props.enable_short_term) != null ? _a : default_enable_short_term;
+    const w = migrateParameters(
+      props == null ? void 0 : props.w,
+      relearning_steps.length,
+      enable_short_term
+    );
+    return {
+      request_retention: (props == null ? void 0 : props.request_retention) || default_request_retention,
+      maximum_interval: (props == null ? void 0 : props.maximum_interval) || default_maximum_interval,
+      w,
+      enable_fuzz: (_b = props == null ? void 0 : props.enable_fuzz) != null ? _b : default_enable_fuzz,
+      enable_short_term,
+      learning_steps,
+      relearning_steps
+    };
+  };
+  function createEmptyCard(now, afterHandler) {
+    const emptyCard = {
+      due: now ? TypeConvert.time(now) : /* @__PURE__ */ new Date(),
+      stability: 0,
+      difficulty: 0,
+      elapsed_days: 0,
+      scheduled_days: 0,
+      reps: 0,
+      lapses: 0,
+      learning_steps: 0,
+      state: State.New,
+      last_review: void 0
+    };
+    if (afterHandler && typeof afterHandler === "function") {
+      return afterHandler(emptyCard);
+    } else {
+      return emptyCard;
+    }
+  }
+
+  var __defProp$3 = Object.defineProperty;
+  var __defNormalProp$3 = (obj, key, value) => key in obj ? __defProp$3(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField$3 = (obj, key, value) => __defNormalProp$3(obj, typeof key !== "symbol" ? key + "" : key, value);
+  const computeDecayFactor = (decayOrParams) => {
+    const decay = typeof decayOrParams === "number" ? -decayOrParams : -decayOrParams[20];
+    const factor = Math.exp(Math.pow(decay, -1) * Math.log(0.9)) - 1;
+    return { decay, factor: roundTo(factor, 8) };
+  };
+  function forgetting_curve(decayOrParams, elapsed_days, stability) {
+    const { decay, factor } = computeDecayFactor(decayOrParams);
+    return roundTo(Math.pow(1 + factor * elapsed_days / stability, decay), 8);
+  }
+  class FSRSAlgorithm {
+    constructor(params) {
+      __publicField$3(this, "param");
+      __publicField$3(this, "intervalModifier");
+      __publicField$3(this, "_seed");
+      __publicField$3(this, "prepare_parameters", (params) => {
+        const generated = generatorParameters(params);
+        generated.w = clipParameters(
+          Array.from(generated.w),
+          generated.relearning_steps.length,
+          generated.enable_short_term
+        );
+        return generated;
+      });
+      /**
+       * The formula used is :
+       * $$R(t,S) = (1 + \text{FACTOR} \times \frac{t}{9 \cdot S})^{\text{DECAY}}$$
+       * @param {number} elapsed_days t days since the last review
+       * @param {number} stability Stability (interval when R=90%)
+       * @return {number} r Retrievability (probability of recall)
+       */
+      __publicField$3(this, "forgetting_curve");
+      this.param = new Proxy(
+        this.prepare_parameters(params),
+        this.params_handler_proxy()
+      );
+      this.intervalModifier = this.calculate_interval_modifier(
+        this.param.request_retention
+      );
+      this.forgetting_curve = forgetting_curve.bind(this, this.param.w);
+    }
+    get interval_modifier() {
+      return this.intervalModifier;
+    }
+    set seed(seed) {
+      this._seed = seed;
+    }
+    /**
+     * @see https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm#fsrs-5
+     *
+     * The formula used is: $$I(r,s) = (r^{\frac{1}{DECAY}} - 1) / FACTOR \times s$$
+     * @param request_retention 0<request_retention<=1,Requested retention rate
+     * @throws {Error} Requested retention rate should be in the range (0,1]
+     */
+    calculate_interval_modifier(request_retention) {
+      if (request_retention <= 0 || request_retention > 1) {
+        throw new FSRSValidationError(
+          "Requested retention rate should be in the range (0,1]"
+        );
+      }
+      const { decay, factor } = computeDecayFactor(this.param.w);
+      return roundTo((Math.pow(request_retention, 1 / decay) - 1) / factor, 8);
+    }
+    /**
+     * Get the parameters of the algorithm.
+     */
+    get parameters() {
+      return this.param;
+    }
+    /**
+     * Set the parameters of the algorithm.
+     * @param params Partial<FSRSParameters>
+     */
+    set parameters(params) {
+      this.update_parameters(params);
+    }
+    params_handler_proxy() {
+      const _this = this;
+      return {
+        set: function(target, prop, value) {
+          if (prop === "request_retention" && Number.isFinite(value)) {
+            _this.intervalModifier = _this.calculate_interval_modifier(
+              Number(value)
+            );
+          } else if (prop === "w") {
+            value = migrateParameters(
+              value,
+              target.relearning_steps.length,
+              target.enable_short_term
+            );
+            value = clipParameters(
+              Array.from(value),
+              target.relearning_steps.length,
+              target.enable_short_term
+            );
+            _this.forgetting_curve = forgetting_curve.bind(this, value);
+            _this.intervalModifier = _this.calculate_interval_modifier(
+              Number(target.request_retention)
+            );
+          }
+          Reflect.set(target, prop, value);
+          return true;
+        }
+      };
+    }
+    update_parameters(params) {
+      const _params = this.prepare_parameters(params);
+      for (const key in _params) {
+        const paramKey = key;
+        this.param[paramKey] = _params[paramKey];
+      }
+    }
+    /**
+       * The formula used is :
+       * $$ S_0(G) = w_{G-1}$$
+       * $$S_0 = \max \lbrace S_0,0.1\rbrace $$
+    
+       * @param g Grade (rating at Anki) [1.again,2.hard,3.good,4.easy]
+       * @return Stability (interval when R=90%)
+       */
+    init_stability(g) {
+      return Math.max(this.param.w[g - 1], 0.1);
+    }
+    /**
+     * The formula used is :
+     * $$D_0(G) = w_4 - e^{(G-1) \cdot w_5} + 1 $$
+     * $$D_0 = \min \lbrace \max \lbrace D_0(G),1 \rbrace,10 \rbrace$$
+     * where the $$D_0(1)=w_4$$ when the first rating is good.
+     *
+     * @param {Grade} g Grade (rating at Anki) [1.again,2.hard,3.good,4.easy]
+     * @return {number} Difficulty $$D \in [1,10]$$
+     */
+    init_difficulty(g) {
+      const w = this.param.w;
+      const d = w[4] - Math.exp((g - 1) * w[5]) + 1;
+      return roundTo(d, 8);
+    }
+    /**
+     * If fuzzing is disabled or ivl is less than 2.5, it returns the original interval.
+     * @param {number} ivl - The interval to be fuzzed.
+     * @param {number} elapsed_days t days since the last review
+     * @return {number} - The fuzzed interval.
+     **/
+    apply_fuzz(ivl, elapsed_days) {
+      if (!this.param.enable_fuzz || ivl < 2.5) return Math.round(ivl);
+      const generator = alea(this._seed);
+      const fuzz_factor = generator();
+      const { min_ivl, max_ivl } = get_fuzz_range(
+        ivl,
+        elapsed_days,
+        this.param.maximum_interval
+      );
+      return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
+    }
+    /**
+     *   @see The formula used is : {@link FSRSAlgorithm.calculate_interval_modifier}
+     *   @param {number} s - Stability (interval when R=90%)
+     *   @param {number} elapsed_days t days since the last review
+     */
+    next_interval(s, elapsed_days) {
+      const newInterval = Math.min(
+        Math.max(1, Math.round(s * this.intervalModifier)),
+        this.param.maximum_interval
+      );
+      return this.apply_fuzz(newInterval, elapsed_days);
+    }
+    /**
+     * @see https://github.com/open-spaced-repetition/fsrs4anki/issues/697
+     */
+    linear_damping(delta_d, old_d) {
+      return roundTo(delta_d * (10 - old_d) / 9, 8);
+    }
+    /**
+     * The formula used is :
+     * $$\text{delta}_d = -w_6 \cdot (g - 3)$$
+     * $$\text{next}_d = D + \text{linear damping}(\text{delta}_d , D)$$
+     * $$D^\prime(D,R) = w_7 \cdot D_0(4) +(1 - w_7) \cdot \text{next}_d$$
+     * @param {number} d Difficulty $$D \in [1,10]$$
+     * @param {Grade} g Grade (rating at Anki) [1.again,2.hard,3.good,4.easy]
+     * @return {number} $$\text{next}_D$$
+     */
+    next_difficulty(d, g) {
+      const delta_d = -this.param.w[6] * (g - 3);
+      const next_d = d + this.linear_damping(delta_d, d);
+      return clamp(
+        this.mean_reversion(this.init_difficulty(Rating.Easy), next_d),
+        1,
+        10
+      );
+    }
+    /**
+     * The formula used is :
+     * $$w_7 \cdot \text{init} +(1 - w_7) \cdot \text{current}$$
+     * @param {number} init $$w_2 : D_0(3) = w_2 + (R-2) \cdot w_3= w_2$$
+     * @param {number} current $$D - w_6 \cdot (R - 2)$$
+     * @return {number} difficulty
+     */
+    mean_reversion(init, current) {
+      const w = this.param.w;
+      return roundTo(w[7] * init + (1 - w[7]) * current, 8);
+    }
+    /**
+     * The formula used is :
+     * $$S^\prime_r(D,S,R,G) = S\cdot(e^{w_8}\cdot (11-D)\cdot S^{-w_9}\cdot(e^{w_{10}\cdot(1-R)}-1)\cdot w_{15}(\text{if} G=2) \cdot w_{16}(\text{if} G=4)+1)$$
+     * @param {number} d Difficulty D \in [1,10]
+     * @param {number} s Stability (interval when R=90%)
+     * @param {number} r Retrievability (probability of recall)
+     * @param {Grade} g Grade (Rating[0.again,1.hard,2.good,3.easy])
+     * @return {number} S^\prime_r new stability after recall
+     */
+    next_recall_stability(d, s, r, g) {
+      const w = this.param.w;
+      const hard_penalty = Rating.Hard === g ? w[15] : 1;
+      const easy_bound = Rating.Easy === g ? w[16] : 1;
+      return roundTo(
+        clamp(
+          s * (1 + Math.exp(w[8]) * (11 - d) * Math.pow(s, -w[9]) * (Math.exp((1 - r) * w[10]) - 1) * hard_penalty * easy_bound),
+          S_MIN,
+          36500
+        ),
+        8
+      );
+    }
+    /**
+     * The formula used is :
+     * $$S^\prime_f(D,S,R) = w_{11}\cdot D^{-w_{12}}\cdot ((S+1)^{w_{13}}-1) \cdot e^{w_{14}\cdot(1-R)}$$
+     * enable_short_term = true : $$S^\prime_f \in \min \lbrace \max \lbrace S^\prime_f,0.01\rbrace, \frac{S}{e^{w_{17} \cdot w_{18}}} \rbrace$$
+     * enable_short_term = false : $$S^\prime_f \in \min \lbrace \max \lbrace S^\prime_f,0.01\rbrace, S \rbrace$$
+     * @param {number} d Difficulty D \in [1,10]
+     * @param {number} s Stability (interval when R=90%)
+     * @param {number} r Retrievability (probability of recall)
+     * @return {number} S^\prime_f new stability after forgetting
+     */
+    next_forget_stability(d, s, r) {
+      const w = this.param.w;
+      return roundTo(
+        clamp(
+          w[11] * Math.pow(d, -w[12]) * (Math.pow(s + 1, w[13]) - 1) * Math.exp((1 - r) * w[14]),
+          S_MIN,
+          36500
+        ),
+        8
+      );
+    }
+    /**
+     * The formula used is :
+     * $$S^\prime_s(S,G) = S \cdot e^{w_{17} \cdot (G-3+w_{18})}$$
+     * @param {number} s Stability (interval when R=90%)
+     * @param {Grade} g Grade (Rating[0.again,1.hard,2.good,3.easy])
+     */
+    next_short_term_stability(s, g) {
+      const w = this.param.w;
+      const sinc = Math.pow(s, -w[19]) * Math.exp(w[17] * (g - 3 + w[18]));
+      const maskedSinc = g >= Rating.Hard ? Math.max(sinc, 1) : sinc;
+      return roundTo(clamp(s * maskedSinc, S_MIN, 36500), 8);
+    }
+    /**
+     * Calculates the next state of memory based on the current state, time elapsed, and grade.
+     *
+     * @param memory_state - The current state of memory, which can be null.
+     * @param t - The time elapsed since the last review.
+     * @param {Rating} g Grade (Rating[0.Manual,1.Again,2.Hard,3.Good,4.Easy])
+     * @param r - Optional retrievability value. If not provided, it will be calculated.
+     * @returns The next state of memory with updated difficulty and stability.
+     */
+    next_state(memory_state, t, g, r) {
+      const { difficulty: d, stability: s } = memory_state != null ? memory_state : {
+        difficulty: 0,
+        stability: 0
+      };
+      if (t < 0) {
+        throw new FSRSValidationError(`Invalid delta_t "${t}"`);
+      }
+      if (g < 0 || g > 4) {
+        throw new FSRSValidationError(`Invalid grade "${g}"`);
+      }
+      if (d === 0 && s === 0) {
+        return {
+          difficulty: clamp(this.init_difficulty(g), 1, 10),
+          stability: this.init_stability(g)
+        };
+      }
+      if (g === 0) {
+        return {
+          difficulty: d,
+          stability: s
+        };
+      }
+      if (d < 1 || s < S_MIN) {
+        throw new FSRSValidationError(
+          `Invalid memory state { difficulty: ${d}, stability: ${s} }`
+        );
+      }
+      const w = this.param.w;
+      r = typeof r === "number" ? r : this.forgetting_curve(t, s);
+      let new_s;
+      if (t === 0 && this.param.enable_short_term) {
+        new_s = this.next_short_term_stability(s, g);
+      } else if (g === 1) {
+        const s_after_fail = this.next_forget_stability(d, s, r);
+        let [w_17, w_18] = [0, 0];
+        if (this.param.enable_short_term) {
+          w_17 = w[17];
+          w_18 = w[18];
+        }
+        const next_s_min = s / Math.exp(w_17 * w_18);
+        new_s = clamp(roundTo(next_s_min, 8), S_MIN, s_after_fail);
+      } else {
+        new_s = this.next_recall_stability(d, s, r, g);
+      }
+      const new_d = this.next_difficulty(d, g);
+      return { difficulty: new_d, stability: new_s };
+    }
+  }
+
+  var __defProp$2 = Object.defineProperty;
+  var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __publicField$2 = (obj, key, value) => __defNormalProp$2(obj, key + "" , value);
+  class BasicScheduler extends AbstractScheduler {
+    constructor(card, now, algorithm, strategies) {
+      super(card, now, algorithm, strategies);
+      __publicField$2(this, "learningStepsStrategy");
+      let learningStepStrategy = BasicLearningStepsStrategy;
+      if (this.strategies) {
+        const custom_strategy = this.strategies.get(StrategyMode.LEARNING_STEPS);
+        if (custom_strategy) {
+          learningStepStrategy = custom_strategy;
+        }
+      }
+      this.learningStepsStrategy = learningStepStrategy;
+    }
+    getLearningInfo(card, grade) {
+      var _a, _b, _c, _d;
+      const parameters = this.algorithm.parameters;
+      card.learning_steps = card.learning_steps || 0;
+      const steps_strategy = this.learningStepsStrategy(
+        parameters,
+        card.state,
+        card.learning_steps
+      );
+      const scheduled_minutes = Math.max(
+        0,
+        (_b = (_a = steps_strategy[grade]) == null ? void 0 : _a.scheduled_minutes) != null ? _b : 0
+      );
+      const next_steps = Math.max(0, (_d = (_c = steps_strategy[grade]) == null ? void 0 : _c.next_step) != null ? _d : 0);
+      return {
+        scheduled_minutes,
+        next_steps
+      };
+    }
+    /**
+     * @description This function applies the learning steps based on the current card's state and grade.
+     */
+    applyLearningSteps(nextCard, grade, to_state) {
+      const { scheduled_minutes, next_steps } = this.getLearningInfo(
+        this.current,
+        grade
+      );
+      if (scheduled_minutes > 0 && scheduled_minutes < 1440) {
+        nextCard.learning_steps = next_steps;
+        nextCard.scheduled_days = 0;
+        nextCard.state = to_state;
+        nextCard.due = date_scheduler(
+          this.review_time,
+          Math.round(scheduled_minutes),
+          false
+          /** true:days false: minute */
+        );
+      } else {
+        nextCard.state = State.Review;
+        if (scheduled_minutes >= 1440) {
+          nextCard.learning_steps = next_steps;
+          nextCard.due = date_scheduler(
+            this.review_time,
+            Math.round(scheduled_minutes),
+            false
+            /** true:days false: minute */
+          );
+          nextCard.scheduled_days = Math.floor(scheduled_minutes / 1440);
+        } else {
+          nextCard.learning_steps = 0;
+          const interval = this.algorithm.next_interval(
+            nextCard.stability,
+            this.elapsed_days
+          );
+          nextCard.scheduled_days = interval;
+          nextCard.due = date_scheduler(this.review_time, interval, true);
+        }
+      }
+    }
+    newState(grade) {
+      const exist = this.next.get(grade);
+      if (exist) {
+        return exist;
+      }
+      const next = this.next_ds(this.elapsed_days, grade);
+      this.applyLearningSteps(next, grade, State.Learning);
+      const item = {
+        card: next,
+        log: this.buildLog(grade)
+      };
+      this.next.set(grade, item);
+      return item;
+    }
+    learningState(grade) {
+      const exist = this.next.get(grade);
+      if (exist) {
+        return exist;
+      }
+      const next = this.next_ds(this.elapsed_days, grade);
+      this.applyLearningSteps(
+        next,
+        grade,
+        this.last.state
+        /** Learning or Relearning */
+      );
+      const item = {
+        card: next,
+        log: this.buildLog(grade)
+      };
+      this.next.set(grade, item);
+      return item;
+    }
+    reviewState(grade) {
+      const exist = this.next.get(grade);
+      if (exist) {
+        return exist;
+      }
+      const interval = this.elapsed_days;
+      const retrievability = this.algorithm.forgetting_curve(
+        interval,
+        this.current.stability
+      );
+      const next_again = this.next_ds(interval, Rating.Again, retrievability);
+      const next_hard = this.next_ds(interval, Rating.Hard, retrievability);
+      const next_good = this.next_ds(interval, Rating.Good, retrievability);
+      const next_easy = this.next_ds(interval, Rating.Easy, retrievability);
+      this.next_interval(next_hard, next_good, next_easy, interval);
+      this.next_state(next_hard, next_good, next_easy);
+      this.applyLearningSteps(next_again, Rating.Again, State.Relearning);
+      next_again.lapses += 1;
+      const item_again = {
+        card: next_again,
+        log: this.buildLog(Rating.Again)
+      };
+      const item_hard = {
+        card: next_hard,
+        log: super.buildLog(Rating.Hard)
+      };
+      const item_good = {
+        card: next_good,
+        log: super.buildLog(Rating.Good)
+      };
+      const item_easy = {
+        card: next_easy,
+        log: super.buildLog(Rating.Easy)
+      };
+      this.next.set(Rating.Again, item_again);
+      this.next.set(Rating.Hard, item_hard);
+      this.next.set(Rating.Good, item_good);
+      this.next.set(Rating.Easy, item_easy);
+      return this.next.get(grade);
+    }
+    /**
+     * Review next_ds
+     */
+    next_ds(t, g, r) {
+      const next_state = this.algorithm.next_state(
+        {
+          difficulty: this.current.difficulty,
+          stability: this.current.stability
+        },
+        t,
+        g,
+        r
+      );
+      const card = TypeConvert.card(this.current);
+      card.difficulty = next_state.difficulty;
+      card.stability = next_state.stability;
+      return card;
+    }
+    /**
+     * Review next_interval
+     */
+    next_interval(next_hard, next_good, next_easy, interval) {
+      let hard_interval, good_interval;
+      hard_interval = this.algorithm.next_interval(next_hard.stability, interval);
+      good_interval = this.algorithm.next_interval(next_good.stability, interval);
+      hard_interval = Math.min(hard_interval, good_interval);
+      good_interval = Math.max(good_interval, hard_interval + 1);
+      const easy_interval = Math.max(
+        this.algorithm.next_interval(next_easy.stability, interval),
+        good_interval + 1
+      );
+      next_hard.scheduled_days = hard_interval;
+      next_hard.due = date_scheduler(this.review_time, hard_interval, true);
+      next_good.scheduled_days = good_interval;
+      next_good.due = date_scheduler(this.review_time, good_interval, true);
+      next_easy.scheduled_days = easy_interval;
+      next_easy.due = date_scheduler(this.review_time, easy_interval, true);
+    }
+    /**
+     * Review next_state
+     */
+    next_state(next_hard, next_good, next_easy) {
+      next_hard.state = State.Review;
+      next_hard.learning_steps = 0;
+      next_good.state = State.Review;
+      next_good.learning_steps = 0;
+      next_easy.state = State.Review;
+      next_easy.learning_steps = 0;
+    }
+  }
+
+  class LongTermScheduler extends AbstractScheduler {
+    newState(grade) {
+      const exist = this.next.get(grade);
+      if (exist) {
+        return exist;
+      }
+      this.current.scheduled_days = 0;
+      this.current.elapsed_days = 0;
+      const first_interval = 0;
+      const next_again = this.next_ds(first_interval, Rating.Again);
+      const next_hard = this.next_ds(first_interval, Rating.Hard);
+      const next_good = this.next_ds(first_interval, Rating.Good);
+      const next_easy = this.next_ds(first_interval, Rating.Easy);
+      this.next_interval(
+        next_again,
+        next_hard,
+        next_good,
+        next_easy,
+        first_interval
+      );
+      this.next_state(next_again, next_hard, next_good, next_easy);
+      this.update_next(next_again, next_hard, next_good, next_easy);
+      return this.next.get(grade);
+    }
+    next_ds(t, g, r) {
+      const next_state = this.algorithm.next_state(
+        {
+          difficulty: this.current.difficulty,
+          stability: this.current.stability
+        },
+        t,
+        g,
+        r
+      );
+      const card = TypeConvert.card(this.current);
+      card.difficulty = next_state.difficulty;
+      card.stability = next_state.stability;
+      return card;
+    }
+    /**
+     * @see https://github.com/open-spaced-repetition/ts-fsrs/issues/98#issuecomment-2241923194
+     */
+    learningState(grade) {
+      return this.reviewState(grade);
+    }
+    reviewState(grade) {
+      const exist = this.next.get(grade);
+      if (exist) {
+        return exist;
+      }
+      const interval = this.elapsed_days;
+      const retrievability = this.algorithm.forgetting_curve(
+        interval,
+        this.current.stability
+      );
+      const next_again = this.next_ds(interval, Rating.Again, retrievability);
+      const next_hard = this.next_ds(interval, Rating.Hard, retrievability);
+      const next_good = this.next_ds(interval, Rating.Good, retrievability);
+      const next_easy = this.next_ds(interval, Rating.Easy, retrievability);
+      this.next_interval(next_again, next_hard, next_good, next_easy, interval);
+      this.next_state(next_again, next_hard, next_good, next_easy);
+      next_again.lapses += 1;
+      this.update_next(next_again, next_hard, next_good, next_easy);
+      return this.next.get(grade);
+    }
+    /**
+     * Review/New next_interval
+     */
+    next_interval(next_again, next_hard, next_good, next_easy, interval) {
+      let again_interval, hard_interval, good_interval, easy_interval;
+      again_interval = this.algorithm.next_interval(
+        next_again.stability,
+        interval
+      );
+      hard_interval = this.algorithm.next_interval(next_hard.stability, interval);
+      good_interval = this.algorithm.next_interval(next_good.stability, interval);
+      easy_interval = this.algorithm.next_interval(next_easy.stability, interval);
+      again_interval = Math.min(again_interval, hard_interval);
+      hard_interval = Math.max(hard_interval, again_interval + 1);
+      good_interval = Math.max(good_interval, hard_interval + 1);
+      easy_interval = Math.max(easy_interval, good_interval + 1);
+      next_again.scheduled_days = again_interval;
+      next_again.due = date_scheduler(this.review_time, again_interval, true);
+      next_hard.scheduled_days = hard_interval;
+      next_hard.due = date_scheduler(this.review_time, hard_interval, true);
+      next_good.scheduled_days = good_interval;
+      next_good.due = date_scheduler(this.review_time, good_interval, true);
+      next_easy.scheduled_days = easy_interval;
+      next_easy.due = date_scheduler(this.review_time, easy_interval, true);
+    }
+    /**
+     * Review/New next_state
+     */
+    next_state(next_again, next_hard, next_good, next_easy) {
+      next_again.state = State.Review;
+      next_again.learning_steps = 0;
+      next_hard.state = State.Review;
+      next_hard.learning_steps = 0;
+      next_good.state = State.Review;
+      next_good.learning_steps = 0;
+      next_easy.state = State.Review;
+      next_easy.learning_steps = 0;
+    }
+    update_next(next_again, next_hard, next_good, next_easy) {
+      const item_again = {
+        card: next_again,
+        log: this.buildLog(Rating.Again)
+      };
+      const item_hard = {
+        card: next_hard,
+        log: super.buildLog(Rating.Hard)
+      };
+      const item_good = {
+        card: next_good,
+        log: super.buildLog(Rating.Good)
+      };
+      const item_easy = {
+        card: next_easy,
+        log: super.buildLog(Rating.Easy)
+      };
+      this.next.set(Rating.Again, item_again);
+      this.next.set(Rating.Hard, item_hard);
+      this.next.set(Rating.Good, item_good);
+      this.next.set(Rating.Easy, item_easy);
+    }
+  }
+
+  var __defProp$1 = Object.defineProperty;
+  var __defProps$1 = Object.defineProperties;
+  var __getOwnPropDescs$1 = Object.getOwnPropertyDescriptors;
+  var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
+  var __hasOwnProp$1 = Object.prototype.hasOwnProperty;
+  var __propIsEnum$1 = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues$1 = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp$1.call(b, prop))
+        __defNormalProp$1(a, prop, b[prop]);
+    if (__getOwnPropSymbols$1)
+      for (var prop of __getOwnPropSymbols$1(b)) {
+        if (__propIsEnum$1.call(b, prop))
+          __defNormalProp$1(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps$1 = (a, b) => __defProps$1(a, __getOwnPropDescs$1(b));
+  var __publicField$1 = (obj, key, value) => __defNormalProp$1(obj, key + "" , value);
+  class Reschedule {
+    /**
+     * Creates an instance of the `Reschedule` class.
+     * @param fsrs - An instance of the FSRS class used for scheduling.
+     */
+    constructor(fsrs) {
+      __publicField$1(this, "fsrs");
+      this.fsrs = fsrs;
+    }
+    /**
+     * Replays a review for a card and determines the next review date based on the given rating.
+     * @param card - The card being reviewed.
+     * @param reviewed - The date the card was reviewed.
+     * @param rating - The grade given to the card during the review.
+     * @returns A `RecordLogItem` containing the updated card and review log.
+     */
+    replay(card, reviewed, rating) {
+      return this.fsrs.next(card, reviewed, rating);
+    }
+    /**
+     * Processes a manual review for a card, allowing for custom state, stability, difficulty, and due date.
+     * @param card - The card being reviewed.
+     * @param state - The state of the card after the review.
+     * @param reviewed - The date the card was reviewed.
+     * @param elapsed_days - The number of days since the last review.
+     * @param stability - (Optional) The stability of the card.
+     * @param difficulty - (Optional) The difficulty of the card.
+     * @param due - (Optional) The due date for the next review.
+     * @returns A `RecordLogItem` containing the updated card and review log.
+     * @throws Will throw an error if the state or due date is not provided when required.
+     */
+    handleManualRating(card, state, reviewed, elapsed_days, stability, difficulty, due) {
+      if (typeof state === "undefined") {
+        throw new FSRSValidationError(
+          "reschedule: state is required for manual rating"
+        );
+      }
+      let log;
+      let next_card;
+      if (state === State.New) {
+        log = {
+          rating: Rating.Manual,
+          state,
+          due: due != null ? due : reviewed,
+          stability: card.stability,
+          difficulty: card.difficulty,
+          elapsed_days,
+          last_elapsed_days: card.elapsed_days,
+          scheduled_days: card.scheduled_days,
+          learning_steps: card.learning_steps,
+          review: reviewed
+        };
+        next_card = createEmptyCard(reviewed);
+        next_card.last_review = reviewed;
+      } else {
+        if (typeof due === "undefined") {
+          throw new FSRSValidationError(
+            "reschedule: due is required for manual rating"
+          );
+        }
+        const scheduled_days = date_diff(due, reviewed, "days");
+        log = {
+          rating: Rating.Manual,
+          state: card.state,
+          due: card.last_review || card.due,
+          stability: card.stability,
+          difficulty: card.difficulty,
+          elapsed_days,
+          last_elapsed_days: card.elapsed_days,
+          scheduled_days: card.scheduled_days,
+          learning_steps: card.learning_steps,
+          review: reviewed
+        };
+        next_card = __spreadProps$1(__spreadValues$1({}, card), {
+          state,
+          due,
+          last_review: reviewed,
+          stability: stability || card.stability,
+          difficulty: difficulty || card.difficulty,
+          elapsed_days,
+          scheduled_days,
+          reps: card.reps + 1
+        });
+      }
+      return { card: next_card, log };
+    }
+    /**
+     * Reschedules a card based on its review history.
+     *
+     * @param current_card - The card to be rescheduled.
+     * @param reviews - An array of review history objects.
+     * @returns An array of record log items representing the rescheduling process.
+     */
+    reschedule(current_card, reviews) {
+      const collections = [];
+      let cur_card = createEmptyCard(current_card.due);
+      for (const review of reviews) {
+        let item;
+        review.review = TypeConvert.time(review.review);
+        if (review.rating === Rating.Manual) {
+          let interval = 0;
+          if (cur_card.state !== State.New && cur_card.last_review) {
+            interval = date_diff(review.review, cur_card.last_review, "days");
+          }
+          item = this.handleManualRating(
+            cur_card,
+            review.state,
+            review.review,
+            interval,
+            review.stability,
+            review.difficulty,
+            review.due ? TypeConvert.time(review.due) : void 0
+          );
+        } else {
+          item = this.replay(cur_card, review.review, review.rating);
+        }
+        collections.push(item);
+        cur_card = item.card;
+      }
+      return collections;
+    }
+    calculateManualRecord(current_card, now, record_log_item, update_memory) {
+      if (!record_log_item) {
+        return null;
+      }
+      const { card: reschedule_card, log } = record_log_item;
+      const cur_card = TypeConvert.card(current_card);
+      if (cur_card.due.getTime() === reschedule_card.due.getTime()) {
+        return null;
+      }
+      cur_card.scheduled_days = date_diff(
+        reschedule_card.due,
+        cur_card.due,
+        "days"
+      );
+      return this.handleManualRating(
+        cur_card,
+        reschedule_card.state,
+        TypeConvert.time(now),
+        log.elapsed_days,
+        update_memory ? reschedule_card.stability : void 0,
+        update_memory ? reschedule_card.difficulty : void 0,
+        reschedule_card.due
+      );
+    }
+  }
+
+  var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+  var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  function applyAfterHandler(value, afterHandler) {
+    return typeof afterHandler === "function" ? afterHandler(value) : value;
+  }
+  class FSRS extends FSRSAlgorithm {
+    constructor(param) {
+      super(param);
+      __publicField(this, "strategyHandler", /* @__PURE__ */ new Map());
+      __publicField(this, "Scheduler");
+      const { enable_short_term } = this.parameters;
+      this.Scheduler = enable_short_term ? BasicScheduler : LongTermScheduler;
+    }
+    params_handler_proxy() {
+      const _this = this;
+      return {
+        set: function(target, prop, value) {
+          if (prop === "request_retention" && Number.isFinite(value)) {
+            _this.intervalModifier = _this.calculate_interval_modifier(
+              Number(value)
+            );
+          } else if (prop === "enable_short_term") {
+            _this.Scheduler = value === true ? BasicScheduler : LongTermScheduler;
+          } else if (prop === "w") {
+            value = migrateParameters(
+              value,
+              target.relearning_steps.length,
+              target.enable_short_term
+            );
+            value = clipParameters(
+              Array.from(value),
+              target.relearning_steps.length,
+              target.enable_short_term
+            );
+            _this.forgetting_curve = forgetting_curve.bind(this, value);
+            _this.intervalModifier = _this.calculate_interval_modifier(
+              Number(target.request_retention)
+            );
+          }
+          Reflect.set(target, prop, value);
+          return true;
+        }
+      };
+    }
+    useStrategy(mode, handler) {
+      this.strategyHandler.set(mode, handler);
+      return this;
+    }
+    clearStrategy(mode) {
+      if (mode) {
+        this.strategyHandler.delete(mode);
+      } else {
+        this.strategyHandler.clear();
+      }
+      return this;
+    }
+    getScheduler(card, now) {
+      const schedulerStrategy = this.strategyHandler.get(
+        StrategyMode.SCHEDULER
+      );
+      const Scheduler = schedulerStrategy || this.Scheduler;
+      const instance = new Scheduler(card, now, this, this.strategyHandler);
+      return instance;
+    }
+    /**
+     * Display the collection of cards and logs for the four scenarios after scheduling the card at the current time.
+     * @param card Card to be processed
+     * @param now Current time or scheduled time
+     * @param afterHandler Convert the result to another type. (Optional)
+     * @example
+     * ```typescript
+     * const card: Card = createEmptyCard(new Date());
+     * const f = fsrs();
+     * const recordLog = f.repeat(card, new Date());
+     * ```
+     * @example
+     * ```typescript
+     * interface RevLogUnchecked
+     *   extends Omit<ReviewLog, "due" | "review" | "state" | "rating"> {
+     *   cid: string;
+     *   due: Date | number;
+     *   state: StateType;
+     *   review: Date | number;
+     *   rating: RatingType;
+     * }
+     *
+     * interface RepeatRecordLog {
+     *   card: CardUnChecked; //see method: createEmptyCard
+     *   log: RevLogUnchecked;
+     * }
+     *
+     * function repeatAfterHandler(recordLog: RecordLog) {
+     *     const record: { [key in Grade]: RepeatRecordLog } = {} as {
+     *       [key in Grade]: RepeatRecordLog;
+     *     };
+     *     for (const grade of Grades) {
+     *       record[grade] = {
+     *         card: {
+     *           ...(recordLog[grade].card as Card & { cid: string }),
+     *           due: recordLog[grade].card.due.getTime(),
+     *           state: State[recordLog[grade].card.state] as StateType,
+     *           last_review: recordLog[grade].card.last_review
+     *             ? recordLog[grade].card.last_review!.getTime()
+     *             : null,
+     *         },
+     *         log: {
+     *           ...recordLog[grade].log,
+     *           cid: (recordLog[grade].card as Card & { cid: string }).cid,
+     *           due: recordLog[grade].log.due.getTime(),
+     *           review: recordLog[grade].log.review.getTime(),
+     *           state: State[recordLog[grade].log.state] as StateType,
+     *           rating: Rating[recordLog[grade].log.rating] as RatingType,
+     *         },
+     *       };
+     *     }
+     *     return record;
+     * }
+     * const card: Card = createEmptyCard(new Date(), cardAfterHandler); //see method:  createEmptyCard
+     * const f = fsrs();
+     * const recordLog = f.repeat(card, new Date(), repeatAfterHandler);
+     * ```
+     */
+    repeat(card, now, afterHandler) {
+      const instance = this.getScheduler(card, now);
+      const recordLog = instance.preview();
+      return applyAfterHandler(recordLog, afterHandler);
+    }
+    /**
+     * Display the collection of cards and logs for the card scheduled at the current time, after applying a specific grade rating.
+     * @param card Card to be processed
+     * @param now Current time or scheduled time
+     * @param grade Rating of the review (Again, Hard, Good, Easy)
+     * @param afterHandler Convert the result to another type. (Optional)
+     * @example
+     * ```typescript
+     * const card: Card = createEmptyCard(new Date());
+     * const f = fsrs();
+     * const recordLogItem = f.next(card, new Date(), Rating.Again);
+     * ```
+     * @example
+     * ```typescript
+     * interface RevLogUnchecked
+     *   extends Omit<ReviewLog, "due" | "review" | "state" | "rating"> {
+     *   cid: string;
+     *   due: Date | number;
+     *   state: StateType;
+     *   review: Date | number;
+     *   rating: RatingType;
+     * }
+     *
+     * interface NextRecordLog {
+     *   card: CardUnChecked; //see method: createEmptyCard
+     *   log: RevLogUnchecked;
+     * }
+     *
+    function nextAfterHandler(recordLogItem: RecordLogItem) {
+      const recordItem = {
+        card: {
+          ...(recordLogItem.card as Card & { cid: string }),
+          due: recordLogItem.card.due.getTime(),
+          state: State[recordLogItem.card.state] as StateType,
+          last_review: recordLogItem.card.last_review
+            ? recordLogItem.card.last_review!.getTime()
+            : null,
+        },
+        log: {
+          ...recordLogItem.log,
+          cid: (recordLogItem.card as Card & { cid: string }).cid,
+          due: recordLogItem.log.due.getTime(),
+          review: recordLogItem.log.review.getTime(),
+          state: State[recordLogItem.log.state] as StateType,
+          rating: Rating[recordLogItem.log.rating] as RatingType,
+        },
+      };
+      return recordItem
+    }
+     * const card: Card = createEmptyCard(new Date(), cardAfterHandler); //see method:  createEmptyCard
+     * const f = fsrs();
+     * const recordLogItem = f.repeat(card, new Date(), Rating.Again, nextAfterHandler);
+     * ```
+     */
+    next(card, now, grade, afterHandler) {
+      const instance = this.getScheduler(card, now);
+      const g = TypeConvert.rating(grade);
+      if (g === Rating.Manual) {
+        throw new FSRSValidationError("Cannot review a manual rating");
+      }
+      const recordLogItem = instance.review(g);
+      return applyAfterHandler(recordLogItem, afterHandler);
+    }
+    /**
+     * Get the retrievability of the card
+     * @param card  Card to be processed
+     * @param now  Current time or scheduled time
+     * @param format  default:true , Convert the result to another type. (Optional)
+     * @returns  The retrievability of the card,if format is true, the result is a string, otherwise it is a number
+     */
+    get_retrievability(card, now, format = true) {
+      const processedCard = TypeConvert.card(card);
+      now = now ? TypeConvert.time(now) : /* @__PURE__ */ new Date();
+      const t = processedCard.state !== State.New ? Math.max(date_diff(now, processedCard.last_review, "days"), 0) : 0;
+      const r = processedCard.state !== State.New ? this.forgetting_curve(t, +processedCard.stability.toFixed(8)) : 0;
+      return format ? `${(r * 100).toFixed(2)}%` : r;
+    }
+    /**
+     *
+     * @param card Card to be processed
+     * @param log last review log
+     * @param afterHandler Convert the result to another type. (Optional)
+     * @example
+     * ```typescript
+     * const now = new Date();
+     * const f = fsrs();
+     * const emptyCardFormAfterHandler = createEmptyCard(now);
+     * const repeatFormAfterHandler = f.repeat(emptyCardFormAfterHandler, now);
+     * const { card, log } = repeatFormAfterHandler[Rating.Hard];
+     * const rollbackFromAfterHandler = f.rollback(card, log);
+     * ```
+     *
+     * @example
+     * ```typescript
+     * const now = new Date();
+     * const f = fsrs();
+     * const emptyCardFormAfterHandler = createEmptyCard(now, cardAfterHandler);  //see method: createEmptyCard
+     * const repeatFormAfterHandler = f.repeat(emptyCardFormAfterHandler, now, repeatAfterHandler); //see method: fsrs.repeat()
+     * const { card, log } = repeatFormAfterHandler[Rating.Hard];
+     * const rollbackFromAfterHandler = f.rollback(card, log, cardAfterHandler);
+     * ```
+     */
+    rollback(card, log, afterHandler) {
+      const processedCard = TypeConvert.card(card);
+      const processedLog = TypeConvert.review_log(log);
+      if (processedLog.rating === Rating.Manual) {
+        throw new FSRSValidationError("Cannot rollback a manual rating");
+      }
+      let last_due;
+      let last_review;
+      let last_lapses;
+      switch (processedLog.state) {
+        case State.New:
+          last_due = processedLog.due;
+          last_review = void 0;
+          last_lapses = 0;
+          break;
+        case State.Learning:
+        case State.Relearning:
+        case State.Review:
+          last_due = processedLog.review;
+          last_review = processedLog.due;
+          last_lapses = processedCard.lapses - (processedLog.rating === Rating.Again && processedLog.state === State.Review ? 1 : 0);
+          break;
+      }
+      const prevCard = __spreadProps(__spreadValues({}, processedCard), {
+        due: last_due,
+        stability: processedLog.stability,
+        difficulty: processedLog.difficulty,
+        elapsed_days: processedLog.last_elapsed_days,
+        scheduled_days: processedLog.scheduled_days,
+        reps: Math.max(0, processedCard.reps - 1),
+        lapses: Math.max(0, last_lapses),
+        learning_steps: processedLog.learning_steps,
+        state: processedLog.state,
+        last_review
+      });
+      return applyAfterHandler(prevCard, afterHandler);
+    }
+    /**
+     *
+     * @param card Card to be processed
+     * @param now Current time or scheduled time
+     * @param reset_count Should the review count information(reps,lapses) be reset. (Optional)
+     * @param afterHandler Convert the result to another type. (Optional)
+     * @example
+     * ```typescript
+     * const now = new Date();
+     * const f = fsrs();
+     * const emptyCard = createEmptyCard(now);
+     * const scheduling_cards = f.repeat(emptyCard, now);
+     * const { card, log } = scheduling_cards[Rating.Hard];
+     * const forgetCard = f.forget(card, new Date(), true);
+     * ```
+     *
+     * @example
+     * ```typescript
+     * interface RepeatRecordLog {
+     *   card: CardUnChecked; //see method: createEmptyCard
+     *   log: RevLogUnchecked; //see method: fsrs.repeat()
+     * }
+     *
+     * function forgetAfterHandler(recordLogItem: RecordLogItem): RepeatRecordLog {
+     *     return {
+     *       card: {
+     *         ...(recordLogItem.card as Card & { cid: string }),
+     *         due: recordLogItem.card.due.getTime(),
+     *         state: State[recordLogItem.card.state] as StateType,
+     *         last_review: recordLogItem.card.last_review
+     *           ? recordLogItem.card.last_review!.getTime()
+     *           : null,
+     *       },
+     *       log: {
+     *         ...recordLogItem.log,
+     *         cid: (recordLogItem.card as Card & { cid: string }).cid,
+     *         due: recordLogItem.log.due.getTime(),
+     *         review: recordLogItem.log.review.getTime(),
+     *         state: State[recordLogItem.log.state] as StateType,
+     *         rating: Rating[recordLogItem.log.rating] as RatingType,
+     *       },
+     *     };
+     * }
+     * const now = new Date();
+     * const f = fsrs();
+     * const emptyCardFormAfterHandler = createEmptyCard(now, cardAfterHandler); //see method:  createEmptyCard
+     * const repeatFormAfterHandler = f.repeat(emptyCardFormAfterHandler, now, repeatAfterHandler); //see method: fsrs.repeat()
+     * const { card } = repeatFormAfterHandler[Rating.Hard];
+     * const forgetFromAfterHandler = f.forget(card, date_scheduler(now, 1, true), false, forgetAfterHandler);
+     * ```
+     */
+    forget(card, now, reset_count = false, afterHandler) {
+      const processedCard = TypeConvert.card(card);
+      now = TypeConvert.time(now);
+      const scheduled_days = processedCard.state === State.New ? 0 : date_diff(now, processedCard.due, "days");
+      const forget_log = {
+        rating: Rating.Manual,
+        state: processedCard.state,
+        due: processedCard.due,
+        stability: processedCard.stability,
+        difficulty: processedCard.difficulty,
+        elapsed_days: 0,
+        last_elapsed_days: processedCard.elapsed_days,
+        scheduled_days,
+        learning_steps: processedCard.learning_steps,
+        review: now
+      };
+      const forget_card = __spreadProps(__spreadValues({}, processedCard), {
+        due: now,
+        stability: 0,
+        difficulty: 0,
+        elapsed_days: 0,
+        scheduled_days: 0,
+        reps: reset_count ? 0 : processedCard.reps,
+        lapses: reset_count ? 0 : processedCard.lapses,
+        learning_steps: 0,
+        state: State.New,
+        last_review: processedCard.last_review
+      });
+      const recordLogItem = { card: forget_card, log: forget_log };
+      return applyAfterHandler(recordLogItem, afterHandler);
+    }
+    /**
+     * Reschedules the current card and returns the rescheduled collections and reschedule item.
+     *
+     * @template T - The type of the record log item.
+     * @param {CardInput | Card} current_card - The current card to be rescheduled.
+     * @param {Array<FSRSHistory>} reviews - The array of FSRSHistory objects representing the reviews.
+     * @param {Partial<RescheduleOptions<T>>} options - The optional reschedule options.
+     * @returns {IReschedule<T>} - The rescheduled collections and reschedule item.
+     *
+     * @example
+     * ```typescript
+     * const f = fsrs()
+     * const grades: Grade[] = [Rating.Good, Rating.Good, Rating.Good, Rating.Good]
+     * const reviews_at = [
+     *   new Date(2024, 8, 13),
+     *   new Date(2024, 8, 13),
+     *   new Date(2024, 8, 17),
+     *   new Date(2024, 8, 28),
+     * ]
+     *
+     * const reviews: FSRSHistory[] = []
+     * for (let i = 0; i < grades.length; i++) {
+     *   reviews.push({
+     *     rating: grades[i],
+     *     review: reviews_at[i],
+     *   })
+     * }
+     *
+     * const results_short = scheduler.reschedule(
+     *   createEmptyCard(),
+     *   reviews,
+     *   {
+     *     skipManual: false,
+     *   }
+     * )
+     * console.log(results_short)
+     * ```
+     */
+    reschedule(current_card, reviews = [], options = {}) {
+      const {
+        recordLogHandler,
+        reviewsOrderBy,
+        skipManual = true,
+        now = /* @__PURE__ */ new Date(),
+        update_memory_state: updateMemoryState = false
+      } = options;
+      if (reviewsOrderBy && typeof reviewsOrderBy === "function") {
+        reviews.sort(reviewsOrderBy);
+      }
+      if (skipManual) {
+        reviews = reviews.filter((review) => review.rating !== Rating.Manual);
+      }
+      const rescheduleSvc = new Reschedule(this);
+      const collections = rescheduleSvc.reschedule(
+        options.first_card || createEmptyCard(),
+        reviews
+      );
+      const len = collections.length;
+      const cur_card = TypeConvert.card(current_card);
+      const manual_item = rescheduleSvc.calculateManualRecord(
+        cur_card,
+        now,
+        len ? collections[len - 1] : void 0,
+        updateMemoryState
+      );
+      return {
+        collections: typeof recordLogHandler === "function" ? collections.map(recordLogHandler) : collections,
+        reschedule_item: manual_item ? applyAfterHandler(manual_item, recordLogHandler) : null
+      };
+    }
+  }
+  const fsrs = (params) => {
+    return new FSRS(params || {});
+  };
+
+  exports.AbstractScheduler = AbstractScheduler;
+  exports.BasicLearningStepsStrategy = BasicLearningStepsStrategy;
+  exports.CLAMP_PARAMETERS = CLAMP_PARAMETERS;
+  exports.ConvertStepUnitToMinutes = ConvertStepUnitToMinutes;
+  exports.DefaultInitSeedStrategy = DefaultInitSeedStrategy;
+  exports.FSRS = FSRS;
+  exports.FSRS5_DEFAULT_DECAY = FSRS5_DEFAULT_DECAY;
+  exports.FSRS6_DEFAULT_DECAY = FSRS6_DEFAULT_DECAY;
+  exports.FSRSAlgorithm = FSRSAlgorithm;
+  exports.FSRSVersion = FSRSVersion;
+  exports.GenSeedStrategyWithCardId = GenSeedStrategyWithCardId;
+  exports.Grades = Grades;
+  exports.INIT_S_MAX = INIT_S_MAX;
+  exports.Rating = Rating;
+  exports.S_MAX = S_MAX;
+  exports.S_MIN = S_MIN;
+  exports.State = State;
+  exports.StrategyMode = StrategyMode;
+  exports.TypeConvert = TypeConvert;
+  exports.W17_W18_Ceiling = W17_W18_Ceiling;
+  exports.checkParameters = checkParameters;
+  exports.clamp = clamp;
+  exports.clipParameters = clipParameters;
+  exports.computeDecayFactor = computeDecayFactor;
+  exports.createEmptyCard = createEmptyCard;
+  exports.dateDiffInDays = dateDiffInDays;
+  exports.date_diff = date_diff;
+  exports.date_scheduler = date_scheduler;
+  exports.default_enable_fuzz = default_enable_fuzz;
+  exports.default_enable_short_term = default_enable_short_term;
+  exports.default_learning_steps = default_learning_steps;
+  exports.default_maximum_interval = default_maximum_interval;
+  exports.default_relearning_steps = default_relearning_steps;
+  exports.default_request_retention = default_request_retention;
+  exports.default_w = default_w;
+  exports.fixDate = fixDate;
+  exports.fixRating = fixRating;
+  exports.fixState = fixState;
+  exports.forgetting_curve = forgetting_curve;
+  exports.formatDate = formatDate;
+  exports.fsrs = fsrs;
+  exports.generatorParameters = generatorParameters;
+  exports.get_fuzz_range = get_fuzz_range;
+  exports.migrateParameters = migrateParameters;
+  exports.roundTo = roundTo;
+  exports.show_diff_message = show_diff_message;
+
+}));
+
+
+</script>
+<script>
+"use strict";
+/* Nihongo — Japanese study app. Single file, no build step.
+   Storage: every key is prefixed "nh_" so this app never touches the German app (dl_ keys)
+   that is served from the same origin (jsahe.github.io). */
+const PFX="nh_";
+const store = {
+  get(key, fallback){ try{ const v = localStorage.getItem(PFX+key); return v === null ? fallback : JSON.parse(v); }catch(e){ return fallback; } },
+  set(key, val){ try{ localStorage.setItem(PFX+key, JSON.stringify(val)); return true; }catch(e){ toast("Could not save (storage full or blocked)"); return false; } },
+  del(key){ try{ localStorage.removeItem(PFX+key); }catch(e){} },
+  keys(){ const out=[]; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.indexOf(PFX)===0) out.push(k); } }catch(e){} return out; }
+};
+const pad2 = n => String(n).padStart(2,"0");
+
+/* ---------- dates (local, date-only) ---------- */
+function parseDate(s){ const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||""); return m ? new Date(+m[1],+m[2]-1,+m[3]) : null; }
+function today(){ const d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); }
+function daysBetween(a,b){ return Math.round((b-a)/86400000); }
+function fmtDate(d){ return d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"}); }
+
+/* ---------- state ---------- */
+const S = { index:null, weeks:{}, currentWeek:null, viewWeek:null, tab:"today", offline:false, kdb:null, comps:null };
+
+function knownWeeks(){
+  const map = {};
+  (store.get("index",{weeks:[]}).weeks||[]).forEach(w=>{ map[w.week]={week:w.week,startDate:w.startDate,file:w.file}; });
+  (store.get("imported",[])||[]).forEach(w=>{ if(!map[w.week]) map[w.week]={week:w.week,startDate:w.startDate,file:null}; });
+  return Object.values(map).sort((a,b)=>a.week-b.week);
+}
+function findCurrent(list){
+  const t=today();
+  const hit=list.find(w=>{ const s=parseDate(w.startDate); if(!s) return false; const d=daysBetween(s,t); return d>=0 && d<7; });
+  return hit ? hit.week : null;
+}
+function getWeek(n){ if(S.weeks[n]) return S.weeks[n]; const w=store.get("week_"+pad2(n),null); if(w) S.weeks[n]=w; return w; }
+
+async function fetchJSON(url,bust){
+  const r = await fetch(bust===false?url:url+(url.indexOf("?")>-1?"&":"?")+"t="+Date.now(),{cache:bust===false?"default":"no-store"});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  return r.json();
+}
+async function loadWeekFile(entry){
+  if(!entry || !entry.file) return getWeek(entry && entry.week);
+  try{
+    const w = await fetchJSON(entry.file);
+    const err = validateWeek(w);
+    if(err) throw new Error(err);
+    S.weeks[w.week]=w; store.set("week_"+pad2(w.week), w);
+    return w;
+  }catch(e){ S.offline=true; return getWeek(entry.week); }
+}
+/* static data (kanji dictionary, components): cached in localStorage under a version key */
+const DATA_V="1";
+async function loadData(name){
+  const key="data_"+name;
+  try{ const d=await fetchJSON("data/"+name+".json?v="+DATA_V,false); store.set(key,d); return d; }
+  catch(e){ return store.get(key,null); }
+}
+async function boot(){
+  try{
+    const idx = await fetchJSON("weeks/index.json");
+    if(idx && Array.isArray(idx.weeks)){ store.set("index", idx); }
+  }catch(e){ S.offline=true; }
+  const list = knownWeeks();
+  S.currentWeek = findCurrent(list);
+  if(S.currentWeek===null && list.length){
+    const t=today(); const started=list.filter(w=>{const s=parseDate(w.startDate); return s && s<=t;});
+    S.viewWeek = (started.length ? started[started.length-1] : list[0]).week;
+  } else S.viewWeek = S.currentWeek;
+  const [kdb,comps] = await Promise.all([loadData("kanji"),loadData("components"),Promise.all(list.map(e=>loadWeekFile(e)))]);
+  S.kdb=kdb||{}; S.comps=comps||[];
+  render();
+  setTimeout(prefetchCardStrokes,1500);
+}
+
+/* ---------- results ---------- */
+function resKey(n){ return "results_"+pad2(n); }
+function getRes(n){ const r=store.get(resKey(n),null); return r && r.days ? r : {days:{}}; }
+function dayRes(res,d){ if(!res.days[d]) res.days[d]={items:{},ratings:{},timeMs:0,notes:"",visited:[],done:false,last:0}; return res.days[d]; }
+function saveRes(n,res){ store.set(resKey(n),res); }
+function dayStats(week,d){
+  const res=getRes(week.week); const dr=res.days[d];
+  const day=week.days.find(x=>x.day===d);
+  const total = day ? day.sections.length : 0;
+  if(!dr) return {status:"none",score:null,answered:0,total};
+  const items=Object.values(dr.items);
+  const right=items.filter(i=>i.correct).length;
+  const score = items.length ? Math.round(100*right/items.length) : null;
+  const status = dr.done ? "done" : (dr.visited.length || items.length ? "part" : "none");
+  return {status,score,answered:items.length,total};
+}
+
+/* ---------- Japanese text helpers ---------- */
+const KANJI_RE=/[㐀-䶿一-鿿豈-﫿々〆]/;
+const KANJI_G=/[㐀-䶿一-鿿豈-﫿]/g;
+function hasKanji(s){ return KANJI_RE.test(String(s||"")); }
+function isJa(s){ return /[぀-ヿ㐀-鿿々]/.test(String(s||"")); }
+function kanjiIn(s){ return (String(s||"").match(KANJI_G)||[]); }
+function kataToHira(s){ return String(s).replace(/[ァ-ヶ]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)); }
+/* compare Japanese answers: NFKC, katakana→hiragana, drop spaces and punctuation */
+function jnorm(s){ return kataToHira(String(s==null?"":s).normalize("NFKC")).replace(/[\s、。，．,.!?！？「」『』（）()・~～〜…]/g,"").toLowerCase(); }
+function norm(s,keepCase){
+  let t=String(s==null?"":s).normalize("NFC").replace(/[‘’]/g,"'").replace(/[“”„]/g,'"').trim().replace(/\s+/g," ");
+  t=t.replace(/[.!?,;:…。！？]+$/,"").trim();
+  return keepCase ? t : t.toLowerCase();
+}
+/* returns {ok, kanji:true if the answer was typed with kanji (rejected: readings are typed in kana)} */
+function checkAnswer(user, accepted, keepCase){
+  const ja=accepted.some(isJa);
+  if(ja){
+    const u=jnorm(user); if(!u) return {ok:false};
+    if(hasKanji(user) && !accepted.some(a=>hasKanji(a) && jnorm(a)===u)) return {ok:false,kanji:true};
+    return {ok:accepted.some(a=>jnorm(kanaOf(a))===u || jnorm(a)===u)};
+  }
+  const u=norm(user,keepCase); if(!u) return {ok:false};
+  return {ok:accepted.some(a=>norm(a,keepCase)===u)};
+}
+function similarity(a,b){ // 1 - normalized Levenshtein distance
+  a=Array.from(a); b=Array.from(b); if(!a.length && !b.length) return 1;
+  const dp=Array(b.length+1).fill(0).map((_,j)=>j);
+  for(let i=1;i<=a.length;i++){ let prev=dp[0]; dp[0]=i; for(let j=1;j<=b.length;j++){ const t=dp[j]; dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(a[i-1]===b[j-1]?0:1)); prev=t; } }
+  return 1-dp[b.length]/Math.max(a.length,b.length);
+}
+
+/* ---------- furigana markup: {漢字|かんじ} ---------- */
+const FURI_RE=/\{([^{}|]+)\|([^{}]+)\}/g;
+function kanaOf(t){ return String(t==null?"":t).replace(FURI_RE,"$2"); }
+function baseOf(t){ return String(t==null?"":t).replace(FURI_RE,"$1"); }
+let KNOWN=null;
+function knownKanji(){
+  if(KNOWN) return KNOWN;
+  const k=new Set(); const pl=getPL();
+  Object.keys(pl.parts||{}).forEach(p=>{ const a=pl.parts[p].ans||{}; Object.keys(a).forEach(id=>{ if(a[id].read===true && id.length===1) k.add(id); if(a[id].write===true && id.length===1) k.add(id); }); });
+  const srs=store.get("srs",{}); const byId={}; allCards().forEach(c=>byId[c.id]=c);
+  Object.keys(srs).forEach(id=>{ const s=srs[id]; const c=byId[id]; if(!c || s.st!==2) return;
+    if(c.type==="write" && c.kanji) k.add(c.kanji); else kanjiIn(baseOf(c.de)).forEach(x=>k.add(x)); });
+  KNOWN=k; return k;
+}
+function furiMode(){ return getCfg().furigana||"auto"; }
+function needsRuby(base){ const m=furiMode(); if(m==="all") return true; if(m==="none") return false; const kn=knownKanji(); return kanjiIn(base).some(x=>!kn.has(x)); }
+function furiHTML(s){ // s is already HTML-escaped
+  return s.replace(FURI_RE,(m,b,r)=> needsRuby(b) ? "<ruby>"+b+"<rt>"+r+"</rt></ruby>" : "<span class='fw' data-b='"+b+"'>"+b+"<span class='tip'>"+r+"</span></span>");
+}
+/* tapping a word shown without furigana reveals its reading; every lookup is logged for the report */
+document.addEventListener("click",e=>{
+  const w=e.target.closest && e.target.closest(".fw"); if(!w) return;
+  const on=!w.classList.contains("show"); w.classList.toggle("show",on);
+  if(on){ const log=store.get("lookups",[])||[]; log.push([w.dataset.b,Math.round(Date.now()/1000)]); if(log.length>3000) log.splice(0,log.length-3000); store.set("lookups",log); }
+});
+
+/* ---------- pitch accent: kana + nucleus number (0 heiban, 1 atamadaka, n odaka, else nakadaka) ---------- */
+const SMALL_KANA="ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ";
+function morae(r){ const out=[]; for(const ch of String(r||"")){ if(SMALL_KANA.indexOf(ch)>-1 && out.length) out[out.length-1]+=ch; else out.push(ch); } return out; }
+function pitchKind(n,p){ if(p===0) return "0"; if(p===1) return "1"; if(p===n) return "o"; return "n"; }
+const PITCH_NAMES={"0":"heiban (flat)","1":"atamadaka","n":"nakadaka","o":"odaka"};
+function pitchHTML(r,p){
+  if(p===undefined||p===null||p===""||isNaN(+p)) return "<span>"+esc(r)+"</span>";
+  p=+p; const m=morae(r); const n=m.length; const kind=pitchKind(n,p);
+  let html="<span class='pitch pa-"+kind+"' title='"+PITCH_NAMES[kind]+"'>";
+  m.forEach((x,i)=>{
+    let hi; if(p===0) hi=i>0; else if(p===1) hi=i===0; else hi=i>0 && i<p;
+    const drop = p>0 && i===p-1;
+    html+="<span class='m"+(hi?" hi":"")+(drop?" drop":"")+"'>"+esc(x)+"</span>";
+  });
+  return html+"<span class='pn'>["+p+"]</span></span>";
+}
+
+/* ---------- mini markdown (with furigana) ---------- */
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function inline(s){
+  return furiHTML(esc(s)).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/(^|[^*])\*(?!\s)(.+?)\*(?!\*)/g,"$1<em>$2</em>");
+}
+function md(src){
+  const lines=String(src||"").replace(/\r/g,"").split("\n"); let html="", i=0;
+  while(i<lines.length){
+    const l=lines[i];
+    if(/^\s*\|/.test(l)){
+      const rows=[]; while(i<lines.length && /^\s*\|/.test(lines[i])){ rows.push(lines[i]); i++; }
+      const cells=r=>r.trim().replace(/^\|/,"").replace(/\|$/,"").split(/\|(?![^{]*\})/).map(c=>c.trim());
+      let out="<table>"; let body=rows;
+      if(rows.length>1 && /^\s*\|?\s*:?-{2,}/.test(rows[1])){ out+="<thead><tr>"+cells(rows[0]).map(c=>"<th>"+inline(c)+"</th>").join("")+"</tr></thead>"; body=rows.slice(2); }
+      out+="<tbody>"+body.map(r=>"<tr>"+cells(r).map(c=>"<td>"+inline(c)+"</td>").join("")+"</tr>").join("")+"</tbody></table>";
+      html+=out; continue;
+    }
+    if(/^\s*[-*]\s+/.test(l)){ let out="<ul>"; while(i<lines.length && /^\s*[-*]\s+/.test(lines[i])){ out+="<li>"+inline(lines[i].replace(/^\s*[-*]\s+/,""))+"</li>"; i++; } html+=out+"</ul>"; continue; }
+    if(/^\s*\d+[.)]\s+/.test(l)){ let out="<ol>"; while(i<lines.length && /^\s*\d+[.)]\s+/.test(lines[i])){ out+="<li>"+inline(lines[i].replace(/^\s*\d+[.)]\s+/,""))+"</li>"; i++; } html+=out+"</ol>"; continue; }
+    if(/^#{1,4}\s+/.test(l)){ html+="<h3>"+inline(l.replace(/^#+\s+/,""))+"</h3>"; i++; continue; }
+    if(!l.trim()){ i++; continue; }
+    const para=[]; while(i<lines.length && lines[i].trim() && !/^\s*(\||[-*]\s|\d+[.)]\s|#)/.test(lines[i])){ para.push(lines[i]); i++; }
+    html+="<p>"+para.map(inline).join("<br>")+"</p>";
+  }
+  return '<div class="md">'+html+"</div>";
+}
+
+/* ---------- validation ---------- */
+const KINDS=["multiple_choice","fill_blank","translate","match","order","dictation","kanji_write"];
+const TYPES=["reading","grammar","vocab","exercises","writing","speaking","kanji","placement"];
+function validateWeek(w){
+  if(!w || typeof w!=="object") return "Not a JSON object.";
+  if(!Number.isInteger(w.week)) return "\"week\" must be a whole number.";
+  if(!parseDate(w.startDate)) return "\"startDate\" must look like 2026-11-23.";
+  if(!Array.isArray(w.days) || !w.days.length) return "\"days\" must be a non-empty list.";
+  if(w.cards!==undefined){
+    if(!Array.isArray(w.cards)) return "\"cards\" must be a list.";
+    const cid=new Set();
+    for(const c of w.cards){
+      if(!c || !c.id || !c.en || !c.de) return "Each card needs id, en and de.";
+      if(cid.has(c.id)) return "Duplicate card id \""+c.id+"\".";
+      cid.add(c.id);
+      if(c.type && ["read","write"].indexOf(c.type)<0) return "Card "+c.id+": type must be read or write.";
+      if(c.type==="write" && (!c.kanji || String(c.de).indexOf(c.kanji)<0)) return "Card "+c.id+": a write card needs \"kanji\", and it must appear in \"de\".";
+      if(c.pitch!==undefined && c.pitch!==null && !Number.isInteger(c.pitch)) return "Card "+c.id+": pitch must be a whole number.";
+    }
+  }
+  const ids=new Set();
+  for(const d of w.days){
+    if(!Number.isInteger(d.day) || d.day<1 || d.day>7) return "Each day needs \"day\" from 1 to 7.";
+    if(!Array.isArray(d.sections)) return "Day "+d.day+" has no \"sections\" list.";
+    for(const s of d.sections){
+      if(TYPES.indexOf(s.type)<0) return "Day "+d.day+": unknown section type \""+s.type+"\".";
+      if(s.type==="exercises"){
+        if(!Array.isArray(s.items)) return "Day "+d.day+": exercises need \"items\".";
+        for(const it of s.items){
+          if(!it.id) return "Day "+d.day+": an exercise has no \"id\".";
+          if(ids.has(it.id)) return "Duplicate exercise id \""+it.id+"\".";
+          ids.add(it.id);
+          if(KINDS.indexOf(it.kind)<0) return "Item "+it.id+": unknown kind \""+it.kind+"\".";
+          if(it.kind==="multiple_choice" && (!Array.isArray(it.options) || !Number.isInteger(it.answer))) return "Item "+it.id+": needs options and a numeric answer.";
+          if(it.kind==="fill_blank" && !Array.isArray(it.answers)) return "Item "+it.id+": needs \"answers\".";
+          if(it.kind==="translate" && !it.modelAnswer) return "Item "+it.id+": needs \"modelAnswer\".";
+          if(it.kind==="match" && !Array.isArray(it.pairs)) return "Item "+it.id+": needs \"pairs\".";
+          if(it.kind==="order" && !it.answer) return "Item "+it.id+": needs \"answer\".";
+          if(it.kind==="dictation" && (!it.audio || !Array.isArray(it.answers))) return "Item "+it.id+": needs \"audio\" and \"answers\".";
+          if(it.kind==="kanji_write" && (!it.kanji || !it.de)) return "Item "+it.id+": needs \"kanji\" and \"de\".";
+        }
+      }
+      if(s.type==="kanji" && !Array.isArray(s.items)) return "Day "+d.day+": kanji section needs \"items\".";
+    }
+  }
+  return null;
+}
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+function h(tag, attrs, html){ const e=document.createElement(tag); if(attrs) for(const k in attrs){ if(k==="class") e.className=attrs[k]; else if(k.indexOf("on")===0) e.addEventListener(k.slice(2),attrs[k]); else e.setAttribute(k,attrs[k]); } if(html!=null) e.innerHTML=html; return e; }
+let toastT; function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1800); }
+function shuffle(a,rnd){ rnd=rnd||Math.random; const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+function rng(seed){ let s=seed>>>0||1; return ()=>{ s^=s<<13; s>>>=0; s^=s>>>17; s^=s<<5; s>>>=0; return s/4294967296; }; }
+async function copyText(txt){
+  try{ await navigator.clipboard.writeText(txt); toast("Copied"); return; }catch(e){}
+  const ta=h("textarea"); ta.value=txt; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0,txt.length); let ok=false; try{ ok=document.execCommand("copy"); }catch(e){}
+  ta.remove(); toast(ok?"Copied":"Copy failed — select the text and copy it");
+}
+function currentDayNum(week){ const s=parseDate(week.startDate); const d=daysBetween(s,today())+1; return (d>=1 && d<=7) ? d : null; }
+function kanaInput(attrs){ return h("input",Object.assign({type:"text",lang:"ja",autocapitalize:"off",autocorrect:"off",spellcheck:"false",autocomplete:"off"},attrs||{})); }
+
+/* ---------- audio: recorded VOICEVOX files (audio/<voice>/<key>.mp3), iPhone voice as fallback ---------- */
+const FILE_VOICES={himari:"冥鳴ひまり (female)",takehiro:"玄野武宏 (male)"};   // recorded with tools/make_audio.py
+const VOICE_CREDIT="VOICEVOX:冥鳴ひまり, VOICEVOX:玄野武宏";
+function ttsClean(text){ return String(text==null?"":text).replace(/\*\*/g,"").replace(/^[\s–-]+/gm,"").replace(/…|\.\.\./g," ").replace(/\([^)]*\)|（[^）]*）/g," ").replace(/\s+/g," ").trim(); }
+function audioKey(t){ const b=new TextEncoder().encode(t); let h=0x811C9DC5; for(let i=0;i<b.length;i++){ h=Math.imul((h^b[i])>>>0,0x01000193)>>>0; } return ("00000000"+h.toString(16)).slice(-8)+"-"+b.length; }
+function voiceMode(){ const v=getCfg().voice; const first=Object.keys(FILE_VOICES)[0]; if(!v) return first||"device"; if(FILE_VOICES[v]||v==="device") return v; return first||"device"; }
+function deviceVoiceURI(){ return getCfg().deviceVoice||""; }
+const TTS={
+  cur:null,
+  voices(){ try{ return speechSynthesis.getVoices().filter(v=>/^ja([-_]|$)/i.test(v.lang)); }catch(e){ return []; } },
+  pick(){ const vs=this.voices(); const want=deviceVoiceURI(); return vs.find(v=>v.voiceURI===want) || vs.find(v=>/ja[-_]JP/i.test(v.lang)) || vs[0] || null; },
+  stop(){ try{ if(this.cur){ this.cur.pause(); this.cur=null; } }catch(e){} try{ speechSynthesis.cancel(); }catch(e){} },
+  device(t){
+    try{
+      if(!("speechSynthesis" in window)) return;
+      const u=new SpeechSynthesisUtterance(t); u.lang="ja-JP"; const v=this.pick(); if(v) u.voice=v; u.rate=getCfg().rate||0.9;
+      speechSynthesis.speak(u);
+    }catch(e){}
+  },
+  file(key,fallbackText){
+    this.stop();
+    const mode=voiceMode();
+    if(mode==="device"){ this.device(fallbackText); return; }
+    try{
+      const a=new Audio("audio/"+mode+"/"+key+".mp3"); this.cur=a;
+      try{ a.preservesPitch=true; a.playbackRate=getCfg().rate||1; }catch(e){}
+      let fell=false; const fb=()=>{ if(fell || this.cur!==a) return; fell=true; this.cur=null; this.device(fallbackText); };
+      a.addEventListener("error",fb);
+      const p=a.play(); if(p && p.catch) p.catch(err=>{ if(err && err.name==="NotAllowedError") return; fb(); });
+    }catch(e){ this.device(fallbackText); }
+  },
+  /* a sentence or passage, possibly with {漢字|かな} markup: spoken with the kana readings */
+  say(text){ const t=ttsClean(kanaOf(text)); if(t) this.file(audioKey(t),t); },
+  /* a single word: recorded from its kana reading with the pitch accent set; the iPhone voice reads the kanji form */
+  word(de,reading,pitch){ const r=ttsClean(reading||""); if(!r){ this.say(de); return; } this.file(audioKey("w|"+r+"|"+(pitch===undefined||pitch===null?"":pitch)),ttsClean(baseOf(de))||r); }
+};
+try{ if("speechSynthesis" in window){ speechSynthesis.getVoices(); speechSynthesis.addEventListener("voiceschanged",()=>{}); } }catch(e){}
+function speakBtn(text,label){ return h("button",{class:"spk","aria-label":"Play audio",onclick:(e)=>{ e.stopPropagation(); TTS.say(text); }},label||"🔊"); }
+function wordBtn(de,reading,pitch){ return h("button",{class:"spk","aria-label":"Play audio",onclick:(e)=>{ e.stopPropagation(); TTS.word(de,reading,pitch); }},"🔊"); }
+
+/* ---------- screens ---------- */
+function render(){
+  KNOWN=null;
+  document.querySelectorAll("#tabbar button").forEach(b=>b.classList.toggle("on",b.dataset.tab===S.tab));
+  const app=$("app"); app.innerHTML="";
+  ({today:renderToday,cards:renderCards,week:renderWeek,kanji:renderKanji,report:renderReport,settings:renderSettings})[S.tab](app);
+  window.scrollTo(0,0);
+}
+document.querySelectorAll("#tabbar button").forEach(b=>b.addEventListener("click",()=>{ S.tab=b.dataset.tab; render(); }));
+function offlineNote(app){ if(S.offline) app.appendChild(h("p",{class:"muted small"},"Offline: showing saved lessons.")); }
+
+function renderToday(app){ renderTodayLesson(app); placementBox(app); todayCardsBox(app); backupNag(app); }
+function todayCardsBox(app){
+  const q=queueState(); if(!q.cards.length) return; const k=q.counts; const n=k.newCount+k.learnCount+k.revCount;
+  const c=h("div",{class:"card"},"<h2 style='margin-top:0'>カード</h2><p class='muted'>"+k.newCount+" new ("+k.newRead+" vocab · "+k.newWrite+" kanji) · "+k.learnCount+" learning · "+k.revCount+" to review</p>");
+  c.appendChild(h("button",{class:(n?"primary ":"")+"big",onclick:openStudy},n?"Study cards":"All done for today ✓"));
+  app.appendChild(c);
+}
+function renderTodayLesson(app){
+  app.appendChild(h("h1",null,"今日"));
+  offlineNote(app);
+  const week = S.currentWeek!==null ? getWeek(S.currentWeek) : null;
+  if(!week){
+    app.appendChild(h("div",{class:"card"},"<p><strong>No lesson for today.</strong></p><p class='muted'>No week's dates include today. Ask your tutor to “Generate week N”, or import it in Settings. Past weeks are under 週.</p>"));
+    return;
+  }
+  const d=currentDayNum(week); const day=week.days.find(x=>x.day===d);
+  app.appendChild(h("p",{class:"muted"},"Week "+week.week+" · "+esc(week.theme||"")+" · Day "+d+" · "+fmtDate(today())));
+  if(!day){ app.appendChild(h("div",{class:"card"},"<p>Day "+d+" isn't in this week's file.</p>")); return; }
+  const st=dayStats(week,d); const res=getRes(week.week); const dr=res.days[d];
+  const seen = dr ? dr.visited.length : 0;
+  const card=h("div",{class:"card"});
+  card.innerHTML="<h2 style='margin-top:0'>"+inline(day.title||("Day "+d))+"</h2>"+
+    (day.goals&&day.goals.length?"<ul>"+day.goals.map(g=>"<li>"+inline(g)+"</li>").join("")+"</ul>":"")+
+    "<div class='bar'><div style='width:"+(st.total?Math.round(100*seen/st.total):0)+"%'></div></div>"+
+    "<p class='muted small'>"+seen+" of "+st.total+" sections"+(st.score!==null?" · score "+st.score+"%":"")+(st.status==="done"?" · done ✓":"")+"</p>";
+  card.appendChild(h("button",{class:"primary big",onclick:()=>openPlayer(week,d)}, st.status==="none"?"Start lesson":(st.status==="done"?"Review lesson":"Continue lesson")));
+  app.appendChild(card);
+}
+function weekSelect(app,onChange){
+  const list=knownWeeks(); if(list.length<2) return;
+  const sel=h("select",{"aria-label":"Choose week"});
+  list.forEach(w=>{ const o=h("option",{value:w.week},"Week "+w.week+" ("+w.startDate+")"+(w.week===S.currentWeek?" · current":"")); if(w.week===S.viewWeek) o.selected=true; sel.appendChild(o); });
+  sel.addEventListener("change",async()=>{ S.viewWeek=+sel.value; const e=list.find(w=>w.week===S.viewWeek); await loadWeekFile(e); onChange(); });
+  app.appendChild(sel);
+}
+function renderWeek(app){
+  app.appendChild(h("h1",null,"週"));
+  offlineNote(app);
+  weekSelect(app,render);
+  const week=S.viewWeek!==null?getWeek(S.viewWeek):null;
+  if(!week){ app.appendChild(h("div",{class:"card"},"<p>No week loaded. Import one in Settings.</p>")); return; }
+  app.appendChild(h("p",{class:"muted"},"Week "+week.week+" · "+esc(week.theme||"")+" · "+esc(week.level||"")+" · from "+fmtDate(parseDate(week.startDate))));
+  const todayN = week.week===S.currentWeek ? currentDayNum(week) : null;
+  for(let d=1; d<=7; d++){
+    const day=week.days.find(x=>x.day===d); const st=dayStats(week,d);
+    const date=new Date(parseDate(week.startDate)); date.setDate(date.getDate()+d-1);
+    const label = st.status==="done"?"Done":(st.status==="part"?"Partly done":"Not started");
+    const b=h("button",{class:"day"+(d===todayN?" today":""),onclick:()=>{ if(day) openPlayer(week,d); }},
+      "<span class='dot "+(st.status==="done"?"done":st.status==="part"?"part":"")+"'></span>"+
+      "<span class='grow'><strong>Day "+d+(d===todayN?" · today":"")+"</strong><br><span class='small muted'>"+fmtDate(date)+" · "+(day?inline(day.title||""):"(no lesson)")+"</span></span>"+
+      "<span class='small' style='text-align:right'>"+label+(st.score!==null?"<br><strong>"+st.score+"%</strong>":"")+"</span>");
+    if(!day) b.disabled=true;
+    app.appendChild(b);
+  }
+}
+
+/* ---------- report ---------- */
+function correctText(it){
+  switch(it.kind){
+    case "multiple_choice": return (it.options||[])[it.answer];
+    case "fill_blank": return (it.answers||[]).map(a=>Array.isArray(a)?a[0]:a).join(" / ");
+    case "translate": return it.modelAnswer;
+    case "match": return (it.pairs||[]).map(p=>p[0]+" = "+p[1]).join("; ");
+    case "order": return it.answer;
+    case "dictation": return (it.answers||[])[0];
+    case "kanji_write": return it.de+" ("+it.kanji+")";
+  }
+  return "";
+}
+function weekKeys(week){ const start=parseDate(week.startDate); const ks=new Set(); for(let i=0;i<7;i++){ const d=new Date(start); d.setDate(d.getDate()+i); ks.add(d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())); } return ks; }
+function buildReport(week){
+  const res=getRes(week.week); const lines=[]; let done=0, right=0, total=0; const per=[]; const missed=[]; const overr=[]; const rate={writing:[],speaking:[]}; const notes=[]; const weak=new Set();
+  const itemsById={}; week.days.forEach(d=>d.sections.forEach(s=>{ if(s.type==="exercises") s.items.forEach(it=>itemsById[it.id]={it,day:d.day}); }));
+  for(let d=1; d<=7; d++){
+    const dr=res.days[d]; if(!dr){ per.push("D"+d+" –"); continue; }
+    if(dr.done) done++;
+    const its=Object.values(dr.items); const r=its.filter(i=>i.correct).length; right+=r; total+=its.length;
+    per.push("D"+d+" "+(its.length?Math.round(100*r/its.length)+"%":"–"));
+    its.forEach(rec=>{
+      const ref=itemsById[rec.id]; if(!ref) return; const it=ref.it;
+      if(!rec.correct){
+        missed.push("- [D"+d+" "+it.kind+" "+it.id+"] answered \""+(rec.userAnswer||"")+"\" → correct \""+baseOf(correctText(it))+"\" (topic: "+(it.topic||"–")+")");
+        (it.words||[]).forEach(w=>weak.add(w)); if(it.kind==="kanji_write") weak.add(it.de);
+      }
+      if(rec.overridden) overr.push("- [D"+d+" "+it.id+"] mine: \""+rec.userAnswer+"\" | model: \""+it.modelAnswer+"\"");
+    });
+    Object.values(dr.ratings||{}).forEach(x=>{ if(rate[x.type] && x.value) rate[x.type].push(x.value); });
+    if(dr.notes && dr.notes.trim()) notes.push("D"+d+": "+dr.notes.trim());
+  }
+  const avg=a=>a.length?(Math.round(10*a.reduce((x,y)=>x+y,0)/a.length)/10)+"/3":"–";
+  lines.push("PROGRESS REPORT — Week "+week.week+" ("+week.startDate+")");
+  lines.push("Days completed: "+done+"/7   Overall score: "+(total?Math.round(100*right/total)+"%":"–"));
+  lines.push("Per day: "+per.join(" | "));
+  const mins=[1,2,3,4,5,6,7].map(d=>{ const dr=res.days[d]; return dr&&dr.timeMs?("D"+d+" "+Math.round(dr.timeMs/60000)+"m"):null; }).filter(Boolean);
+  if(mins.length) lines.push("Time: "+mins.join(" | "));
+  lines.push("Missed items:"); lines.push(missed.length?missed.join("\n"):"- none");
+  lines.push("Overridden translations:"); lines.push(overr.length?overr.join("\n"):"- none");
+  const cr=cardReportLines(week); cr.weak.forEach(w=>weak.add(w));
+  lines.push("Weak words (missed ≥1x): "+(weak.size?Array.from(weak).join(", "):"none"));
+  lines.push("Self-ratings: writing "+avg(rate.writing)+", speaking "+avg(rate.speaking));
+  cr.lines.forEach(l=>lines.push(l));
+  const ks=weekKeys(week); const lk={}; (store.get("lookups",[])||[]).forEach(r=>{ if(ks.has(dayKeyOf(r[1]*1000))) lk[r[0]]=(lk[r[0]]||0)+1; });
+  const lkl=Object.keys(lk).sort((a,b)=>lk[b]-lk[a]);
+  lines.push("Reading lookups (tapped for furigana): "+(lkl.length?lkl.map(w=>w+" ×"+lk[w]).join(", "):"none"));
+  lines.push("My notes: "+(notes.length?notes.join(" | "):"–"));
+  return lines.join("\n");
+}
+function renderReport(app){
+  app.appendChild(h("h1",null,"報告"));
+  weekSelect(app,render);
+  const week=S.viewWeek!==null?getWeek(S.viewWeek):null;
+  if(!week){ app.appendChild(h("div",{class:"card"},"<p>No week loaded yet.</p>")); return; }
+  const txt=buildReport(week);
+  app.appendChild(h("button",{class:"primary big",onclick:()=>copyText(txt)},"Copy progress report"));
+  app.appendChild(h("p",{class:"muted small"},"Paste it into the weekly chat after “Progress report:”."));
+  const pre=h("pre",{class:"report"}); pre.textContent=txt; app.appendChild(pre);
+}
+
+/* ---------- settings ---------- */
+function renderSettings(app){
+  app.appendChild(h("h1",null,"設定"));
+  const cf=getCfg();
+  const row=(label,el)=>{ const r=h("label",{class:"setrow"}); r.appendChild(h("span",null,label)); r.appendChild(el); return r; };
+  const sel=(opts,val,on)=>{ const s=h("select"); opts.forEach(([v,l])=>{ const o=h("option",{value:v},l); if(String(val)===String(v)) o.selected=true; s.appendChild(o); }); s.addEventListener("change",()=>{ on(s.value); toast("Saved"); }); return s; };
+  const num=(val,max,on)=>{ const n=h("input",{type:"number",min:"0",max:String(max),inputmode:"numeric"}); n.value=val; n.addEventListener("change",()=>{ const v=Math.max(0,Math.min(max,parseInt(n.value,10)||0)); n.value=v; on(v); toast("Saved"); }); return n; };
+  const c0=h("div",{class:"card"},"<h2 style='margin-top:0'>Flashcards</h2>");
+  c0.appendChild(row("New vocab cards per day",num(cf.newRead,40,v=>setCfg({newRead:v}))));
+  c0.appendChild(row("New kanji (writing) cards per day",num(cf.newWrite,20,v=>setCfg({newWrite:v}))));
+  c0.appendChild(row("Desired retention",sel([[0.85,"85%"],[0.9,"90%"],[0.95,"95%"]],cf.retention,v=>setCfg({retention:+v}))));
+  c0.appendChild(row("Play audio on answer",sel([["1","On"],["0","Off"]],cf.autoplay?"1":"0",v=>setCfg({autoplay:v==="1"}))));
+  app.appendChild(c0);
+  const cw=h("div",{class:"card"},"<h2 style='margin-top:0'>Handwriting</h2>");
+  cw.appendChild(row("Grading",sel([["strict","Strict"],["self","Self-check"]],cf.writeMode,v=>setCfg({writeMode:v}))));
+  cw.appendChild(row("Stroke tolerance",sel([[0.8,"Tight"],[1,"Normal"],[1.3,"Relaxed"]],cf.leniency,v=>setCfg({leniency:+v}))));
+  cw.appendChild(row("Furigana",sel([["auto","Unlearned kanji"],["all","Always"],["none","Never"]],cf.furigana,v=>setCfg({furigana:v}))));
+  cw.appendChild(h("p",{class:"muted small"},"Strict: each stroke is checked for shape, direction and order as you write. Self-check: write freely, then compare with the model and rate yourself."));
+  app.appendChild(cw);
+  const ca=h("div",{class:"card"},"<h2 style='margin-top:0'>Audio</h2>");
+  const vopts=Object.keys(FILE_VOICES).map(k=>[k,FILE_VOICES[k]]).concat([["device","iPhone voice"]]);
+  const vm=sel(vopts,voiceMode(),v=>{ setCfg({voice:v}); dvRow.style.display=v==="device"?"":"none"; });
+  ca.appendChild(row("Voice",vm));
+  const vs=h("select");
+  const fillVoices=()=>{ vs.innerHTML=""; vs.appendChild(h("option",{value:""},"Automatic")); TTS.voices().forEach(v=>{ const o=h("option",{value:v.voiceURI},esc(v.name)+" ("+esc(v.lang)+")"); if(v.voiceURI===deviceVoiceURI()) o.selected=true; vs.appendChild(o); }); };
+  fillVoices(); try{ speechSynthesis.addEventListener("voiceschanged",fillVoices); }catch(e){}
+  vs.addEventListener("change",()=>setCfg({deviceVoice:vs.value}));
+  const dvRow=row("iPhone voice",vs); dvRow.style.display=voiceMode()==="device"?"":"none";
+  ca.appendChild(dvRow);
+  ca.appendChild(row("Speech speed",sel([[0.7,"70%"],[0.8,"80%"],[0.9,"90%"],[1,"Normal"]],cf.rate,v=>setCfg({rate:+v}))));
+  ca.appendChild(h("button",{class:"big",onclick:()=>TTS.say("{日本語|にほんご}を{少|すこ}し{話|はな}します。")},"🔊 Test voice"));
+  ca.appendChild(h("p",{class:"muted small"},(Object.keys(FILE_VOICES).length?"Recorded voices are VOICEVOX audio files"+(VOICE_CREDIT?" ("+esc(VOICE_CREDIT)+")":"")+". If a text has no file yet, the iPhone voice reads it. ":"")+"iPhone web apps can only use iOS's basic built-in voices, not the Enhanced or Premium ones from Settings."));
+  app.appendChild(ca);
+  const cp=h("div",{class:"card"},"<h2 style='margin-top:0'>Placement test</h2><p class='muted small'>Clears your placement answers so you can take it again. Flashcards are not affected.</p>");
+  cp.appendChild(h("button",{class:"big",style:"color:var(--bad)",onclick:()=>{ if(!confirm("Delete all placement answers?")) return; store.del("placement"); PLS=null; KNOWN=null; toast("Placement reset"); render(); }},"Reset placement test"));
+  app.appendChild(cp);
+  const ce=h("div",{class:"card"},"<h2 style='margin-top:0'>Export to Anki</h2><p class='muted small'>Cards only (Anki can't import review history).</p>");
+  const es=h("select"); es.appendChild(h("option",{value:""},"All weeks")); knownWeeks().forEach(w=>es.appendChild(h("option",{value:w.week},"Week "+w.week)));
+  ce.appendChild(es);
+  ce.appendChild(h("button",{class:"big",style:"margin-top:10px",onclick:()=>{ const wk=es.value===""?null:+es.value; saveFile("japanese-app-export"+(wk===null?"":"-w"+pad2(wk))+".txt",ankiExport(wk),"text/plain"); }},"Export Anki file"));
+  app.appendChild(ce);
+  const c1=h("div",{class:"card"},"<h2 style='margin-top:0'>Import a week</h2><p class='muted small'>Paste week JSON or pick a .json file.</p>");
+  const ta=h("textarea",{placeholder:'{ "week": 1, "startDate": "2026-11-23", ... }'});
+  const file=h("input",{type:"file",accept:".json,application/json"}); file.style.margin="8px 0";
+  file.addEventListener("change",()=>{ const f=file.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ ta.value=r.result; }; r.readAsText(f); });
+  const msg=h("p",{class:"small"});
+  c1.appendChild(ta); c1.appendChild(file);
+  c1.appendChild(h("button",{class:"primary big",onclick:()=>{
+    let w; try{ w=JSON.parse(ta.value); }catch(e){ msg.className="small bad"; msg.textContent="Invalid JSON: "+e.message; return; }
+    const err=validateWeek(w); if(err){ msg.className="small bad"; msg.textContent=err; return; }
+    store.set("week_"+pad2(w.week),w); S.weeks[w.week]=w;
+    const imp=(store.get("imported",[])||[]).filter(x=>x.week!==w.week); imp.push({week:w.week,startDate:w.startDate}); store.set("imported",imp);
+    S.currentWeek=findCurrent(knownWeeks()); if(S.viewWeek===null||S.viewWeek===w.week||S.currentWeek===w.week) S.viewWeek=w.week;
+    msg.className="small ok"; msg.textContent="Saved week "+w.week+" ("+w.startDate+")."; ta.value="";
+  }},"Save week"));
+  c1.appendChild(msg); app.appendChild(c1);
+  const c2=h("div",{class:"card"},"<h2 style='margin-top:0'>Backup</h2><p class='muted small'>Your answers, placement and flashcard history live only on this phone. Save a backup file every week (Files or iCloud Drive).</p>");
+  c2.appendChild(h("button",{class:"primary big",style:"margin-bottom:10px",onclick:saveBackupFile},"Save backup file"));
+  c2.appendChild(h("button",{class:"big",onclick:()=>copyText(backupJSON())},"Copy backup to clipboard"));
+  const tb=h("textarea",{placeholder:"Paste a backup here, or pick a backup file below, to restore it"}); tb.style.marginTop="12px";
+  const bf=h("input",{type:"file",accept:".json,application/json"}); bf.style.margin="8px 0";
+  bf.addEventListener("change",()=>{ const f=bf.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ tb.value=r.result; }; r.readAsText(f); });
+  const m2=h("p",{class:"small"});
+  c2.appendChild(tb); c2.appendChild(bf);
+  c2.appendChild(h("button",{class:"big",onclick:()=>{
+    let b; try{ b=JSON.parse(tb.value); }catch(e){ m2.className="small bad"; m2.textContent="Invalid JSON."; return; }
+    if(!b||b.app!=="nihongo"||!b.data||typeof b.data!=="object"){ m2.className="small bad"; m2.textContent="That isn't a backup from this app."; return; }
+    if(!confirm("Restore this backup? It overwrites matching data on this phone.")) return;
+    let n=0; Object.keys(b.data).forEach(k=>{ if(k.indexOf(PFX)===0){ try{ localStorage.setItem(k,JSON.stringify(b.data[k])); n++; }catch(e){} } });
+    S.weeks={}; PLS=null; KNOWN=null; m2.className="small ok"; m2.textContent="Restored "+n+" items."; tb.value="";
+    S.currentWeek=findCurrent(knownWeeks()); S.viewWeek=S.currentWeek!==null?S.currentWeek:S.viewWeek;
+  }},"Restore backup"));
+  c2.appendChild(m2); app.appendChild(c2);
+  const c3=h("div",{class:"card"},"<h2 style='margin-top:0'>Reset a week</h2><p class='muted small'>Deletes your answers for that week. The lessons stay.</p>");
+  const ws=h("select"); knownWeeks().forEach(w=>ws.appendChild(h("option",{value:w.week},"Week "+w.week+" ("+w.startDate+")")));
+  c3.appendChild(ws);
+  c3.appendChild(h("button",{class:"big",style:"margin-top:10px;color:var(--bad)",onclick:()=>{
+    if(!ws.value) return; if(!confirm("Delete all answers for week "+ws.value+"?")) return;
+    store.del(resKey(+ws.value)); toast("Week "+ws.value+" reset");
+  }},"Reset week"));
+  app.appendChild(c3);
+  app.appendChild(h("div",{class:"card small muted"},"<h3 style='margin-top:0'>Credits</h3>"+
+    "Stroke data: <a href='https://kanjivg.tagaini.net' target='_blank' rel='noopener'>KanjiVG</a> (CC BY-SA 3.0, Ulrich Apel). "+
+    "Kanji data: KANJIDIC2 (EDRDG, CC BY-SA 4.0) via davidluzgouveia/kanji-data (MIT). "+
+    "Pitch accents: <a href='https://github.com/mifunetoshiro/kanjium' target='_blank' rel='noopener'>Kanjium</a> (CC BY-SA 4.0). "+
+    "JLPT vocabulary lists: Jonathan Waller's JLPT resources (CC BY) via jamsinclair/open-anki-jlpt-decks (MIT). "+
+    "Scheduler: ts-fsrs (MIT)."+(VOICE_CREDIT?" Audio: "+esc(VOICE_CREDIT)+".":"")));
+}
+
+/* ---------- player ---------- */
+const P={ week:null, d:0, i:0, res:null, dr:null, t0:0 };
+function openPlayer(week,d){
+  P.week=week; P.d=d; P.res=getRes(week.week); P.dr=dayRes(P.res,d);
+  const day=week.days.find(x=>x.day===d);
+  P.day=day; P.i = P.dr.done ? 0 : Math.min(P.dr.last||0, day.sections.length);
+  P.t0=Date.now();
+  $("player").classList.add("open"); document.body.style.overflow="hidden";
+  showSection();
+}
+function stopTimer(){ if(P.t0){ P.dr.timeMs=(P.dr.timeMs||0)+(Date.now()-P.t0); P.t0=0; persist(); } }
+function persist(){ P.res.days[P.d]=P.dr; saveRes(P.week.week,P.res); }
+function closePlayer(){ stopTimer(); TTS.stop(); $("player").classList.remove("open"); document.body.style.overflow=""; render(); }
+document.addEventListener("visibilitychange",()=>{ if(!$("player").classList.contains("open")) return; if(document.hidden) stopTimer(); else P.t0=Date.now(); });
+$("pClose").addEventListener("click",closePlayer);
+$("pBack").addEventListener("click",()=>{ if(P.i>0){ P.i--; showSection(); } });
+$("pNext").addEventListener("click",()=>{
+  const n=P.day.sections.length;
+  if(P.i<n){ P.i++; showSection(); }
+  else { P.dr.done=true; persist(); closePlayer(); toast("Day "+P.d+" done"); }
+});
+function showSection(){
+  TTS.stop();
+  const n=P.day.sections.length; const body=$("pBody"); body.innerHTML=""; body.scrollTop=0;
+  $("pTitle").innerHTML="Day "+P.d+" · "+inline(P.day.title||"");
+  if(P.i<n && P.dr.visited.indexOf(P.i)<0) P.dr.visited.push(P.i);
+  P.dr.last=P.i; persist();
+  $("pBar").style.width=Math.round(100*Math.min(P.dr.visited.length,n)/n)+"%";
+  $("pCount").textContent = P.i<n ? (P.i+1)+"/"+n : "End";
+  $("pBack").disabled = P.i===0;
+  $("pNext").textContent = P.i<n ? "Next ›" : "Finish ✓";
+  if(P.i>=n){ renderFinish(body); return; }
+  const s=P.day.sections[P.i];
+  ({reading:renderReading,grammar:renderGrammar,vocab:renderVocab,exercises:renderExercises,writing:renderWriting,speaking:renderWriting,kanji:renderKanjiSection,placement:renderPlacementSection})[s.type](body,s,P.i);
+}
+function renderReading(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"読む")));
+  body.appendChild(h("div",{class:"card jp"},md(s.text)));
+  body.appendChild(h("p",{class:"muted small"},"Words without furigana: tap to see the reading."));
+  body.appendChild(h("button",{class:"big",style:"margin-bottom:10px",onclick:()=>TTS.say(s.text)},"🔊 Read aloud"));
+  if(s.translation){
+    const tr=h("div",{class:"card muted"},md(s.translation)); tr.style.display="none";
+    const b=h("button",{class:"big",onclick:()=>{ const on=tr.style.display==="none"; tr.style.display=on?"block":"none"; b.textContent=on?"Hide translation":"Show translation"; }},"Show translation");
+    body.appendChild(b); body.appendChild(tr);
+  }
+}
+function renderGrammar(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"文法")));
+  body.appendChild(h("div",{class:"card"},md(s.explanation)));
+  if(s.examples&&s.examples.length){ const c=h("div",{class:"card jp"}); const ul=h("ul"); s.examples.forEach(e=>{ const li=h("li",null,inline(e)+" "); li.appendChild(speakBtn(e)); ul.appendChild(li); }); c.appendChild(ul); body.appendChild(c); }
+}
+function renderVocab(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"新しい言葉")));
+  body.appendChild(h("p",{class:"muted small"},"Tap a card to flip it."));
+  (s.words||[]).forEach(w=>{
+    let back=false;
+    const b=h("button",{class:"flip"});
+    const draw=()=>{ b.classList.toggle("back",back); b.innerHTML = back ? (w.reading?"<span style='font-size:21px'>"+pitchHTML(w.reading,w.pitch)+"</span><br>":"")+esc(w.en)+(w.example?"<span class='ex jp'>"+inline(w.example)+"</span>":"") : esc(baseOf(w.de)); };
+    b.addEventListener("click",(e)=>{ if(e.target.closest(".fw")) return; back=!back; draw(); }); draw();
+    const row=h("div",{class:"vrow"}); row.appendChild(b); row.appendChild(wordBtn(w.de,w.reading,w.pitch)); body.appendChild(row);
+  });
+}
+function renderKanjiSection(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"新しい漢字")));
+  body.appendChild(h("p",{class:"muted small"},"Watch the stroke order, read the mnemonic, then practice. Practice here isn't graded."));
+  (s.items||[]).forEach(it=>{
+    const c=h("div",{class:"card"}); body.appendChild(c);
+    const top=h("div",{class:"row",style:"flex-wrap:nowrap;align-items:flex-start"});
+    const mv=h("div",{style:"flex:0 0 120px"}); top.appendChild(mv);
+    const info=h("div",{style:"flex:1"});
+    const kd=(S.kdb||{})[it.kanji]||{};
+    info.innerHTML="<div style='font-size:22px'>"+esc(it.de||it.kanji)+"</div><div>"+pitchHTML(it.reading||"",it.pitch)+"</div><div class='muted'>"+esc(it.en||"")+"</div>"+
+      "<div class='small'>"+compsHTML(it.components||kd.c||[])+"</div>"+(it.mnemonic?"<div class='small' style='margin-top:4px'>💡 "+inline(it.mnemonic)+"</div>":"");
+    if(it.reading) info.appendChild(wordBtn(it.de||it.kanji,it.reading,it.pitch));
+    top.appendChild(info); c.appendChild(top);
+    modelSVG(mv,it.kanji,true);
+    const pb=h("div"); c.appendChild(pb);
+    c.appendChild(h("button",{class:"small-btn",style:"margin-top:8px",onclick:()=>{ pb.innerHTML=""; makePad(pb,{kanji:it.kanji,mode:"strict",practice:true,onDone:()=>{}}); }},"✍︎ Practice"));
+  });
+}
+function compsHTML(list){ if(!list||!list.length) return ""; const names={}; (S.comps||[]).forEach(x=>names[x.c]=x.n); return "Parts: "+list.map(c=>esc(c)+(names[c]?" <span class='muted'>("+esc(names[c])+")</span>":"")).join(" + "); }
+function renderPlacementSection(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"Placement test")));
+  if(s.text) body.appendChild(h("div",{class:"card"},md(s.text)));
+  const part=s.part; const st=placementPartState(part);
+  const c=h("div",{class:"card"},"<p><strong>Part "+part+": "+esc(PL_PARTS[part].name)+"</strong><br><span class='muted small'>"+st.done+" of "+st.total+" answered</span></p>");
+  c.appendChild(h("button",{class:"primary big",onclick:()=>openPlacement(part,()=>showSection())},st.done===0?"Start part "+part:(st.done>=st.total?"Review part "+part:"Continue part "+part)));
+  body.appendChild(c);
+}
+function record(it,correct,userAnswer,overridden){
+  P.dr.items[it.id]={id:it.id,correct:!!correct,userAnswer:String(userAnswer==null?"":userAnswer),overridden:!!overridden,timestamp:new Date().toISOString(),topic:it.topic||"",kind:it.kind};
+  persist();
+}
+function fbBox(ok,text){ return h("div",{class:"fb "+(ok?"ok":"bad")},(ok?"<strong>正解。</strong> ":"<strong>惜しい。</strong> ")+(text||"")); }
+function kanjiWarn(){ return h("div",{class:"fb warn"},"Type the reading in <strong>kana</strong>, not kanji — the point is to recall it yourself."); }
+function renderExercises(body,s){
+  body.appendChild(h("h2",null,inline(s.title||"練習")));
+  const card=h("div",{class:"card"}); body.appendChild(card);
+  s.items.forEach((it,k)=>{
+    const box=h("div",{class:"item"}); card.appendChild(box);
+    box.appendChild(h("div",{class:"muted small"},(k+1)+" · "+esc(it.topic||"")));
+    ({multiple_choice:exMC,fill_blank:exFill,translate:exTrans,match:exMatch,order:exOrder,dictation:exDict,kanji_write:exKanji})[it.kind](box,it,P.dr.items[it.id]);
+  });
+}
+function explain(it){ return it.explanation?inline(it.explanation):""; }
+function exMC(box,it,prev){
+  box.appendChild(h("div",{class:"prompt jp"},inline(it.prompt)));
+  const btns=[]; const fbw=h("div");
+  const finish=(pick,ok)=>{
+    btns.forEach((b,j)=>{ b.disabled=true; if(j===it.answer) b.classList.add("sel-ok"); else if(j===pick) b.classList.add("sel-bad"); });
+    fbw.innerHTML=""; fbw.appendChild(fbBox(ok, ok?explain(it):"Answer: <strong>"+inline(it.options[it.answer])+"</strong>. "+explain(it)));
+  };
+  it.options.forEach((o,j)=>{ const b=h("button",{class:"opt jp",onclick:()=>{ const ok=j===it.answer; record(it,ok,baseOf(o),false); finish(j,ok); }},inline(o)); btns.push(b); box.appendChild(b); });
+  box.appendChild(fbw);
+  if(prev){ const j=it.options.map(baseOf).indexOf(prev.userAnswer); finish(j,prev.correct); }
+}
+function exFill(box,it,prev){
+  const parts=String(it.prompt).split("___"); const p=h("div",{class:"prompt jp"}); const inputs=[];
+  parts.forEach((t,j)=>{ p.appendChild(h("span",null,inline(t))); if(j<parts.length-1){ const inp=kanaInput({class:"blank","aria-label":"Blank "+(j+1)}); inputs.push(inp); p.appendChild(inp); } });
+  box.appendChild(p);
+  const btn=h("button",{class:"primary"},"Check"); const fbw=h("div"); box.appendChild(btn); box.appendChild(fbw);
+  const answers=(it.answers||[]).map(a=>Array.isArray(a)?a:[a]);
+  const show=(vals,ok)=>{
+    inputs.forEach((inp,j)=>{ inp.value=vals[j]||""; inp.disabled=true; }); btn.disabled=true;
+    fbw.innerHTML=""; fbw.appendChild(fbBox(ok, ok?explain(it):"Answer: <strong>"+inline(answers.map(a=>a[0]).join(" / "))+"</strong>. "+explain(it)));
+  };
+  btn.addEventListener("click",()=>{
+    const vals=inputs.map(i=>i.value); if(vals.every(v=>!v.trim())) return;
+    let ok=true, kj=false;
+    vals.forEach((v,j)=>{ const r=checkAnswer(v,answers[j]||[],!!it.strictCase); if(!r.ok) ok=false; if(r.kanji) kj=true; });
+    if(kj){ fbw.innerHTML=""; fbw.appendChild(kanjiWarn()); return; }
+    record(it,ok,vals.join(" | "),false); show(vals,ok);
+  });
+  if(prev) show(String(prev.userAnswer).split(" | "),prev.correct);
+}
+function exTrans(box,it,prev){
+  const toJa=it.direction!=="ja-en";
+  box.appendChild(h("div",{class:"prompt"},(toJa?"EN→日本語 ":"日本語→EN ")+"<span class='jp'>"+inline(it.prompt)+"</span>"));
+  const ta=h("textarea",{lang:toJa?"ja":"en",autocapitalize:"sentences",autocorrect:"off",spellcheck:"false",rows:"2",placeholder:toJa?"Type in kana":""}); ta.style.minHeight="64px";
+  const btn=h("button",{class:"primary",style:"margin-top:8px"},"Check"); const fbw=h("div");
+  box.appendChild(ta); box.appendChild(btn); box.appendChild(fbw);
+  const accepted=(it.acceptable||[]).concat([it.modelAnswer]);
+  const lock=()=>{ ta.disabled=true; btn.disabled=true; };
+  const final=(ok,override)=>{ fbw.innerHTML=""; fbw.appendChild(fbBox(ok,(override?"Counted as right (your call). ":"")+"Model: <strong class='jp'>"+inline(it.modelAnswer)+"</strong>")); };
+  btn.addEventListener("click",()=>{
+    const v=ta.value; if(!v.trim()) return;
+    const r=checkAnswer(v,accepted,false);
+    if(r.kanji && toJa){ fbw.innerHTML=""; fbw.appendChild(kanjiWarn()); return; }
+    lock();
+    if(r.ok){ record(it,true,v,false); final(true,false); return; }
+    fbw.innerHTML="";
+    const f=h("div",{class:"fb bad"},"<strong>No exact match.</strong> Model answer: <strong class='jp'>"+inline(it.modelAnswer)+"</strong>"+(it.explanation?"<br>"+explain(it):""));
+    const row=h("div",{class:"row",style:"margin-top:10px"});
+    row.appendChild(h("button",{onclick:()=>{ record(it,false,v,false); final(false,false); }},"I was wrong"));
+    row.appendChild(h("button",{class:"primary",onclick:()=>{ record(it,true,v,true); final(true,true); }},"Count it as right"));
+    f.appendChild(row); fbw.appendChild(f);
+  });
+  if(prev){ ta.value=prev.userAnswer; lock(); final(prev.correct,prev.overridden); }
+}
+function exMatch(box,it,prev){
+  box.appendChild(h("div",{class:"prompt"},inline(it.prompt||"Match the pairs.")));
+  const pairs=it.pairs||[]; const grid=h("div",{class:"match"}); box.appendChild(grid);
+  const fbw=h("div"); box.appendChild(fbw);
+  const left=pairs.map((p,j)=>({t:p[0],j})); const right=shuffle(pairs.map((p,j)=>({t:p[1],j})));
+  const lb=[], rb=[]; let pick=null, matched=0; const mistakes=[];
+  const finish=(ok,ua)=>{ fbw.innerHTML=""; fbw.appendChild(fbBox(ok, ok?explain(it):"Mistakes: "+esc(ua)+". "+explain(it))); };
+  for(let r=0;r<pairs.length;r++){
+    const L=h("button",{class:"jp"},inline(left[r].t)); const R=h("button",null,inline(right[r].t));
+    L.dataset.j=left[r].j; R.dataset.j=right[r].j; lb.push(L); rb.push(R); grid.appendChild(L); grid.appendChild(R);
+    L.addEventListener("click",()=>{ if(L.disabled) return; lb.forEach(b=>b.classList.remove("picked")); L.classList.add("picked"); pick=L; });
+    R.addEventListener("click",()=>{
+      if(R.disabled||!pick) return;
+      if(pick.dataset.j===R.dataset.j){ [pick,R].forEach(b=>{ b.classList.remove("picked"); b.classList.add("done"); b.disabled=true; }); pick=null; matched++;
+        if(matched===pairs.length){ const ok=mistakes.length===0; const ua=ok?"all pairs":mistakes.join("; "); record(it,ok,ua,false); finish(ok,ua); } }
+      else { mistakes.push(pick.textContent+" ≠ "+R.textContent); const p=pick; [p,R].forEach(b=>b.classList.add("flash")); setTimeout(()=>[p,R].forEach(b=>b.classList.remove("flash")),450); }
+    });
+  }
+  if(prev){ lb.concat(rb).forEach(b=>{ b.disabled=true; b.classList.add("done"); }); finish(prev.correct,prev.userAnswer); }
+}
+function exOrder(box,it,prev){
+  box.appendChild(h("div",{class:"prompt"},inline(it.prompt||"Put the words in order.")));
+  const words = Array.isArray(it.words)&&it.words.length ? it.words.slice() : String(it.answer).replace(/[.!?。！？]+$/,"").split(/\s+/);
+  let pool=shuffle(words.map((t,k)=>({t,k}))); if(pool.length>1 && pool.every((p,k)=>p.k===k)) pool.reverse();
+  const built=[]; const bz=h("div",{class:"tokens built"}); const pz=h("div",{class:"tokens"});
+  const btn=h("button",{class:"primary"},"Check"); const fbw=h("div");
+  box.appendChild(bz); box.appendChild(pz); box.appendChild(btn); box.appendChild(fbw);
+  let locked=false;
+  const draw=()=>{
+    bz.innerHTML=""; pz.innerHTML="";
+    built.forEach((w,idx)=>bz.appendChild(h("button",{class:"jp",onclick:()=>{ if(locked) return; pool.push(built.splice(idx,1)[0]); draw(); }},inline(w.t))));
+    pool.forEach((w,idx)=>pz.appendChild(h("button",{class:"jp",onclick:()=>{ if(locked) return; built.push(pool.splice(idx,1)[0]); draw(); }},inline(w.t))));
+    btn.disabled = locked || pool.length>0;
+  };
+  const sq=s=>baseOf(s).replace(/\s+/g,"");
+  const finish=(ok)=>{ locked=true; btn.disabled=true; fbw.innerHTML=""; fbw.appendChild(fbBox(ok,(ok?"":"Answer: <strong class='jp'>"+inline(it.answer)+"</strong>. ")+explain(it))); };
+  btn.addEventListener("click",()=>{ const ua=built.map(w=>w.t).join(" "); const ok=norm(sq(ua),true)===norm(sq(it.answer),true); record(it,ok,baseOf(ua),false); finish(ok); });
+  if(prev){ pool=[]; String(prev.userAnswer).split(" ").forEach(t=>built.push({t})); locked=true; draw(); finish(prev.correct); }
+  else draw();
+}
+/* dictation: listen, type what you hear in kana; optionally handwrite one word's kanji afterwards */
+function exDict(box,it,prev){
+  box.appendChild(h("div",{class:"prompt"},inline(it.prompt||"Listen and type what you hear (kana).")));
+  const pr=h("div",{class:"row"}); pr.appendChild(h("button",{onclick:()=>TTS.say(it.audio)},"🔊 Play")); pr.appendChild(h("button",{onclick:()=>{ const r=getCfg().rate; setCfg({rate:0.7}); TTS.say(it.audio); setCfg({rate:r}); }},"🐢 Slow"));
+  box.appendChild(pr);
+  const inp=kanaInput({style:"margin-top:8px"}); const btn=h("button",{class:"primary",style:"margin-top:8px"},"Check"); const fbw=h("div"); const wz=h("div");
+  box.appendChild(inp); box.appendChild(btn); box.appendChild(fbw); box.appendChild(wz);
+  const show=(v,ok,sim)=>{
+    inp.value=v; inp.disabled=true; btn.disabled=true; fbw.innerHTML="";
+    fbw.appendChild(fbBox(ok,(ok?"":"Match "+Math.round(100*sim)+"%. ")+"<span class='jp'>"+inline(it.audio)+"</span>"+(it.en?"<br><span class='muted'>"+esc(it.en)+"</span>":"")+(it.explanation?"<br>"+explain(it):"")));
+    if(it.write && it.write.kanji && !wz.childElementCount){
+      wz.appendChild(h("p",{class:"small",style:"margin-top:12px"},"Now write <strong>"+esc(it.write.reading||"")+"</strong> ("+esc(it.write.en||"")+") in kanji:"));
+      wz.appendChild(blankWord(it.write.de,it.write.kanji));
+      makePad(wz,{kanji:it.write.kanji,onDone:(r)=>{ logWrite("dict:"+it.id,it.write.kanji,r); }});
+    }
+  };
+  btn.addEventListener("click",()=>{
+    const v=inp.value; if(!v.trim()) return;
+    if(hasKanji(v)){ fbw.innerHTML=""; fbw.appendChild(kanjiWarn()); return; }
+    const u=jnorm(v); let best=0; (it.answers||[]).forEach(a=>{ best=Math.max(best,similarity(u,jnorm(a))); });
+    const ok=best===1; record(it,ok,v,false); show(v,ok,best);
+  });
+  if(prev){ const u=jnorm(prev.userAnswer); let best=0; (it.answers||[]).forEach(a=>{ best=Math.max(best,similarity(u,jnorm(a))); }); show(prev.userAnswer,prev.correct,best); }
+}
+function blankWord(de,kanji){ const w=baseOf(de); let html=""; for(const ch of w) html+= ch===kanji?"<span class='bk'>"+esc(ch)+"</span>":esc(ch); return h("div",{class:"blankword",style:"text-align:center"},html); }
+function exKanji(box,it,prev){
+  box.appendChild(h("div",{class:"prompt"},inline(it.prompt||"Write the kanji.")));
+  box.appendChild(h("div",{style:"text-align:center"},pitchHTML(it.reading||"",it.pitch)+" · <span class='muted'>"+esc(it.en||"")+"</span>"));
+  box.appendChild(blankWord(it.de,it.kanji));
+  const fbw=h("div");
+  if(prev){ box.appendChild(fbBox(prev.correct,"Model:")); const mv=h("div"); box.appendChild(mv); modelSVG(mv,it.kanji,false);
+    box.appendChild(h("button",{class:"small-btn",onclick:(e)=>{ e.target.remove(); makePad(box,{kanji:it.kanji,practice:true,onDone:()=>{}}); }},"Write it again (practice)")); return; }
+  makePad(box,{kanji:it.kanji,onDone:(r)=>{
+    const ok = r.self ? r.selfOk : (!r.gaveUp && r.hints===0 && r.mistakes<=1);
+    record(it,ok,r.self?(r.selfOk?"self: correct":"self: wrong"):("mistakes "+r.mistakes+", hints "+r.hints+(r.gaveUp?", gave up":"")),false);
+    logWrite("ex:"+it.id,it.kanji,r);
+    fbw.innerHTML=""; fbw.appendChild(fbBox(ok,explain(it)));
+  }});
+  box.appendChild(fbw);
+}
+function renderWriting(body,s,idx){
+  const isSpeak=s.type==="speaking";
+  body.appendChild(h("h2",null,isSpeak?"話す":"書く"));
+  body.appendChild(h("div",{class:"card jp"},md(s.prompt)));
+  const key="s"+idx; const prev=(P.dr.ratings||{})[key]||{};
+  const ta=h("textarea",{lang:"ja",placeholder:isSpeak?"Optional: write what you said":"Write your answer here",autocapitalize:"sentences",spellcheck:"false"});
+  ta.value=prev.text||""; ta.addEventListener("input",()=>{ P.dr.ratings[key]=Object.assign({},P.dr.ratings[key]||{type:s.type},{type:s.type,text:ta.value}); persist(); });
+  body.appendChild(ta);
+  if(!isSpeak) body.appendChild(h("p",{class:"muted small"},"Better still: write it by hand on paper first, then type it here so your tutor can correct it."));
+  const model=h("div",{class:"card jp"},md(s.modelAnswer||"(no model answer)")); model.style.display="none";
+  const rate=h("div",{class:"card"},"<p style='margin-top:0'><strong>How did it go?</strong></p>"); rate.style.display="none";
+  const row=h("div",{class:"row rate"}); const labels=["1 · struggled","2 · okay","3 · solid"];
+  labels.forEach((l,j)=>{ const b=h("button",{onclick:()=>{ P.dr.ratings[key]={type:s.type,value:j+1,text:ta.value}; persist(); row.querySelectorAll("button").forEach((x,q)=>x.classList.toggle("on",q===j)); }},l); if(prev.value===j+1) b.classList.add("on"); row.appendChild(b); });
+  rate.appendChild(row);
+  const showBtn=h("button",{class:"big",style:"margin-top:10px",onclick:()=>{ model.style.display="block"; rate.style.display="block"; showBtn.style.display="none"; }},"Show model answer");
+  body.appendChild(showBtn); body.appendChild(model); body.appendChild(rate);
+  if(prev.value){ showBtn.click(); }
+}
+function renderFinish(body){
+  const st=dayStats(P.week,P.d);
+  body.appendChild(h("h2",null,"お疲れさまでした"));
+  body.appendChild(h("p",null,st.answered?"Score today: <strong>"+st.score+"%</strong> ("+st.answered+" exercises)":"No exercises answered today."));
+  body.appendChild(h("p",{class:"muted small"},"Then do today's cards."));
+  const ta=h("textarea",{placeholder:"Notes for my tutor (optional)"}); ta.value=P.dr.notes||"";
+  ta.addEventListener("input",()=>{ P.dr.notes=ta.value; persist(); });
+  body.appendChild(h("h3",null,"Notes for my tutor")); body.appendChild(ta);
+}
+
+/* ================= HANDWRITING (KanjiVG strokes; strict stroke-by-stroke or self-check) ================= */
+const STROKES={};
+function strokeURL(k){ return "strokes/"+k.codePointAt(0).toString(16).padStart(5,"0")+".json"; }
+async function loadStrokes(k){
+  if(STROKES[k]) return STROKES[k];
+  const url=strokeURL(k); let data=null;
+  try{ const r=await fetch(url); if(r.ok){ data=await r.json(); try{ const c=await caches.open("nh-strokes-v1"); await c.put(url,new Response(JSON.stringify(data),{headers:{"Content-Type":"application/json"}})); }catch(e){} } }catch(e){}
+  if(!data){ try{ const c=await caches.open("nh-strokes-v1"); const m=await c.match(url); if(m) data=await m.json(); }catch(e){} }
+  if(data) STROKES[k]=data;
+  return data;
+}
+/* keep stroke data for every writing card on the phone, so writing works offline */
+async function prefetchCardStrokes(){
+  const want=new Set(); allCards().forEach(c=>{ if(c.type==="write" && c.kanji) want.add(c.kanji); });
+  let have=new Set(); try{ const c=await caches.open("nh-strokes-v1"); (await c.keys()).forEach(r=>{ const m=/strokes\/([0-9a-f]+)\.json/.exec(r.url); if(m) have.add(String.fromCodePoint(parseInt(m[1],16))); }); }catch(e){ return; }
+  for(const k of want){ if(!have.has(k)) await loadStrokes(k); }
+}
+const SVGNS="http://www.w3.org/2000/svg";
+function svgEl(tag,attrs){ const e=document.createElementNS(SVGNS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); return e; }
+function gridLines(svg){ const g=svgEl("g",{class:"gl"}); [["54.5","0","54.5","109"],["0","54.5","109","54.5"]].forEach(a=>g.appendChild(svgEl("line",{x1:a[0],y1:a[1],x2:a[2],y2:a[3]}))); svg.appendChild(g); }
+function animatePaths(paths,msEach){
+  msEach=msEach||420; let t=0;
+  paths.forEach(p=>{ let L=60; try{ L=p.getTotalLength(); }catch(e){}
+    p.style.transition="none"; p.style.strokeDasharray=L+" "+L; p.style.strokeDashoffset=L;
+    setTimeout(()=>{ p.style.transition="stroke-dashoffset "+(msEach/1000)+"s linear"; p.style.strokeDashoffset="0"; },t+30); t+=msEach+80; });
+  return t;
+}
+/* small model of a kanji with stroke-order animation (tap to replay) */
+async function modelSVG(host,k,animate){
+  const svg=svgEl("svg",{viewBox:"0 0 109 109",class:"model"}); host.appendChild(svg);
+  const d=await loadStrokes(k);
+  if(!d){ svg.replaceWith(h("div",{class:"kbig"},esc(k))); return; }
+  const paths=d.s.map(s=>{ const p=svgEl("path",{d:s.d}); svg.appendChild(p); return p; });
+  if(animate) animatePaths(paths);
+  svg.addEventListener("click",()=>animatePaths(paths));
+  return svg;
+}
+function resample(pts,n){
+  if(pts.length===1) pts=[pts[0],[pts[0][0]+0.01,pts[0][1]+0.01]];
+  const d=[0]; for(let i=1;i<pts.length;i++) d.push(d[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
+  const L=d[d.length-1]||1e-6; const out=[]; let j=0;
+  for(let i=0;i<n;i++){ const t=L*i/(n-1); while(j<d.length-2 && d[j+1]<t) j++; const seg=(d[j+1]-d[j])||1e-6; const f=Math.min(1,Math.max(0,(t-d[j])/seg));
+    out.push([pts[j][0]+(pts[j+1][0]-pts[j][0])*f, pts[j][1]+(pts[j+1][1]-pts[j][1])*f]); }
+  return out;
+}
+function arcLen(p){ let L=0; for(let i=1;i<p.length;i++) L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]); return L; }
+function strokeScore(U,st){
+  const E=st.p, n=E.length; let a=0, r=0;
+  for(let i=0;i<n;i++){ a+=Math.hypot(U[i][0]-E[i][0],U[i][1]-E[i][1]); r+=Math.hypot(U[i][0]-E[n-1-i][0],U[i][1]-E[n-1-i][1]); }
+  return {avg:a/n, rev:r/n, d0:Math.hypot(U[0][0]-E[0][0],U[0][1]-E[0][1]), d1:Math.hypot(U[n-1][0]-E[n-1][0],U[n-1][1]-E[n-1][1])};
+}
+function strokeMatches(raw,st,L){
+  const U=resample(raw,st.p.length); const sc=strokeScore(U,st); const lu=arcLen(raw); const short=st.l<14;
+  if(short) return {ok: sc.avg<17*L && lu<Math.max(32,st.l*3.2), sc};
+  return {ok: sc.avg<13.5*L && sc.d0<21*L && sc.d1<21*L && lu>st.l*0.35 && lu<st.l*2.3, sc};
+}
+/* makePad(host,{kanji, mode:"strict"|"self", practice, onDone(result)})
+   result: {mistakes, hints, gaveUp, n, self, selfOk, ms} */
+function makePad(host,opt){
+  const mode=opt.mode||getCfg().writeMode||"strict"; const L=getCfg().leniency||1;
+  const S0=Math.min(320,Math.max(220,(window.innerWidth||360)-56));
+  const wrap=h("div",{class:"pad"}); wrap.style.width=wrap.style.height=S0+"px";
+  const svg=svgEl("svg",{viewBox:"0 0 109 109"}); gridLines(svg);
+  const ghostG=svgEl("g",{}), doneG=svgEl("g",{}), hintG=svgEl("g",{}); svg.appendChild(ghostG); svg.appendChild(doneG); svg.appendChild(hintG);
+  const cv=h("canvas"); const dpr=window.devicePixelRatio||1; cv.width=S0*dpr; cv.height=S0*dpr;
+  wrap.appendChild(svg); wrap.appendChild(cv);
+  const msg=h("div",{class:"padmsg muted"}); const bar=h("div",{class:"padbar"});
+  host.appendChild(wrap); host.appendChild(msg); host.appendChild(bar);
+  const ctx=cv.getContext("2d"); ctx.scale(dpr,dpr); ctx.lineCap="round"; ctx.lineJoin="round";
+  const inkColor=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#1c1d20";
+  const badColor=getComputedStyle(document.documentElement).getPropertyValue("--bad").trim()||"#c62f2f";
+  ctx.lineWidth=S0*0.034;
+  const st={data:null, idx:0, mistakes:0, hints:0, miss:{}, ink:[], done:false, t0:Date.now()};
+  const toBox=p=>[p[0]*109/S0,p[1]*109/S0];
+  const redraw=()=>{ ctx.clearRect(0,0,S0,S0); ctx.strokeStyle=inkColor; st.ink.forEach(s=>{ ctx.beginPath(); ctx.moveTo(s[0][0],s[0][1]); s.forEach(p=>ctx.lineTo(p[0],p[1])); if(s.length===1) ctx.lineTo(s[0][0]+0.1,s[0][1]); ctx.stroke(); }); };
+  const finish=(extra)=>{ st.done=true; const r=Object.assign({mistakes:st.mistakes,hints:st.hints,gaveUp:false,n:st.data?st.data.s.length:0,self:mode==="self",ms:Date.now()-st.t0},extra||{}); bar.innerHTML=""; if(opt.onDone) opt.onDone(r); };
+  const showStroke=(i,cls,g)=>{ const p=svgEl("path",{d:st.data.s[i].d,class:"ms"+(cls?" "+cls:"")}); (g||doneG).appendChild(p); return p; };
+  const hint=(i)=>{ hintG.innerHTML=""; const p=showStroke(i,"hint",hintG); animatePaths([p],500); setTimeout(()=>{ if(p.parentNode) p.remove(); },1600); };
+  const revealAll=(anim)=>{ ghostG.innerHTML=""; const ps=st.data.s.map((s,i)=>showStroke(i,mode==="self"?"ghost":"",mode==="self"?ghostG:doneG)); if(anim) animatePaths(ps,300); };
+  const btn=(label,fn,cls)=>{ const b=h("button",{class:cls||""},label); b.addEventListener("click",fn); bar.appendChild(b); return b; };
+  function setupBar(){
+    bar.innerHTML="";
+    if(mode==="self"){
+      btn("↶ Undo",()=>{ if(st.done) return; st.ink.pop(); redraw(); });
+      btn("Clear",()=>{ if(st.done) return; st.ink=[]; redraw(); });
+      btn("Check ✓",()=>{ if(st.done||!st.data) return; revealAll(true); msg.textContent="Compare with the model. Was yours right (shape and stroke order)?";
+        bar.innerHTML=""; btn("✗ Not right",()=>finish({selfOk:false})); btn("✓ Right",()=>finish({selfOk:true}),"primary"); },"primary");
+    } else {
+      btn("Hint",()=>{ if(st.done||!st.data) return; st.hints++; hint(st.idx); });
+      btn("Restart",()=>{ if(st.done) return; doneG.innerHTML=""; st.idx=0; st.ink=[]; redraw(); msg.textContent=""; });
+      btn(opt.practice?"Show":"I don't know",()=>{ if(st.done||!st.data) return; revealAll(true); msg.textContent=""; finish({gaveUp:true}); });
+    }
+  }
+  function onStroke(raw){
+    if(st.done||!st.data) return;
+    if(mode==="self"){ return; }
+    const box=raw.map(toBox); const strokes=st.data.s; const i=st.idx;
+    const m=strokeMatches(box,strokes[i],L);
+    if(m.ok){
+      st.ink=[]; redraw(); showStroke(i); st.idx++; hintG.innerHTML="";
+      msg.className="padmsg muted"; msg.textContent=st.idx+" / "+strokes.length;
+      if(st.idx>=strokes.length){ msg.className="padmsg ok"; msg.textContent=st.mistakes?("Done · "+st.mistakes+" mistake"+(st.mistakes>1?"s":"")):"Perfect ✓"; finish(); }
+      return;
+    }
+    st.mistakes++; st.miss[i]=(st.miss[i]||0)+1;
+    let why="Not quite — try stroke "+(i+1)+" again.";
+    if(strokes[i].l>=14 && m.sc.rev<m.sc.avg*0.6 && m.sc.rev<13.5*L) why="Wrong direction for stroke "+(i+1)+".";
+    else for(let j=i+1;j<Math.min(strokes.length,i+4);j++){ if(strokeMatches(box,strokes[j],L).ok){ why="Stroke order: that's stroke "+(j+1)+". Stroke "+(i+1)+" comes first."; break; } }
+    msg.className="padmsg bad"; msg.textContent=why;
+    ctx.strokeStyle=badColor; redraw(); ctx.strokeStyle=badColor; const s=st.ink[st.ink.length-1]; if(s){ ctx.beginPath(); ctx.moveTo(s[0][0],s[0][1]); s.forEach(p=>ctx.lineTo(p[0],p[1])); ctx.stroke(); }
+    setTimeout(()=>{ st.ink=[]; redraw(); },380);
+    if(st.miss[i]>=3){ st.hints++; hint(i); st.miss[i]=0; }
+  }
+  // pointer input
+  let cur=null;
+  const pos=e=>{ const r=cv.getBoundingClientRect(); return [e.clientX-r.left,e.clientY-r.top]; };
+  cv.addEventListener("pointerdown",e=>{ if(st.done) return; e.preventDefault(); try{ cv.setPointerCapture(e.pointerId); }catch(x){} cur=[pos(e)]; st.ink.push(cur); ctx.strokeStyle=inkColor; ctx.beginPath(); ctx.moveTo(cur[0][0],cur[0][1]); });
+  cv.addEventListener("pointermove",e=>{ if(!cur) return; e.preventDefault(); let evs=e.getCoalescedEvents?e.getCoalescedEvents():null; if(!evs||!evs.length) evs=[e]; evs.forEach(ev=>{ const p=pos(ev); const q=cur[cur.length-1]; cur.push(p); ctx.beginPath(); ctx.moveTo(q[0],q[1]); ctx.lineTo(p[0],p[1]); ctx.stroke(); }); });
+  const up=e=>{ if(!cur) return; const s=cur; cur=null; onStroke(s); };
+  cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
+  ["touchstart","touchmove"].forEach(t=>wrap.addEventListener(t,e=>e.preventDefault(),{passive:false}));
+  setupBar();
+  msg.textContent="Loading strokes…";
+  loadStrokes(opt.kanji).then(d=>{
+    if(!d){ msg.className="padmsg bad"; msg.textContent="No stroke data for "+opt.kanji+" (offline?). Write it on paper, then rate yourself."; bar.innerHTML=""; btn("✗ Not right",()=>finish({self:true,selfOk:false})); btn("✓ Right",()=>finish({self:true,selfOk:true}),"primary"); return; }
+    st.data=d; msg.textContent= mode==="self" ? "Write it, then tap Check." : "Stroke 1 of "+d.s.length+". Write inside the box.";
+  });
+  return {wrap, reveal:()=>{ if(st.data) revealAll(true); }};
+}
+function suggestedRating(r){
+  const R=window.FSRS.Rating;
+  if(r.self) return r.selfOk?R.Good:R.Again;
+  if(r.gaveUp || r.hints>0 || r.mistakes>=3) return R.Again;
+  if(r.mistakes>0) return R.Hard;
+  return R.Good;
+}
+function logWrite(id,kanji,r){
+  const log=store.get("wlog",[])||[]; log.push([id,kanji,Math.round(Date.now()/1000),r.mistakes||0,r.hints||0,r.gaveUp?1:0,r.self?(r.selfOk?1:0):-1]);
+  if(log.length>5000) log.splice(0,log.length-5000); store.set("wlog",log);
+}
+
+/* ================= FLASHCARDS (spaced repetition with FSRS) ================= */
+const DAY_START_HOUR = 4;
+function studyDay(d){ const x=new Date(d===undefined?Date.now():d); x.setHours(x.getHours()-DAY_START_HOUR); return new Date(x.getFullYear(),x.getMonth(),x.getDate()); }
+function dayKeyOf(d){ const x=studyDay(d); return x.getFullYear()+"-"+pad2(x.getMonth()+1)+"-"+pad2(x.getDate()); }
+function endOfStudyDay(){ const s=studyDay(); return new Date(s.getFullYear(),s.getMonth(),s.getDate()+1,DAY_START_HOUR); }
+const CFG_DEFAULT={ newRead:7, newWrite:3, retention:0.9, autoplay:true, voice:"", rate:1, writeMode:"strict", leniency:1, furigana:"auto" };
+function getCfg(){ return Object.assign({},CFG_DEFAULT,store.get("cfg",{})||{}); }
+function setCfg(patch){ store.set("cfg",Object.assign(getCfg(),patch)); SCHED=null; KNOWN=null; }
+let SCHED=null;
+function sched(){
+  if(!SCHED){ const F=window.FSRS; SCHED=F.fsrs(F.generatorParameters({request_retention:getCfg().retention, enable_fuzz:true})); }
+  return SCHED;
+}
+function ser(c){ return {due:+c.due,s:c.stability,d:c.difficulty,ed:c.elapsed_days,sd:c.scheduled_days,ls:c.learning_steps||0,r:c.reps,l:c.lapses,st:c.state,lr:c.last_review?+c.last_review:null}; }
+function deser(o){ return {due:new Date(o.due),stability:o.s,difficulty:o.d,elapsed_days:o.ed,scheduled_days:o.sd,learning_steps:o.ls||0,reps:o.r,lapses:o.l,state:o.st,last_review:o.lr?new Date(o.lr):undefined}; }
+function allCards(){
+  const out=[];
+  knownWeeks().forEach(e=>{
+    const w=getWeek(e.week); if(!w || !Array.isArray(w.cards)) return;
+    const start=parseDate(w.startDate);
+    w.cards.forEach((c,i)=>{ const avail=new Date(start); avail.setDate(avail.getDate()+((c.day||1)-1));
+      out.push(Object.assign({type:"read"},c,{week:w.week,order:w.week*10000+i,avail})); });
+  });
+  return out;
+}
+function seedIntroduced(cards){
+  const srs=store.get("srs",{}); let changed=false; const now=new Date(); const F=window.FSRS;
+  cards.forEach(c=>{
+    if(srs[c.id] || !c.introduced) return; const d=parseDate(c.introduced); if(!d) return; d.setHours(9);
+    if(d>now) return;
+    let card=F.createEmptyCard(d);
+    card=sched().next(card,d,F.Rating.Good).card;
+    card=sched().next(card,new Date(+d+10*60000),F.Rating.Good).card;
+    srs[c.id]=ser(card); changed=true;
+  });
+  if(changed) store.set("srs",srs);
+}
+function newDoneToday(){
+  const k=dayKeyOf(); const byId={}; allCards().forEach(c=>byId[c.id]=c); const out={read:0,write:0};
+  (store.get("revlog",[])||[]).forEach(r=>{ if(r[3]===0 && dayKeyOf(r[1]*1000)===k){ const c=byId[r[0]]; out[(c&&c.type==="write")?"write":"read"]++; } });
+  return out;
+}
+function queueState(){
+  const cards=allCards(); seedIntroduced(cards);
+  const srs=store.get("srs",{}); const now=Date.now(); const eod=+endOfStudyDay(); const td=studyDay();
+  const learn=[], rev=[], fresh=[];
+  cards.forEach(c=>{
+    const s=srs[c.id];
+    if(!s){ if(c.avail<=td) fresh.push(c); return; }
+    if(s.st===1 || s.st===3) learn.push({c,due:s.due});
+    else if(s.due<eod) rev.push({c,due:s.due});
+  });
+  learn.sort((a,b)=>a.due-b.due); rev.sort((a,b)=>a.due-b.due); fresh.sort((a,b)=>a.order-b.order);
+  const cf=getCfg(); const done=newDoneToday();
+  const left={read:Math.max(0,cf.newRead-done.read), write:Math.max(0,cf.newWrite-done.write)};
+  const eligible=fresh.filter(c=>left[c.type==="write"?"write":"read"]>0);
+  const nR=Math.min(left.read,fresh.filter(c=>c.type!=="write").length), nW=Math.min(left.write,fresh.filter(c=>c.type==="write").length);
+  return {cards,learn,rev,fresh:eligible,left,now,
+    counts:{ newCount:nR+nW, newRead:nR, newWrite:nW, learnCount:learn.filter(x=>x.due<eod).length, revCount:rev.length, total:cards.length }};
+}
+const LEARN_AHEAD_MS=20*60000;
+function pickNext(q,shown){
+  const dueLearn=q.learn.filter(x=>x.due<=q.now);
+  if(dueLearn.length) return dueLearn[0].c;
+  const canNew=q.fresh.length>0;
+  if(q.rev.length && (!canNew || shown%4!==3)) return q.rev[0].c;
+  if(canNew) return q.fresh[0];
+  if(q.rev.length) return q.rev[0].c;
+  const ahead=q.learn.filter(x=>x.due<=q.now+LEARN_AHEAD_MS);
+  if(ahead.length) return ahead[0].c;
+  return null;
+}
+function fmtIvl(ms){
+  const m=ms/60000; if(m<60) return Math.max(1,Math.round(m))+"m";
+  const hh=m/60; if(hh<24) return Math.round(hh)+"h";
+  const d=hh/24; if(d<30) return Math.round(d)+"d";
+  if(d<365) return (Math.round(d/3)/10)+"mo";
+  return (Math.round(d/36.5)/10)+"y";
+}
+
+/* ---------- images: Openverse (openly licensed, mature content excluded); shown on the answer side only ---------- */
+function imgMap(){ return store.get("img",{})||{}; }
+function imgGet(id){ return imgMap()[id]||null; }
+function imgSet(id,v){ const m=imgMap(); m[id]=v; store.set("img",m); }
+function licLabel(x){ const l=String(x.license||"").toLowerCase(); if(l==="cc0") return "CC0"; if(l==="pdm") return "Public domain"; return "CC "+l.toUpperCase()+(x.license_version?" "+x.license_version:""); }
+async function ovSearch(q,page){
+  const r=await fetch("https://api.openverse.org/v1/images/?q="+encodeURIComponent(q)+"&page_size=20&page="+page+"&mature=false");
+  if(r.status===429) throw new Error("busy");
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  const j=await r.json();
+  return (j.results||[]).filter(x=>x.url||x.thumbnail).map(x=>({u:x.thumbnail||x.url,o:x.url||"",c:[x.creator||"",licLabel(x)].filter(Boolean).join(" · "),l:x.foreign_landing_url||x.url||""}));
+}
+async function imgNext(c){
+  let e=imgGet(c.id)||{q:c.img||c.en,list:[],i:-1,page:0,hidden:false};
+  e.hidden=false;
+  if(e.i+1<e.list.length){ e.i++; imgSet(c.id,e); return null; }
+  try{
+    const more=await ovSearch(e.q,e.page+1);
+    if(!more.length){ imgSet(c.id,e); return e.list.length?"No more images. Showing the first again.":"No images found."; }
+    e.page++; e.list=e.list.concat(more); e.i++; imgSet(c.id,e); return null;
+  }catch(err){
+    if(e.list.length){ e.i=0; imgSet(c.id,e); }
+    else { const m=imgMap(); delete m[c.id]; store.set("img",m); }
+    return err.message==="busy" ? "The free image search is busy. Try “Next image” again later." : "Image search failed (offline?).";
+  }
+}
+function imgHide(c){ const e=imgGet(c.id)||{q:c.img||c.en,list:[],i:-1,page:0}; e.hidden=true; imgSet(c.id,e); }
+function imgCurrent(c){ const e=imgGet(c.id); if(!e || e.hidden || e.i<0 || !e.list[e.i]) return null; return e.list[e.i]; }
+function wantsAutoImage(c){ const e=imgGet(c.id); return !!c.img && !e; }
+function imgBox(c){
+  const box=h("div",{class:"imgbox"}); const cur=imgCurrent(c);
+  if(cur){
+    const im=h("img",{src:cur.u,alt:c.en,loading:"lazy"});
+    im.addEventListener("error",()=>{ if(cur.o && im.src!==cur.o) im.src=cur.o; else { im.remove(); box.appendChild(h("p",{class:"muted small"},"Image didn't load.")); } });
+    box.appendChild(im);
+    box.appendChild(h("div",{class:"credit"},(cur.c?esc(cur.c)+" · ":"")+(cur.l?"<a href='"+esc(cur.l)+"' target='_blank' rel='noopener'>source</a>":"")));
+  }
+  return box;
+}
+
+/* ---------- study screen ---------- */
+const ST={ cur:null, shown:0, undo:null, wres:null };
+function openStudy(){ ST.shown=0; ST.undo=null; $("study").classList.add("open"); document.body.style.overflow="hidden"; studyNext(); }
+function closeStudy(){ TTS.stop(); $("study").classList.remove("open"); document.body.style.overflow=""; render(); }
+function studyCounts(q){ $("sCount").innerHTML="<span class='c-new'>"+q.counts.newCount+"</span> · <span class='c-learn'>"+q.counts.learnCount+"</span> · <span class='c-rev'>"+q.counts.revCount+"</span>"; }
+function studyNext(){
+  const q=queueState(); studyCounts(q);
+  ST.cur=pickNext(q,ST.shown); ST.wres=null;
+  const body=$("sBody"), foot=$("sFoot"); body.innerHTML=""; foot.innerHTML=""; body.scrollTop=0;
+  $("sUndo").disabled=!ST.undo;
+  if(!ST.cur){
+    const nextL=q.learn.length?q.learn[0].due:null;
+    body.appendChild(h("div",{class:"card",style:"margin-top:24px;text-align:center"},
+      "<h2 style='margin-top:0'>終わり！ 🎉</h2><p>No more cards due right now.</p>"+
+      (nextL?"<p class='muted'>Next learning card in "+fmtIvl(nextL-Date.now())+".</p>":"")));
+    foot.appendChild(h("button",{class:"primary big",onclick:closeStudy},"Close"));
+    return;
+  }
+  renderFront();
+}
+function cardExample(c,card){
+  if(c.example){ const ex=h("div",{class:"fc-ex"},inline(c.example)+" "); ex.appendChild(speakBtn(c.example)); card.appendChild(ex); }
+  if(c.exampleEn) card.appendChild(h("div",{class:"fc-sub"},esc(c.exampleEn)));
+}
+function renderFront(){
+  const c=ST.cur, body=$("sBody"), foot=$("sFoot"); body.innerHTML=""; foot.innerHTML="";
+  const card=h("div",{class:"fc"}); body.appendChild(card);
+  if(c.type==="write"){
+    card.appendChild(h("div",{class:"fc-tag"},"Write the kanji"));
+    card.appendChild(h("div",{class:"fc-en"},esc(c.en)));
+    card.appendChild(h("div",{class:"fc-read"},pitchHTML(c.reading||"",c.pitch)));
+    card.appendChild(blankWord(c.de,c.kanji));
+    const pz=h("div"); body.appendChild(pz);
+    makePad(pz,{kanji:c.kanji,onDone:(r)=>{ ST.wres=r; logWrite(c.id,c.kanji,r); setTimeout(renderBack, r.self?0:650); }});
+    foot.appendChild(h("button",{class:"big",onclick:()=>{ if(!ST.wres){ ST.wres={gaveUp:true,mistakes:0,hints:0}; logWrite(c.id,c.kanji,ST.wres); } renderBack(); }},"Show answer"));
+  } else {
+    card.appendChild(h("div",{class:"fc-tag"},"Read it"));
+    card.appendChild(h("div",{class:"fc-jp"},esc(baseOf(c.de))));
+    card.appendChild(h("p",{class:"muted small"},"Say the reading and meaning, then check."));
+    foot.appendChild(h("button",{class:"primary big",onclick:renderBack},"Show answer"));
+  }
+}
+function renderBack(){
+  const c=ST.cur, body=$("sBody"), foot=$("sFoot"); body.innerHTML=""; foot.innerHTML="";
+  const card=h("div",{class:"fc"}); body.appendChild(card);
+  const jp=h("div",{class:"fc-jp"},esc(baseOf(c.de))+" "); jp.appendChild(wordBtn(c.de,c.reading,c.pitch)); card.appendChild(jp);
+  if(c.reading) card.appendChild(h("div",{class:"fc-read"},pitchHTML(c.reading,c.pitch)));
+  card.appendChild(h("div",{class:"fc-en"},esc(c.en)));
+  if(c.type==="write"){
+    const r=ST.wres||{};
+    const mv=h("div"); card.appendChild(mv); modelSVG(mv,c.kanji,true);
+    const kd=(S.kdb||{})[c.kanji]||{};
+    card.appendChild(h("div",{class:"small"},compsHTML(c.components||kd.c||[])));
+    if(c.mnemonic) card.appendChild(h("div",{class:"small",style:"margin-top:4px"},"💡 "+inline(c.mnemonic)));
+    if(r.self===false||(!r.self && r.n)) card.appendChild(h("p",{class:"small "+(r.mistakes||r.hints||r.gaveUp?"bad":"ok")},r.gaveUp?"Gave up — study the model, then try it next time.":(r.mistakes+" mistake"+(r.mistakes===1?"":"s")+(r.hints?" · "+r.hints+" hint"+(r.hints>1?"s":""):""))));
+  }
+  cardExample(c,card);
+  if(c.notes) card.appendChild(h("div",{class:"fc-notes"},inline(c.notes)));
+  const ib=h("div"); card.appendChild(ib);
+  const drawImg=()=>{ ib.innerHTML=""; ib.appendChild(imgBox(c)); };
+  if(c.img){
+    drawImg(); if(wantsAutoImage(c)){ imgNext(c).then(()=>{ if(ST.cur===c) drawImg(); }); }
+    const msg=h("p",{class:"muted small",style:"text-align:center;margin:4px 0"});
+    const ir=h("div",{class:"row",style:"margin-top:8px"});
+    ir.appendChild(h("button",{class:"small-btn",onclick:async()=>{ msg.textContent="Searching…"; const m=await imgNext(c); msg.textContent=m||""; drawImg(); }},"Next image"));
+    ir.appendChild(h("button",{class:"small-btn",onclick:()=>{ imgHide(c); msg.textContent=""; drawImg(); }},"No image"));
+    card.appendChild(ir); card.appendChild(msg);
+  }
+  if(getCfg().autoplay) TTS.word(c.de,c.reading,c.pitch);
+  const F=window.FSRS; const srs=store.get("srs",{}); const now=new Date();
+  const prev=srs[c.id]?deser(srs[c.id]):F.createEmptyCard(now);
+  let prevw=null; try{ prevw=sched().repeat(prev,now); }catch(e){}
+  const sug = c.type==="write" && ST.wres ? suggestedRating(ST.wres) : null;
+  const labels=[["Again",F.Rating.Again,"again"],["Hard",F.Rating.Hard,"hard"],["Good",F.Rating.Good,"good"],["Easy",F.Rating.Easy,"easy"]];
+  const grid=h("div",{class:"rategrid"});
+  labels.forEach(([lab,r,cls])=>{
+    const ivl=prevw?fmtIvl(prevw[r].card.due-now):"";
+    grid.appendChild(h("button",{class:"rb "+cls+(sug===r?" sug":""),onclick:()=>rateCard(c,r)},"<span class='ivl'>"+ivl+"</span>"+lab));
+  });
+  foot.appendChild(grid);
+}
+function rateCard(c,rating){
+  const F=window.FSRS; const srs=store.get("srs",{}); const log=store.get("revlog",[])||[]; const now=new Date();
+  const before=srs[c.id]||null;
+  const prev=before?deser(before):F.createEmptyCard(now);
+  const res=sched().next(prev,now,rating);
+  srs[c.id]=ser(res.card); store.set("srs",srs);
+  log.push([c.id,Math.round(+now/1000),rating,prev.state]); store.set("revlog",log);
+  ST.undo={id:c.id,before}; ST.shown++; KNOWN=null;
+  studyNext();
+}
+function undoRating(){
+  if(!ST.undo) return;
+  const srs=store.get("srs",{}); const log=store.get("revlog",[])||[];
+  if(ST.undo.before) srs[ST.undo.id]=ST.undo.before; else delete srs[ST.undo.id];
+  for(let i=log.length-1;i>=0;i--){ if(log[i][0]===ST.undo.id){ log.splice(i,1); break; } }
+  store.set("srs",srs); store.set("revlog",log); ST.shown=Math.max(0,ST.shown-1);
+  const id=ST.undo.id; ST.undo=null;
+  const c=allCards().find(x=>x.id===id); if(c){ ST.cur=c; ST.wres=null; renderFront(); studyCounts(queueState()); $("sUndo").disabled=true; } else studyNext();
+}
+function renderCards(app){
+  app.appendChild(h("h1",null,"カード"));
+  const q=queueState();
+  if(!q.cards.length){ app.appendChild(h("div",{class:"card"},"<p>No flashcards yet. They come with each week's lesson file.</p>")); backupNag(app); return; }
+  const k=q.counts;
+  const card=h("div",{class:"card"});
+  card.innerHTML="<div class='stats3'><div><strong class='c-new'>"+k.newCount+"</strong><span>new</span></div><div><strong class='c-learn'>"+k.learnCount+"</strong><span>learning</span></div><div><strong class='c-rev'>"+k.revCount+"</strong><span>to review</span></div></div>"+
+    "<p class='muted small' style='text-align:center'>New today: "+k.newRead+" vocab · "+k.newWrite+" kanji</p>";
+  card.appendChild(h("button",{class:"primary big",style:"margin-top:8px",onclick:openStudy},(k.newCount+k.learnCount+k.revCount)?"Study now":"Check for cards"));
+  app.appendChild(card);
+  const srs=store.get("srs",{}); const learned=Object.keys(srs).length; const cf=getCfg();
+  const log=store.get("revlog",[])||[]; const tk=dayKeyOf(); const todayRev=log.filter(r=>dayKeyOf(r[1]*1000)===tk);
+  app.appendChild(h("p",{class:"muted small"},"Today: "+todayRev.length+" reviews · "+learned+" of "+q.cards.length+" cards started · "+cf.newRead+" vocab + "+cf.newWrite+" kanji new/day (設定)"));
+  backupNag(app);
+}
+
+/* ---------- backup reminder + files ---------- */
+function hasStudyData(){ return Object.keys(store.get("srs",{})||{}).length>0 || !!store.get("placement",null); }
+function backupNag(app){
+  const last=store.get("lastBackup",0)||0;
+  if(hasStudyData() && Date.now()-last>7*86400000){
+    const c=h("div",{class:"card warnbox"},"<p style='margin-top:0'><strong>Back up your progress.</strong> Your history lives only on this phone.</p>");
+    c.appendChild(h("button",{class:"big",onclick:saveBackupFile},"Save backup file"));
+    app.appendChild(c);
+  }
+}
+async function saveFile(name,text,mime){
+  try{
+    const f=new File([text],name,{type:mime});
+    if(navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f],title:name}); return true; }
+  }catch(e){ if(e && e.name==="AbortError") return false; }
+  try{
+    const url=URL.createObjectURL(new Blob([text],{type:mime}));
+    const a=h("a",{href:url,download:name}); document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },3000); return true;
+  }catch(e){ toast("Could not save the file"); return false; }
+}
+function backupJSON(){ const data={}; store.keys().forEach(k=>{ if(k.indexOf(PFX+"data_")===0||k.indexOf(PFX+"week_")===0) return; try{ data[k]=JSON.parse(localStorage.getItem(k)); }catch(e){} }); return JSON.stringify({app:"nihongo",exported:new Date().toISOString(),data}); }
+async function saveBackupFile(){
+  const d=new Date(); const name="nihongo-backup-"+d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+".json";
+  if(await saveFile(name,backupJSON(),"application/json")){ store.set("lastBackup",Date.now()); toast("Backup saved"); render(); }
+}
+function ankiExport(weekFilter){
+  const clean=s=>String(s==null?"":s).replace(/[\t\r\n]+/g," ");
+  const rows=["#separator:tab","#html:true","#notetype:Japanese Vocab","#deck:Japanese::App export","#columns:English\tJapanese\tReading\tPitch\tType\tExample\tExampleEN\tNotes\tTags","#tags column:9"];
+  allCards().filter(c=>weekFilter==null||c.week===weekFilter).forEach(c=>{
+    const t="w"+pad2(c.week)+" w"+pad2(c.week)+"d"+(c.day||1)+" "+c.type;
+    rows.push([c.en,baseOf(c.de),c.reading||"",c.pitch==null?"":c.pitch,c.type==="write"?"write:"+c.kanji:"read",baseOf(c.example||""),c.exampleEn,c.notes,t].map(clean).join("\t"));
+  });
+  return rows.join("\n")+"\n";
+}
+function cardReportLines(week){
+  const ks=weekKeys(week);
+  const log=(store.get("revlog",[])||[]).filter(r=>ks.has(dayKeyOf(r[1]*1000)));
+  const byId={}; allCards().forEach(c=>byId[c.id]=c);
+  const out={lines:[],weak:[]};
+  if(!log.length) out.lines.push("Flashcards: no reviews this week");
+  else {
+    const nw=log.filter(r=>r[3]===0).length; const revs=log.filter(r=>r[3]===2);
+    const ok=revs.filter(r=>r[2]>1).length;
+    const wr=log.filter(r=>byId[r[0]]&&byId[r[0]].type==="write");
+    const again={}; log.filter(r=>r[2]===1).forEach(r=>{ again[r[0]]=(again[r[0]]||0)+1; });
+    const ids=Object.keys(again).sort((a,b)=>again[b]-again[a]);
+    out.weak=ids.map(id=>byId[id]?baseOf(byId[id].de):id);
+    out.lines.push("Flashcards: "+log.length+" reviews ("+nw+" new cards; "+wr.length+" were writing reviews), retention "+(revs.length?Math.round(100*ok/revs.length)+"% on "+revs.length+" mature reviews":"– (no mature reviews yet)"));
+    out.lines.push("Cards rated Again: "+(ids.length?ids.map(id=>(byId[id]?baseOf(byId[id].de)+(byId[id].type==="write"?" ✍":""):id)+" ×"+again[id]).join(", "):"none"));
+  }
+  const wl=(store.get("wlog",[])||[]).filter(r=>ks.has(dayKeyOf(r[2]*1000)));
+  if(wl.length){
+    const strict=wl.filter(r=>r[6]===-1); const avgM=strict.length?(Math.round(10*strict.reduce((a,r)=>a+r[3],0)/strict.length)/10):"–";
+    const bad={}; wl.forEach(r=>{ if(r[3]>=2||r[4]>0||r[5]||r[6]===0) bad[r[1]]=(bad[r[1]]||0)+1; });
+    out.lines.push("Handwriting: "+wl.length+" kanji written, avg mistakes "+avgM+" (strict), trouble kanji: "+(Object.keys(bad).length?Object.keys(bad).sort((a,b)=>bad[b]-bad[a]).map(k=>k+" ×"+bad[k]).join(", "):"none"));
+  }
+  return out;
+}
+$("sClose").addEventListener("click",closeStudy);
+$("sUndo").addEventListener("click",undoRating);
+
+/* ================= KANJI TAB ================= */
+function writeCardMap(){ const m={}; allCards().forEach(c=>{ if(c.type==="write" && c.kanji) m[c.kanji]=c.id; }); return m; }
+function kanjiStatusFn(){
+  const srs=store.get("srs",{}); const wm=writeCardMap(); const kn=knownKanji(); const pl=getPL(); const pw=new Set();
+  Object.keys(pl.parts||{}).forEach(p=>{ const a=pl.parts[p].ans||{}; Object.keys(a).forEach(id=>{ if(a[id].write===true) pw.add(id); }); });
+  return k=>{ const id=wm[k]; const s=id?srs[id]:null;
+    if((s && s.st===2 && s.s>=21) || (pw.has(k) && !s)) return "write";
+    if(s) return "learn";
+    if(kn.has(k)) return "read";
+    return ""; };
+}
+function renderKanji(app){
+  app.appendChild(h("h1",null,"漢字"));
+  placementBox(app,true);
+  const kdb=S.kdb||{}; const stf=kanjiStatusFn();
+  app.appendChild(h("p",{class:"small legend"},"<span class='s-write' style='background:color-mix(in srgb,var(--po) 35%,var(--card))'></span>can write<span style='background:color-mix(in srgb,var(--pn) 30%,var(--card))'></span>learning to write<span style='background:color-mix(in srgb,var(--p0) 18%,var(--card))'></span>can read"));
+  [[5,"N5"],[4,"N4"],[3,"N3"],[2,"N2"]].forEach(([lv,name])=>{
+    const ks=Object.keys(kdb).filter(k=>kdb[k].l===lv).sort((a,b)=>((kdb[a].g||99)-(kdb[b].g||99))||((kdb[a].f||9999)-(kdb[b].f||9999)));
+    const cnt={write:0,learn:0,read:0}; const grid=h("div",{class:"kgrid"});
+    ks.forEach(k=>{ const s=stf(k); if(s) cnt[s]++; grid.appendChild(h("button",{class:s?"s-"+s:"",onclick:()=>openKanjiSheet(k)},esc(k))); });
+    const det=h("details",{class:"card"}); if(lv>=4) det.setAttribute("open","");
+    det.appendChild(h("summary",{style:"font-weight:600;font-size:18px"},name+" · "+ks.length+" <span class='muted small' style='font-weight:400'>· write "+cnt.write+" · learning "+cnt.learn+" · read "+(cnt.read)+"</span>"));
+    det.appendChild(grid); app.appendChild(det);
+  });
+  const other=Object.keys(kdb).filter(k=>[5,4,3,2].indexOf(kdb[k].l)<0);
+  if(other.length){ const grid=h("div",{class:"kgrid"}); other.forEach(k=>{ const s=stf(k); grid.appendChild(h("button",{class:s?"s-"+s:"",onclick:()=>openKanjiSheet(k)},esc(k))); }); const det=h("details",{class:"card"}); det.appendChild(h("summary",{style:"font-weight:600"},"Other Genki kanji · "+other.length)); det.appendChild(grid); app.appendChild(det); }
+  const cd=h("details",{class:"card"}); cd.appendChild(h("summary",{style:"font-weight:600;font-size:18px"},"Components 部首 · "+(S.comps||[]).length));
+  cd.appendChild(h("p",{class:"muted small"},"The building blocks used in mnemonics. Learn to spot them inside new kanji."));
+  const cg=h("div",{class:"comps"}); (S.comps||[]).forEach(x=>cg.appendChild(h("div",null,"<b>"+esc(x.c)+"</b>"+esc(x.n)))); cd.appendChild(cg); app.appendChild(cd);
+}
+let SHEET_CLOSE=null;
+function openSheet(title,onClose){ SHEET_CLOSE=onClose||null; $("xTitle").textContent=title; $("xBody").innerHTML=""; $("xFoot").innerHTML=""; $("xCount").textContent=""; $("xBarWrap").style.display="none"; $("sheet").classList.add("open"); document.body.style.overflow="hidden"; }
+function closeSheet(){ TTS.stop(); $("sheet").classList.remove("open"); if(!$("player").classList.contains("open")) document.body.style.overflow=""; const f=SHEET_CLOSE; SHEET_CLOSE=null; if(f) f(); else render(); }
+$("xClose").addEventListener("click",closeSheet);
+function openKanjiSheet(k){
+  const kd=(S.kdb||{})[k]||{}; openSheet(k);
+  const b=$("xBody");
+  const mv=h("div",{style:"display:flex;justify-content:center"}); b.appendChild(mv); modelSVG(mv,k,true).then(svg=>{ if(svg){ svg.style.width="170px"; svg.style.height="170px"; } });
+  b.appendChild(h("p",{class:"muted small",style:"text-align:center;margin:0"},"Tap to replay the stroke order"));
+  const c=h("div",{class:"card"});
+  c.innerHTML="<p style='margin-top:0'><strong>"+esc((kd.m||[]).join(", "))+"</strong></p>"+
+    "<p class='small'>音 "+esc((kd.on||[]).join("、")||"–")+" · 訓 "+esc((kd.kun||[]).join("、")||"–")+"</p>"+
+    "<p class='small muted'>"+(kd.l?"JLPT N"+kd.l:"")+(kd.g?" · Genki L"+kd.g+" (provisional)":"")+(kd.s?" · "+kd.s+" strokes":"")+"</p>"+
+    "<p class='small'>"+compsHTML(kd.c||[])+"</p>";
+  if(kd.kw){ const kw=h("p",null,"Key word: <strong>"+esc(kd.kw.w)+"</strong> "+pitchHTML(kd.kw.r,kd.kw.p)+" — "+esc(kd.kw.m)+" "); kw.appendChild(wordBtn(kd.kw.w,kd.kw.r,kd.kw.p)); c.appendChild(kw); }
+  b.appendChild(c);
+  const pz=h("div"); b.appendChild(pz);
+  $("xFoot").appendChild(h("button",{class:"primary big",onclick:()=>{ pz.innerHTML=""; makePad(pz,{kanji:k,mode:"strict",practice:true,onDone:()=>{}}); pz.scrollIntoView({behavior:"smooth"}); }},"✍︎ Practice writing"));
+}
+
+/* ================= PLACEMENT TEST (Week 0) ================= */
+const PL_PARTS={1:{name:"Genki / N5–N4 kanji · 1 of 3",kind:"kanji"},2:{name:"Genki / N5–N4 kanji · 2 of 3",kind:"kanji"},3:{name:"Genki / N5–N4 kanji · 3 of 3",kind:"kanji"},
+  4:{name:"N3 + N2 kanji sample (reading)",kind:"read"},5:{name:"Vocabulary N4–N2",kind:"vocab"},6:{name:"Grammar + dictation",kind:"gd"}};
+let PLS=null;
+function getPL(){ if(!PLS){ PLS=store.get("placement",null)||{v:1,seed:0,parts:{}}; if(!PLS.parts) PLS.parts={}; } return PLS; }
+function savePL(){ store.set("placement",PLS); KNOWN=null; }
+let VOCAB=null, PLDATA=null;
+async function cachedJSON(url){
+  try{ const r=await fetch(url,{cache:"no-cache"}); if(r.ok){ const d=await r.json(); try{ const c=await caches.open("nh-data-v1"); await c.put(url,new Response(JSON.stringify(d),{headers:{"Content-Type":"application/json"}})); }catch(e){} return d; } }catch(e){}
+  try{ const c=await caches.open("nh-data-v1"); const m=await c.match(url); if(m) return await m.json(); }catch(e){}
+  return null;
+}
+function baseKanji(){
+  const kdb=S.kdb||{};
+  return Object.keys(kdb).filter(k=>(kdb[k].l===5||kdb[k].l===4||kdb[k].g) && kdb[k].kw)
+    .sort((a,b)=>((kdb[a].g||30)-(kdb[b].g||30))||(kdb[b].l-kdb[a].l)||((kdb[a].f||9999)-(kdb[b].f||9999)));
+}
+function plSeed(){ const pl=getPL(); if(!pl.seed){ pl.seed=1+Math.floor(Math.random()*2147483646); savePL(); } return pl.seed; }
+function plItems(part){
+  const kdb=S.kdb||{};
+  if(part<=3){ const b=baseKanji(); const n=Math.ceil(b.length/3); return b.slice((part-1)*n,part*n).map(k=>({id:k,kind:"kanji"})); }
+  if(part===4){ const base=new Set(baseKanji()); const r=rng(plSeed()+4);
+    const pick=(lv,n)=>shuffle(Object.keys(kdb).filter(k=>kdb[k].l===lv && kdb[k].kw && !base.has(k)).sort(),r).slice(0,n).map(k=>({id:k,kind:"read",lv}));
+    return pick(3,100).concat(pick(2,60)); }
+  if(part===5){ if(!VOCAB) return null; const r=rng(plSeed()+5); let out=[];
+    [4,3,2].forEach(lv=>{ const pool=VOCAB.filter(e=>e.l===lv && hasKanji(e.w) && e.m); const sel=shuffle(pool,r).slice(0,100);
+      sel.forEach(e=>{ const others=shuffle(pool.filter(x=>x.m!==e.m),r).slice(0,3).map(x=>x.m); const opts=shuffle([e.m].concat(others),r);
+        out.push({id:"v:"+e.w+"|"+e.r,kind:"vocab",lv,w:e.w,r:e.r,p:e.p,m:e.m,opts}); }); });
+    return out; }
+  if(part===6){ if(!PLDATA) return null; return PLDATA.grammar.map(g=>Object.assign({kind:"grammar"},g)).concat(PLDATA.dictation.map(d=>Object.assign({kind:"dict"},d))); }
+  return [];
+}
+function placementPartState(part){
+  const pl=getPL(); const p=pl.parts[part]||{ans:{}}; const items=plItems(part);
+  const total=items?items.length:(part===5?300:50); const done=Object.keys(p.ans||{}).length;
+  return {done:Math.min(done,total),total};
+}
+function placementComplete(){ for(let p=1;p<=6;p++){ const s=placementPartState(p); if(s.done<s.total) return false; } return true; }
+function placementBox(app,full){
+  if(!S.kdb || !Object.keys(S.kdb).length) return;
+  const complete=placementComplete();
+  if(complete && !full) return;
+  const c=h("div",{class:"card"},"<h2 style='margin-top:0'>Placement test</h2>"+(complete?"<p class='muted small'>Done. Paste the summary into the curriculum chat.</p>":"<p class='muted small'>About 20 minutes per part. Your answers save as you go; stop any time.</p>"));
+  let next=null;
+  for(let p=1;p<=6;p++){ const s=placementPartState(p); if(next===null && s.done<s.total) next=p;
+    const row=h("button",{class:"day",onclick:()=>openPlacement(p)},"<span class='dot "+(s.done>=s.total?"done":s.done?"part":"")+"'></span><span class='grow'><strong>Part "+p+"</strong><br><span class='small muted'>"+esc(PL_PARTS[p].name)+"</span></span><span class='small'>"+s.done+"/"+s.total+"</span>");
+    if(full || p===next || s.done) c.appendChild(row); }
+  if(next!==null) c.appendChild(h("button",{class:"primary big",style:"margin-top:8px",onclick:()=>openPlacement(next)},placementPartState(next).done?"Continue part "+next:"Start part "+next));
+  const anyDone=[1,2,3,4,5,6].some(p=>placementPartState(p).done>0);
+  if(anyDone) c.appendChild(h("button",{class:"big",style:"margin-top:8px",onclick:async()=>{ await ensurePlacementData(); copyText(placementSummary()); }},"Copy placement summary"));
+  app.appendChild(c);
+}
+async function ensurePlacementData(){
+  if(!VOCAB) VOCAB=await cachedJSON("data/vocab.json?v="+DATA_V);
+  if(!PLDATA) PLDATA=await cachedJSON("data/placement.json?v="+DATA_V);
+}
+const PLX={part:0,items:null,i:0};
+async function openPlacement(part,onClose){
+  openSheet("Placement · part "+part,onClose); $("xBarWrap").style.display="";
+  $("xBody").innerHTML="<p class='muted'>Loading…</p>";
+  await ensurePlacementData();
+  const items=plItems(part);
+  if(!items){ $("xBody").innerHTML="<p class='bad'>Couldn't load the test data (offline?). Try again with a connection.</p>"; return; }
+  plSeed();
+  const pl=getPL(); if(!pl.parts[part]) pl.parts[part]={ans:{}};
+  PLX.part=part; PLX.items=items;
+  const ans=pl.parts[part].ans; PLX.i=items.findIndex(it=>!ans[it.id]); if(PLX.i<0) PLX.i=items.length;
+  plShow();
+}
+function plAnswer(id,patch){ const pl=getPL(); const a=pl.parts[PLX.part].ans; a[id]=Object.assign(a[id]||{},patch); savePL(); }
+function plNext(){ PLX.i++; plShow(); }
+function plShow(){
+  TTS.stop();
+  const items=PLX.items, i=PLX.i, n=items.length; const b=$("xBody"), f=$("xFoot"); b.innerHTML=""; f.innerHTML=""; b.scrollTop=0;
+  $("xCount").textContent=Math.min(i+1,n)+"/"+n; $("xBar").style.width=Math.round(100*i/n)+"%";
+  if(i>=n){
+    b.appendChild(h("div",{class:"card",style:"text-align:center"},"<h2 style='margin-top:0'>Part "+PLX.part+" done ✓</h2><p class='muted'>"+(placementComplete()?"That was the last part. Copy the summary and paste it into the curriculum chat.":"Take a break or go on to the next part.")+"</p>"));
+    if(placementComplete()) b.appendChild(h("button",{class:"primary big",onclick:()=>copyText(placementSummary())},"Copy placement summary"));
+    const pre=h("pre",{class:"report"}); pre.textContent=placementSummary(); b.appendChild(pre);
+    f.appendChild(h("button",{class:"big",onclick:closeSheet},"Close")); return;
+  }
+  f.appendChild(h("button",{class:"big",onclick:closeSheet},"Pause"));
+  const it=items[i]; const kdb=S.kdb||{};
+  if(it.kind==="kanji"||it.kind==="read") plKanji(b,it,kdb[it.id]);
+  else if(it.kind==="vocab") plVocab(b,it);
+  else if(it.kind==="grammar") plGrammar(b,it);
+  else if(it.kind==="dict") plDict(b,it);
+}
+function plKanji(b,it,kd){
+  const kw=kd.kw; const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-tag"},"Read this word"+(it.lv?" · N"+it.lv:"")));
+  c.appendChild(h("div",{class:"fc-jp"},esc(kw.w)));
+  const inp=kanaInput({placeholder:"reading in kana"}); c.appendChild(inp);
+  const fb=h("div"); c.appendChild(fb);
+  const row=h("div",{class:"row",style:"margin-top:10px"}); c.appendChild(row);
+  const goWrite=()=>{ if(it.kind==="read"){ plNext(); return; } plWrite(b,it,kd); };
+  const done=(ok,ua)=>{
+    plAnswer(it.id,{read:ok,ua}); row.innerHTML=""; inp.disabled=true;
+    fb.innerHTML=""; fb.appendChild(h("div",{class:"fb "+(ok?"ok":"bad")},(ok?"✓ ":"✗ ")+pitchHTML(kw.r,kw.p)+" — "+esc(kw.m)));
+    if(ok) setTimeout(()=>{ if(PLX.items[PLX.i]===it) goWrite(); },700);
+    else row.appendChild(h("button",{class:"primary big",onclick:goWrite},it.kind==="read"?"Next ›":"Now write it ›"));
+  };
+  row.appendChild(h("button",{onclick:()=>done(false,"")},"Don't know"));
+  const chk=h("button",{class:"primary",onclick:()=>{ const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; } const acc=[kw.r].concat((VOCAB||[]).filter(e=>e.w===kw.w).map(e=>e.r)); done(checkAnswer(v,acc).ok,v); }},"Check");
+  row.appendChild(chk);
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter" && !e.isComposing) chk.click(); });
+  setTimeout(()=>inp.focus(),50);
+}
+function plWrite(b,it,kd){
+  const kw=kd.kw; b.innerHTML=""; const f=$("xFoot"); f.innerHTML=""; f.appendChild(h("button",{class:"big",onclick:closeSheet},"Pause"));
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-tag"},"Write the kanji"));
+  c.appendChild(h("div",{class:"fc-en"},esc(kw.m)));
+  c.appendChild(h("div",{class:"fc-read"},pitchHTML(kw.r,kw.p)));
+  c.appendChild(blankWord(kw.w,it.id));
+  const pz=h("div"); b.appendChild(pz); const fb=h("div"); b.appendChild(fb);
+  makePad(pz,{kanji:it.id,onDone:(r)=>{
+    const ok = r.self ? r.selfOk : (!r.gaveUp && r.hints===0 && r.mistakes<=1);
+    plAnswer(it.id,{write:ok,wm:r.mistakes||0,wh:r.hints||0,wg:r.gaveUp?1:0});
+    if(ok && !r.self){ setTimeout(()=>{ if(PLX.items[PLX.i]===it) plNext(); },700); return; }
+    fb.innerHTML=""; fb.appendChild(h("button",{class:"primary big",style:"margin-top:8px",onclick:plNext},"Next ›"));
+  }});
+}
+function plVocab(b,it){
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-tag"},"What does it mean? · N"+it.lv));
+  c.appendChild(h("div",{class:"fc-jp"},esc(it.w)));
+  const btns=[];
+  const pick=(j)=>{ const ok=j>=0 && it.opts[j]===it.m; plAnswer(it.id,{ok,ua:j>=0?it.opts[j]:""});
+    btns.forEach((x,q)=>{ x.disabled=true; if(it.opts[q]===it.m) x.classList.add("sel-ok"); else if(q===j) x.classList.add("sel-bad"); });
+    c.appendChild(h("p",{class:"small"},pitchHTML(it.r,it.p)));
+    setTimeout(()=>{ if(PLX.items[PLX.i]===it) plNext(); },ok?500:1300); };
+  it.opts.forEach((o,j)=>{ const x=h("button",{class:"opt",onclick:()=>pick(j)},esc(o)); btns.push(x); b.appendChild(x); });
+  b.appendChild(h("button",{class:"opt muted",onclick:()=>pick(-1)},"Don't know"));
+}
+function plGrammar(b,it){
+  b.appendChild(h("div",{class:"fc-tag",style:"margin-top:8px"},"Grammar · "+esc(it.level)));
+  b.appendChild(h("div",{class:"prompt jp card"},inline(it.prompt)));
+  const btns=[]; const fb=h("div");
+  const pick=(j)=>{ const ok=j===it.answer; plAnswer(it.id,{ok,ua:j>=0?it.options[j]:""});
+    btns.forEach((x,q)=>{ x.disabled=true; if(q===it.answer) x.classList.add("sel-ok"); else if(q===j) x.classList.add("sel-bad"); });
+    if(ok) setTimeout(()=>{ if(PLX.items[PLX.i]===it) plNext(); },500);
+    else { fb.appendChild(h("div",{class:"fb bad"},inline(it.explanation||""))); fb.appendChild(h("button",{class:"primary big",style:"margin-top:8px",onclick:plNext},"Next ›")); } };
+  const order=shuffle(it.options.map((o,j)=>j),rng(plSeed()+it.id.charCodeAt(1)*31+it.id.charCodeAt(2)));
+  order.forEach(j=>{ const x=h("button",{class:"opt jp",onclick:()=>pick(j)},inline(it.options[j])); btns[j]=x; b.appendChild(x); });
+  b.appendChild(h("button",{class:"opt muted",onclick:()=>pick(-1)},"Don't know"));
+  b.appendChild(fb);
+}
+function plDict(b,it){
+  b.appendChild(h("div",{class:"fc-tag",style:"margin-top:8px"},"Dictation · type what you hear in kana"));
+  const pr=h("div",{class:"row"}); pr.appendChild(h("button",{class:"primary",onclick:()=>TTS.say(it.audio)},"🔊 Play")); pr.appendChild(h("button",{onclick:()=>{ const r=getCfg().rate; setCfg({rate:0.7}); TTS.say(it.audio); setCfg({rate:r}); }},"🐢 Slow"));
+  b.appendChild(pr);
+  const inp=kanaInput({style:"margin-top:10px"}); b.appendChild(inp); const fb=h("div"); b.appendChild(fb);
+  const chk=h("button",{class:"primary big",style:"margin-top:10px",onclick:()=>{
+    const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; }
+    const u=jnorm(v); let best=0; it.answers.forEach(a=>{ best=Math.max(best,similarity(u,jnorm(a))); });
+    plAnswer(it.id,{ok:best===1,sim:Math.round(best*100),ua:v}); inp.disabled=true; chk.remove();
+    fb.innerHTML=""; fb.appendChild(h("div",{class:"fb "+(best===1?"ok":"bad")},(best===1?"✓ ":"Match "+Math.round(best*100)+"% · ")+"<span class='jp'>"+inline(it.audio)+"</span><br><span class='muted'>"+esc(it.en)+"</span>"));
+    fb.appendChild(h("button",{class:"primary big",style:"margin-top:8px",onclick:plNext},"Next ›"));
+  }},"Check");
+  b.appendChild(chk);
+  setTimeout(()=>TTS.say(it.audio),300);
+}
+function placementSummary(){
+  const pl=getPL(); const kdb=S.kdb||{}; const L=[]; const A=p=>(pl.parts[p]&&pl.parts[p].ans)||{};
+  const pct=(a,b)=>b?Math.round(100*a/b)+"%":"–";
+  L.push("PLACEMENT SUMMARY — "+new Date().toISOString().slice(0,10));
+  const base=baseKanji(); const ans=Object.assign({},A(1),A(2),A(3));
+  const answered=base.filter(k=>ans[k]); const rd=answered.filter(k=>ans[k].read===true); const wr=answered.filter(k=>ans[k].write===true);
+  L.push("Base kanji (Genki I+II — list provisional — plus all N5/N4): "+base.length+", answered "+answered.length);
+  L.push("  Read: "+rd.length+"/"+answered.length+" ("+pct(rd.length,answered.length)+")   Write: "+wr.length+"/"+answered.length+" ("+pct(wr.length,answered.length)+")");
+  const readNoWrite=answered.filter(k=>ans[k].read===true && ans[k].write!==true);
+  const noRead=answered.filter(k=>ans[k].read!==true);
+  L.push("  Can write: "+wr.join(""));
+  L.push("  Can read, can't write ("+readNoWrite.length+"): "+readNoWrite.join(""));
+  L.push("  Can't read ("+noRead.length+"): "+noRead.join(""));
+  const strictW=answered.filter(k=>ans[k].write===true && ans[k].wm!==undefined);
+  if(strictW.length) L.push("  Written with 1 stroke mistake: "+(strictW.filter(k=>ans[k].wm===1).join("")||"none"));
+  const a4=A(4); const it4=plItems(4)||[];
+  [3,2].forEach(lv=>{ const its=it4.filter(x=>x.lv===lv); const an=its.filter(x=>a4[x.id]); const ok=an.filter(x=>a4[x.id].read===true);
+    const total=Object.keys(kdb).filter(k=>kdb[k].l===lv).length; const inBase=base.filter(k=>kdb[k].l===lv).length;
+    const est=an.length?Math.round((ok.length/an.length)*(total-inBase)+inBase*(answered.length?rd.length/answered.length:0)):null;
+    L.push("N"+lv+" kanji sample (reading): "+ok.length+"/"+an.length+(est!==null?" → est. ~"+est+" of "+total+" N"+lv+" kanji readable":"")+(an.length?" · missed: "+an.filter(x=>a4[x.id].read!==true).map(x=>x.id).join(""):""));
+  });
+  const a5=A(5); const it5=plItems(5)||[];
+  const vline=[]; let estWords=0;
+  [4,3,2].forEach(lv=>{ const its=it5.filter(x=>x.lv===lv); const an=its.filter(x=>a5[x.id]); const ok=an.filter(x=>a5[x.id].ok);
+    vline.push("N"+lv+" "+ok.length+"/"+an.length);
+    if(VOCAB && an.length) estWords+=Math.round(ok.length/an.length*VOCAB.filter(e=>e.l===lv).length); });
+  if(VOCAB) estWords+=VOCAB.filter(e=>e.l===5).length;
+  L.push("Vocabulary (meaning, kanji words): "+vline.join(", ")+(estWords?" → est. ~"+estWords+" of "+VOCAB.length+" N5–N2 words (N5 assumed known)":""));
+  const a6=A(6);
+  if(PLDATA){
+    const g=PLDATA.grammar; const lv={}; g.forEach(x=>{ lv[x.level]=lv[x.level]||[0,0]; if(a6[x.id]){ lv[x.level][1]++; if(a6[x.id].ok) lv[x.level][0]++; } });
+    const gm=g.filter(x=>a6[x.id] && !a6[x.id].ok).map(x=>x.id+" "+x.topic);
+    L.push("Grammar: "+Object.keys(lv).map(k=>k+" "+lv[k][0]+"/"+lv[k][1]).join(", ")+(gm.length?" · missed: "+gm.join("; "):""));
+    const d=PLDATA.dictation.filter(x=>a6[x.id]); const dx=d.filter(x=>a6[x.id].ok); const avg=d.length?Math.round(d.reduce((s,x)=>s+(a6[x.id].sim||0),0)/d.length):0;
+    L.push("Dictation: exact "+dx.length+"/"+d.length+", avg match "+avg+"%"+(d.length>dx.length?" · misses: "+d.filter(x=>!a6[x.id].ok).map(x=>x.id+" ("+a6[x.id].sim+"%) \""+a6[x.id].ua+"\"").join("; "):""));
+  }
+  L.push("Writing mode: "+getCfg().writeMode+", tolerance "+getCfg().leniency);
+  return L.join("\n");
+}
+
+boot();
+</script>
+</body>
+</html>

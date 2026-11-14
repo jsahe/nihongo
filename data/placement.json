@@ -1,0 +1,647 @@
+{
+ "grammar": [
+  {
+   "id": "g01",
+   "level": "N4",
+   "topic": "ので (reason)",
+   "prompt": "雨が（　）、試合は中止になった。",
+   "options": [
+    "降ったので",
+    "降っても",
+    "降りながら",
+    "降るために"
+   ],
+   "answer": 0,
+   "explanation": "Reason clause: 降ったので = because it rained."
+  },
+  {
+   "id": "g02",
+   "level": "N4",
+   "topic": "suffering passive",
+   "prompt": "弟に私のケーキを（　）。",
+   "options": [
+    "食べられた",
+    "食べさせた",
+    "食べてくれた",
+    "食べてみた"
+   ],
+   "answer": 0,
+   "explanation": "Suffering passive: my brother ate my cake (and I was affected)."
+  },
+  {
+   "id": "g03",
+   "level": "N4",
+   "topic": "～たことがある",
+   "prompt": "日本に（　）ことがありますか。",
+   "options": [
+    "行った",
+    "行く",
+    "行って",
+    "行こう"
+   ],
+   "answer": 0,
+   "explanation": "Experience: た-form + ことがある."
+  },
+  {
+   "id": "g04",
+   "level": "N4",
+   "topic": "intransitive ～ている",
+   "prompt": "窓が（　）います。",
+   "options": [
+    "開いて",
+    "開けて",
+    "開き",
+    "開け"
+   ],
+   "answer": 0,
+   "explanation": "開く (intransitive) + ている = the window is open."
+  },
+  {
+   "id": "g05",
+   "level": "N4",
+   "topic": "hearsay ～そうだ",
+   "prompt": "天気予報によると、明日は雨が降る（　）。",
+   "options": [
+    "そうです",
+    "ようにします",
+    "ことにします",
+    "ところです"
+   ],
+   "answer": 0,
+   "explanation": "Plain form + そうです = I hear that…"
+  },
+  {
+   "id": "g06",
+   "level": "N4",
+   "topic": "appearance ～そう",
+   "prompt": "(It looks delicious.) このケーキはとても（　）。",
+   "options": [
+    "おいしそうです",
+    "おいしいそうです",
+    "おいしようです",
+    "おいしいらしそうです"
+   ],
+   "answer": 0,
+   "explanation": "Appearance: drop い + そう. おいしいそうです would be hearsay."
+  },
+  {
+   "id": "g07",
+   "level": "N4",
+   "topic": "～てから",
+   "prompt": "歯を磨いて（　）、寝ます。",
+   "options": [
+    "から",
+    "ので",
+    "まで",
+    "ながら"
+   ],
+   "answer": 0,
+   "explanation": "て-form + から = after doing."
+  },
+  {
+   "id": "g08",
+   "level": "N4",
+   "topic": "～なければならない",
+   "prompt": "宿題を（　）なければなりません。",
+   "options": [
+    "し",
+    "して",
+    "する",
+    "しない"
+   ],
+   "answer": 0,
+   "explanation": "ない-stem of する is し → しなければなりません."
+  },
+  {
+   "id": "g09",
+   "level": "N4",
+   "topic": "～ようになる",
+   "prompt": "日本語が話せる（　）なりました。",
+   "options": [
+    "ように",
+    "ことに",
+    "ために",
+    "そうに"
+   ],
+   "answer": 0,
+   "explanation": "Potential + ようになる = came to be able to."
+  },
+  {
+   "id": "g10",
+   "level": "N4",
+   "topic": "～てください",
+   "prompt": "部屋を出る前に電気を（　）ください。",
+   "options": [
+    "消して",
+    "消えて",
+    "消し",
+    "消す"
+   ],
+   "answer": 0,
+   "explanation": "Transitive 消す in て-form + ください."
+  },
+  {
+   "id": "g11",
+   "level": "N3",
+   "topic": "～ようにしている",
+   "prompt": "毎日運動する（　）にしています。",
+   "options": [
+    "よう",
+    "もの",
+    "わけ",
+    "はず"
+   ],
+   "answer": 0,
+   "explanation": "ようにしている = make an effort to (habit)."
+  },
+  {
+   "id": "g12",
+   "level": "N3",
+   "topic": "～おかげで",
+   "prompt": "試験に合格できたのは先生の（　）です。",
+   "options": [
+    "おかげ",
+    "せい",
+    "くせ",
+    "ばかり"
+   ],
+   "answer": 0,
+   "explanation": "Positive cause: おかげ. せい is for bad results."
+  },
+  {
+   "id": "g13",
+   "level": "N3",
+   "topic": "～せいで",
+   "prompt": "寝坊した（　）で、電車に乗り遅れた。",
+   "options": [
+    "せい",
+    "おかげ",
+    "くせ",
+    "よう"
+   ],
+   "answer": 0,
+   "explanation": "Negative cause: せいで."
+  },
+  {
+   "id": "g14",
+   "level": "N3",
+   "topic": "～くせに",
+   "prompt": "彼は知っている（　）に、教えてくれない。",
+   "options": [
+    "くせ",
+    "おかげ",
+    "せい",
+    "ため"
+   ],
+   "answer": 0,
+   "explanation": "くせに = even though (critical tone)."
+  },
+  {
+   "id": "g15",
+   "level": "N3",
+   "topic": "～たとたん",
+   "prompt": "家を出た（　）、雨が降り出した。",
+   "options": [
+    "とたん",
+    "ついでに",
+    "うちに",
+    "ところで"
+   ],
+   "answer": 0,
+   "explanation": "た-form + とたん = the moment that."
+  },
+  {
+   "id": "g16",
+   "level": "N3",
+   "topic": "～ついでに",
+   "prompt": "買い物に行く（　）に、郵便局に寄った。",
+   "options": [
+    "ついで",
+    "とたん",
+    "たび",
+    "うち"
+   ],
+   "answer": 0,
+   "explanation": "ついでに = while you're at it."
+  },
+  {
+   "id": "g17",
+   "level": "N3",
+   "topic": "～うちに",
+   "prompt": "若い（　）にいろいろな国へ行きたい。",
+   "options": [
+    "うち",
+    "とたん",
+    "ついで",
+    "ばかり"
+   ],
+   "answer": 0,
+   "explanation": "うちに = while (before the state ends)."
+  },
+  {
+   "id": "g18",
+   "level": "N3",
+   "topic": "～はずだ",
+   "prompt": "彼は来ると言っていたから、来る（　）だ。",
+   "options": [
+    "はず",
+    "わけ",
+    "よう",
+    "こと"
+   ],
+   "answer": 0,
+   "explanation": "はず = should / is expected to."
+  },
+  {
+   "id": "g19",
+   "level": "N3",
+   "topic": "～わけだ",
+   "prompt": "なるほど、それで日本語が上手な（　）ですね。",
+   "options": [
+    "わけ",
+    "はず",
+    "こと",
+    "もの"
+   ],
+   "answer": 0,
+   "explanation": "なるほど…わけだ = that explains it."
+  },
+  {
+   "id": "g20",
+   "level": "N3",
+   "topic": "～たばかり",
+   "prompt": "先月日本に来た（　）なので、まだ友達がいません。",
+   "options": [
+    "ばかり",
+    "ところ",
+    "うち",
+    "とたん"
+   ],
+   "answer": 0,
+   "explanation": "たばかり = only recently; たところ only fits a moment ago, not 先月."
+  },
+  {
+   "id": "g21",
+   "level": "N3",
+   "topic": "だからといって",
+   "prompt": "日本人（　）、日本の歴史を全部知っているわけではない。",
+   "options": [
+    "だからといって",
+    "にとって",
+    "について",
+    "によって"
+   ],
+   "answer": 0,
+   "explanation": "だからといって…わけではない = just because… doesn't mean."
+  },
+  {
+   "id": "g22",
+   "level": "N3",
+   "topic": "～にとって",
+   "prompt": "私（　）、家族が一番大切です。",
+   "options": [
+    "にとって",
+    "について",
+    "に対して",
+    "によって"
+   ],
+   "answer": 0,
+   "explanation": "にとって = for / from the standpoint of."
+  },
+  {
+   "id": "g23",
+   "level": "N3",
+   "topic": "～によって",
+   "prompt": "この町は季節（　）景色が変わる。",
+   "options": [
+    "によって",
+    "にとって",
+    "について",
+    "に対して"
+   ],
+   "answer": 0,
+   "explanation": "によって = depending on."
+  },
+  {
+   "id": "g24",
+   "level": "N3",
+   "topic": "～に対して",
+   "prompt": "先生は学生（　）厳しい。",
+   "options": [
+    "に対して",
+    "にとって",
+    "について",
+    "によって"
+   ],
+   "answer": 0,
+   "explanation": "に対して = toward (an attitude aimed at someone)."
+  },
+  {
+   "id": "g25",
+   "level": "N3",
+   "topic": "～としたら",
+   "prompt": "宝くじが当たった（　）、何を買いますか。",
+   "options": [
+    "としたら",
+    "とたん",
+    "ついでに",
+    "ばかりに"
+   ],
+   "answer": 0,
+   "explanation": "としたら = supposing that."
+  },
+  {
+   "id": "g26",
+   "level": "N3",
+   "topic": "～ば～ほど",
+   "prompt": "練習すれ（　）するほど上手になる。",
+   "options": [
+    "ば",
+    "たら",
+    "と",
+    "なら"
+   ],
+   "answer": 0,
+   "explanation": "ば…ほど = the more…, the more."
+  },
+  {
+   "id": "g27",
+   "level": "N3",
+   "topic": "～わけではない",
+   "prompt": "高いレストランがいつもおいしい（　）。",
+   "options": [
+    "わけではない",
+    "はずだ",
+    "ことだ",
+    "ものだ"
+   ],
+   "answer": 0,
+   "explanation": "わけではない = it doesn't necessarily mean."
+  },
+  {
+   "id": "g28",
+   "level": "N3",
+   "topic": "～たものだ",
+   "prompt": "子供の頃はよく川で遊んだ（　）だ。",
+   "options": [
+    "もの",
+    "こと",
+    "わけ",
+    "はず"
+   ],
+   "answer": 0,
+   "explanation": "たものだ = used to (nostalgia)."
+  },
+  {
+   "id": "g29",
+   "level": "N3",
+   "topic": "causative-passive",
+   "prompt": "母に毎日部屋を掃除（　）。",
+   "options": [
+    "させられる",
+    "させる",
+    "される",
+    "してもらう"
+   ],
+   "answer": 0,
+   "explanation": "Causative-passive: was made to clean."
+  },
+  {
+   "id": "g30",
+   "level": "N3",
+   "topic": "尊敬語",
+   "prompt": "社長はもう（　）か。",
+   "options": [
+    "お帰りになりました",
+    "お帰りしました",
+    "帰らせました",
+    "帰られてしまいました"
+   ],
+   "answer": 0,
+   "explanation": "お＋stem＋になる is the honorific (尊敬語). お＋stem＋する is humble."
+  },
+  {
+   "id": "g31",
+   "level": "N2",
+   "topic": "～に際して",
+   "prompt": "会議の開始（　）、社長が挨拶をした。",
+   "options": [
+    "に際して",
+    "にかけて",
+    "に沿って",
+    "をめぐって"
+   ],
+   "answer": 0,
+   "explanation": "に際して = on the occasion of."
+  },
+  {
+   "id": "g32",
+   "level": "N2",
+   "topic": "～ざるを得ない",
+   "prompt": "熱があるが、大事な試験なので行か（　）。",
+   "options": [
+    "ざるを得ない",
+    "かねない",
+    "わけがない",
+    "ものか"
+   ],
+   "answer": 0,
+   "explanation": "ない-stem + ざるを得ない = have no choice but to."
+  },
+  {
+   "id": "g33",
+   "level": "N2",
+   "topic": "～かねない",
+   "prompt": "このまま放っておくと、大きな事故になり（　）。",
+   "options": [
+    "かねない",
+    "かねる",
+    "ざるを得ない",
+    "っこない"
+   ],
+   "answer": 0,
+   "explanation": "かねない = could well happen (bad outcome)."
+  },
+  {
+   "id": "g34",
+   "level": "N2",
+   "topic": "～かねる",
+   "prompt": "申し訳ありませんが、そのご要望にはお応えし（　）。",
+   "options": [
+    "かねます",
+    "かねません",
+    "ざるを得ません",
+    "がちです"
+   ],
+   "answer": 0,
+   "explanation": "かねます = cannot (polite refusal)."
+  },
+  {
+   "id": "g35",
+   "level": "N2",
+   "topic": "～わけにはいかない",
+   "prompt": "明日は大事な会議があるので、休む（　）。",
+   "options": [
+    "わけにはいかない",
+    "わけがない",
+    "ことはない",
+    "ものではない"
+   ],
+   "answer": 0,
+   "explanation": "わけにはいかない = can't (because of circumstances)."
+  },
+  {
+   "id": "g36",
+   "level": "N2",
+   "topic": "～わりに",
+   "prompt": "このレストランは値段の（　）おいしい。",
+   "options": [
+    "わりに",
+    "ものの",
+    "ばかりか",
+    "上で"
+   ],
+   "answer": 0,
+   "explanation": "Nの + わりに = considering."
+  },
+  {
+   "id": "g37",
+   "level": "N2",
+   "topic": "～どころか",
+   "prompt": "彼は謝る（　）、逆に怒り出した。",
+   "options": [
+    "どころか",
+    "ばかりか",
+    "わりに",
+    "次第"
+   ],
+   "answer": 0,
+   "explanation": "どころか = far from; on the contrary."
+  },
+  {
+   "id": "g38",
+   "level": "N2",
+   "topic": "～次第",
+   "prompt": "資料が届き（　）、すぐにお送りします。",
+   "options": [
+    "次第",
+    "上で",
+    "とたん",
+    "以上"
+   ],
+   "answer": 0,
+   "explanation": "stem + 次第 = as soon as."
+  },
+  {
+   "id": "g39",
+   "level": "N2",
+   "topic": "～ないことには",
+   "prompt": "実際に使ってみない（　）、良いかどうかわからない。",
+   "options": [
+    "ことには",
+    "わけには",
+    "ものの",
+    "どころか"
+   ],
+   "answer": 0,
+   "explanation": "ないことには = unless."
+  },
+  {
+   "id": "g40",
+   "level": "N2",
+   "topic": "～以上",
+   "prompt": "大学に入った（　）、しっかり勉強するべきだ。",
+   "options": [
+    "以上",
+    "次第",
+    "末に",
+    "ものの"
+   ],
+   "answer": 0,
+   "explanation": "以上(は) = now that / since."
+  }
+ ],
+ "dictation": [
+  {
+   "id": "d01",
+   "audio": "{明日|あした}は{雨|あめ}が{降|ふ}るそうです。",
+   "answers": [
+    "あしたはあめがふるそうです"
+   ],
+   "en": "I hear it will rain tomorrow."
+  },
+  {
+   "id": "d02",
+   "audio": "{駅|えき}まで{歩|ある}いて{十分|じゅっぷん}ぐらいです。",
+   "answers": [
+    "えきまであるいてじゅっぷんぐらいです",
+    "えきまであるいてじっぷんぐらいです"
+   ],
+   "en": "It's about ten minutes' walk to the station."
+  },
+  {
+   "id": "d03",
+   "audio": "{週末|しゅうまつ}は{友達|ともだち}と{映画|えいが}を{見|み}に{行|い}きました。",
+   "answers": [
+    "しゅうまつはともだちとえいがをみにいきました"
+   ],
+   "en": "On the weekend I went to see a movie with a friend."
+  },
+  {
+   "id": "d04",
+   "audio": "{窓|まど}を{開|あ}けてもいいですか。",
+   "answers": [
+    "まどをあけてもいいですか"
+   ],
+   "en": "May I open the window?"
+  },
+  {
+   "id": "d05",
+   "audio": "{日本語|にほんご}が{話|はな}せるようになりたいです。",
+   "answers": [
+    "にほんごがはなせるようになりたいです"
+   ],
+   "en": "I want to become able to speak Japanese."
+  },
+  {
+   "id": "d06",
+   "audio": "{電車|でんしゃ}が{遅|おく}れたせいで、{会議|かいぎ}に{間|ま}に{合|あ}いませんでした。",
+   "answers": [
+    "でんしゃがおくれたせいでかいぎにまにあいませんでした"
+   ],
+   "en": "Because the train was late, I didn't make it to the meeting."
+  },
+  {
+   "id": "d07",
+   "audio": "{先生|せんせい}はもうお{帰|かえ}りになりました。",
+   "answers": [
+    "せんせいはもうおかえりになりました"
+   ],
+   "en": "The teacher has already gone home."
+  },
+  {
+   "id": "d08",
+   "audio": "{練習|れんしゅう}すればするほど{上手|じょうず}になります。",
+   "answers": [
+    "れんしゅうすればするほどじょうずになります"
+   ],
+   "en": "The more you practice, the better you get."
+  },
+  {
+   "id": "d09",
+   "audio": "{彼|かれ}は{知|し}っているくせに{教|おし}えてくれない。",
+   "answers": [
+    "かれはしっているくせにおしえてくれない"
+   ],
+   "en": "He knows, yet he won't tell me."
+  },
+  {
+   "id": "d10",
+   "audio": "{資料|しりょう}が{届|とど}き{次第|しだい}、お{送|おく}りします。",
+   "answers": [
+    "しりょうがとどきしだいおおくりします"
+   ],
+   "en": "I'll send it as soon as the materials arrive."
+  }
+ ]
+}

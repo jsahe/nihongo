@@ -1,0 +1,394 @@
+[
+{
+"c": "亻",
+"n": "person"
+},
+{
+"c": "人",
+"n": "person"
+},
+{
+"c": "儿",
+"n": "legs"
+},
+{
+"c": "彳",
+"n": "going man"
+},
+{
+"c": "口",
+"n": "mouth"
+},
+{
+"c": "囗",
+"n": "enclosure"
+},
+{
+"c": "日",
+"n": "sun / day"
+},
+{
+"c": "月",
+"n": "moon / flesh"
+},
+{
+"c": "木",
+"n": "tree"
+},
+{
+"c": "林",
+"n": "woods"
+},
+{
+"c": "艹",
+"n": "grass"
+},
+{
+"c": "⺮",
+"n": "bamboo"
+},
+{
+"c": "氵",
+"n": "water"
+},
+{
+"c": "水",
+"n": "water"
+},
+{
+"c": "冫",
+"n": "ice"
+},
+{
+"c": "雨",
+"n": "rain"
+},
+{
+"c": "火",
+"n": "fire"
+},
+{
+"c": "灬",
+"n": "fire (bottom)"
+},
+{
+"c": "土",
+"n": "earth"
+},
+{
+"c": "石",
+"n": "stone"
+},
+{
+"c": "山",
+"n": "mountain"
+},
+{
+"c": "川",
+"n": "river"
+},
+{
+"c": "田",
+"n": "rice field"
+},
+{
+"c": "禾",
+"n": "grain"
+},
+{
+"c": "米",
+"n": "rice"
+},
+{
+"c": "糸",
+"n": "thread"
+},
+{
+"c": "衤",
+"n": "clothing"
+},
+{
+"c": "衣",
+"n": "clothes"
+},
+{
+"c": "扌",
+"n": "hand"
+},
+{
+"c": "手",
+"n": "hand"
+},
+{
+"c": "又",
+"n": "right hand / again"
+},
+{
+"c": "寸",
+"n": "measure / hand"
+},
+{
+"c": "攵",
+"n": "strike"
+},
+{
+"c": "殳",
+"n": "weapon"
+},
+{
+"c": "力",
+"n": "power"
+},
+{
+"c": "刂",
+"n": "knife"
+},
+{
+"c": "刀",
+"n": "sword"
+},
+{
+"c": "言",
+"n": "say / words"
+},
+{
+"c": "訁",
+"n": "say (side)"
+},
+{
+"c": "心",
+"n": "heart"
+},
+{
+"c": "忄",
+"n": "heart (side)"
+},
+{
+"c": "目",
+"n": "eye"
+},
+{
+"c": "見",
+"n": "see"
+},
+{
+"c": "耳",
+"n": "ear"
+},
+{
+"c": "自",
+"n": "self / nose"
+},
+{
+"c": "頁",
+"n": "head / page"
+},
+{
+"c": "足",
+"n": "foot"
+},
+{
+"c": "⻊",
+"n": "foot (side)"
+},
+{
+"c": "走",
+"n": "run"
+},
+{
+"c": "辶",
+"n": "road / movement"
+},
+{
+"c": "廴",
+"n": "long stride"
+},
+{
+"c": "宀",
+"n": "roof"
+},
+{
+"c": "冖",
+"n": "crown / cover"
+},
+{
+"c": "亠",
+"n": "lid"
+},
+{
+"c": "广",
+"n": "slanted roof"
+},
+{
+"c": "厂",
+"n": "cliff"
+},
+{
+"c": "疒",
+"n": "sickness"
+},
+{
+"c": "尸",
+"n": "corpse / flag"
+},
+{
+"c": "戸",
+"n": "door"
+},
+{
+"c": "門",
+"n": "gate"
+},
+{
+"c": "阝",
+"n": "hill (left) / village (right)"
+},
+{
+"c": "女",
+"n": "woman"
+},
+{
+"c": "子",
+"n": "child"
+},
+{
+"c": "王",
+"n": "king / jewel"
+},
+{
+"c": "玉",
+"n": "jewel"
+},
+{
+"c": "貝",
+"n": "shell / money"
+},
+{
+"c": "金",
+"n": "metal / gold"
+},
+{
+"c": "車",
+"n": "vehicle"
+},
+{
+"c": "食",
+"n": "food"
+},
+{
+"c": "飠",
+"n": "food (side)"
+},
+{
+"c": "馬",
+"n": "horse"
+},
+{
+"c": "魚",
+"n": "fish"
+},
+{
+"c": "鳥",
+"n": "bird"
+},
+{
+"c": "隹",
+"n": "old bird"
+},
+{
+"c": "犭",
+"n": "dog / beast"
+},
+{
+"c": "牛",
+"n": "cow"
+},
+{
+"c": "礻",
+"n": "altar / spirit"
+},
+{
+"c": "示",
+"n": "show / altar"
+},
+{
+"c": "立",
+"n": "stand"
+},
+{
+"c": "白",
+"n": "white"
+},
+{
+"c": "皿",
+"n": "dish"
+},
+{
+"c": "酉",
+"n": "sake jar"
+},
+{
+"c": "斤",
+"n": "axe"
+},
+{
+"c": "欠",
+"n": "yawn / lack"
+},
+{
+"c": "止",
+"n": "stop"
+},
+{
+"c": "大",
+"n": "big"
+},
+{
+"c": "小",
+"n": "small"
+},
+{
+"c": "工",
+"n": "craft"
+},
+{
+"c": "己",
+"n": "self (snake)"
+},
+{
+"c": "巾",
+"n": "cloth"
+},
+{
+"c": "弓",
+"n": "bow"
+},
+{
+"c": "矢",
+"n": "arrow"
+},
+{
+"c": "比",
+"n": "compare"
+},
+{
+"c": "方",
+"n": "direction"
+},
+{
+"c": "寺",
+"n": "temple"
+},
+{
+"c": "夂",
+"n": "winter / walk slowly"
+},
+{
+"c": "夕",
+"n": "evening"
+},
+{
+"c": "穴",
+"n": "hole"
+}
+]

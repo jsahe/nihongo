@@ -1,0 +1,325 @@
+{
+ "week": 0,
+ "startDate": "2026-11-16",
+ "level": "N4–N3",
+ "theme": "Placement + setup",
+ "days": [
+  {
+   "day": 1,
+   "title": "Placement 1 + how this works",
+   "goals": [
+    "Learn how the app grades handwriting",
+    "Placement part 1 (Genki/N5–N4 kanji)"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "How Week 0 works",
+     "explanation": "This week has no new flashcards. Each day is one **placement test** part (about 20 minutes). Your answers save as you go.\n\n- **Kanji parts (1–3):** read the word (type the reading in **kana**), then **handwrite** the kanji. Writing is graded stroke by stroke: shape, direction and order. Tap **Hint** if you're stuck, or **I don't know** to skip.\n- **Part 4:** reading only, a sample of N3 and N2 kanji.\n- **Part 5:** vocabulary meanings, N4–N2.\n- **Part 6:** grammar and dictation.\n\nWhen you're done, copy the summary (漢字 tab) into the curriculum chat. It sets your kanji lists for Phase A.\n\nYou can start before Monday: the placement test is also on the 今日 and 漢字 tabs."
+    },
+    {
+     "type": "placement",
+     "part": 1,
+     "title": "Placement test · part 1"
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "title": "Placement 2 + pitch accent key",
+   "goals": [
+    "Read the pitch-accent notation used on every card",
+    "Placement part 2"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "Pitch accent: the notation",
+     "explanation": "Japanese words have a **pitch pattern**: each mora is high or low, and the place where pitch **drops** is part of the word. Cards show it as kana with a line over the high morae, a tick where it drops, and a number:\n\n| Number | Name | Shape | Example |\n|---|---|---|---|\n| [0] | heiban (flat) | low → high, no drop (even before a particle) | {端|はし} はし[0] |\n| [1] | atamadaka | high on the first mora, then drops | {箸|はし} はし[1] |\n| [n] (inside the word) | nakadaka | rises, then drops before the word ends | {卵|たまご} たまご[2] |\n| [n] (= number of morae) | odaka | rises, drops only on the following particle | {橋|はし} はし[2] |\n\nColors on cards: **blue** = heiban, **red** = atamadaka, **orange** = nakadaka, **green** = odaka.\n\nCounting morae: small ゃゅょ join the kana before them (きょ = 1 mora); っ, ん and ー each count as one.",
+     "examples": [
+      "{箸|はし}で{食|た}べる。 (chopsticks, はし[1])",
+      "{橋|はし}を{渡|わた}る。 (bridge, はし[2])",
+      "{道|みち}の{端|はし}を{歩|ある}く。 (edge, はし[0])"
+     ]
+    },
+    {
+     "type": "vocab",
+     "title": "Minimal pairs: listen",
+     "words": [
+      {
+       "de": "雨",
+       "reading": "あめ",
+       "pitch": 1,
+       "en": "rain"
+      },
+      {
+       "de": "飴",
+       "reading": "あめ",
+       "pitch": 0,
+       "en": "candy"
+      },
+      {
+       "de": "牡蠣",
+       "reading": "かき",
+       "pitch": 1,
+       "en": "oyster"
+      },
+      {
+       "de": "柿",
+       "reading": "かき",
+       "pitch": 0,
+       "en": "persimmon"
+      },
+      {
+       "de": "箸",
+       "reading": "はし",
+       "pitch": 1,
+       "en": "chopsticks"
+      },
+      {
+       "de": "橋",
+       "reading": "はし",
+       "pitch": 2,
+       "en": "bridge"
+      }
+     ]
+    },
+    {
+     "type": "placement",
+     "part": 2,
+     "title": "Placement test · part 2"
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "title": "Placement 3",
+   "goals": [
+    "Placement part 3 (last kanji part)"
+   ],
+   "sections": [
+    {
+     "type": "placement",
+     "part": 3,
+     "title": "Placement test · part 3"
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "title": "Placement 4: N3/N2 kanji",
+   "goals": [
+    "Estimate how many N3 and N2 kanji you can already read"
+   ],
+   "sections": [
+    {
+     "type": "placement",
+     "part": 4,
+     "title": "Placement test · part 4"
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "title": "Placement 5: vocabulary",
+   "goals": [
+    "Estimate your N4–N2 vocabulary"
+   ],
+   "sections": [
+    {
+     "type": "placement",
+     "part": 5,
+     "title": "Placement test · part 5"
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "title": "Placement 6: grammar + dictation",
+   "goals": [
+    "Grammar check (40) and 10 dictations"
+   ],
+   "sections": [
+    {
+     "type": "placement",
+     "part": 6,
+     "title": "Placement test · part 6"
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "title": "{東京|とうきょう}の{思|おも}い{出|で} + look-alike kanji",
+   "goals": [
+    "Try a reading with furigana only on unknown kanji",
+    "Tell 待・持・特 apart",
+    "Send the placement summary to the curriculum chat"
+   ],
+   "sections": [
+    {
+     "type": "reading",
+     "title": "{東京|とうきょう}の{思|おも}い{出|で}",
+     "text": "{私|わたし}は{前|まえ}に{東京|とうきょう}に{住|す}んでいました。{毎朝|まいあさ}、{電車|でんしゃ}で{日本語|にほんご}の{学校|がっこう}に{通|かよ}っていました。{電車|でんしゃ}はいつも{込|こ}んでいましたが、{窓|まど}から{見|み}える{町|まち}の{景色|けしき}が{好|す}きでした。\n\n{授業|じゅぎょう}の{後|あと}は、{友達|ともだち}とラーメンを{食|た}べに{行|い}ったり、{本屋|ほんや}で{漫画|まんが}を{探|さが}したりしました。{漢字|かんじ}を{覚|おぼ}えるのは{大変|たいへん}でしたが、{少|すこ}しずつ{読|よ}めるようになりました。\n\n{今年|ことし}はもう{一度|いちど}、{漢字|かんじ}を{手|て}で{書|か}いて{覚|おぼ}えるつもりです。",
+     "translation": "I used to live in Tokyo. Every morning I commuted by train to a Japanese language school. The trains were always crowded, but I liked the view of the city from the window.\n\nAfter class I went out for ramen with friends or looked for manga at bookstores. Memorizing kanji was hard, but little by little I became able to read them.\n\nThis year I intend to learn kanji again by writing them by hand."
+    },
+    {
+     "type": "exercises",
+     "title": "Comprehension",
+     "items": [
+      {
+       "id": "w00d7-1",
+       "kind": "multiple_choice",
+       "topic": "reading",
+       "prompt": "{私|わたし}は{毎朝|まいあさ}{何|なに}で{学校|がっこう}に{通|かよ}っていましたか。",
+       "options": [
+        "{電車|でんしゃ}",
+        "バス",
+        "{自転車|じてんしゃ}",
+        "{歩|ある}いて"
+       ],
+       "answer": 0
+      },
+      {
+       "id": "w00d7-2",
+       "kind": "multiple_choice",
+       "topic": "reading",
+       "prompt": "{授業|じゅぎょう}の{後|あと}、{何|なに}をしましたか。",
+       "options": [
+        "ラーメンを{食|た}べに{行|い}ったり、{漫画|まんが}を{探|さが}したりした",
+        "{家|いえ}で{漢字|かんじ}を{書|か}いた",
+        "{電車|でんしゃ}で{寝|ね}た",
+        "{窓|まど}から{町|まち}を{見|み}た"
+       ],
+       "answer": 0
+      },
+      {
+       "id": "w00d7-3",
+       "kind": "fill_blank",
+       "topic": "～ようになる",
+       "prompt": "{少|すこ}しずつ{読|よ}める___になりました。",
+       "answers": [
+        [
+         "よう"
+        ]
+       ],
+       "explanation": "Potential form + ようになる = came to be able to."
+      }
+     ]
+    },
+    {
+     "type": "kanji",
+     "title": "Look-alikes: 待・持・特",
+     "items": [
+      {
+       "kanji": "待",
+       "de": "待つ",
+       "reading": "まつ",
+       "pitch": 1,
+       "en": "to wait",
+       "components": [
+        "彳",
+        "寺"
+       ],
+       "mnemonic": "A man **going** (彳) to the **temple** (寺) has to **wait** in line."
+      },
+      {
+       "kanji": "持",
+       "de": "持つ",
+       "reading": "もつ",
+       "pitch": 1,
+       "en": "to hold, to have",
+       "components": [
+        "扌",
+        "寺"
+       ],
+       "mnemonic": "You **hold** the **temple** (寺) offering in your **hand** (扌)."
+      },
+      {
+       "kanji": "特",
+       "de": "特に",
+       "reading": "とくに",
+       "pitch": 1,
+       "en": "especially",
+       "components": [
+        "牛",
+        "寺"
+       ],
+       "mnemonic": "A **cow** (牛) living at a **temple** (寺) is something **special**."
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "title": "Write them",
+     "items": [
+      {
+       "id": "w00d7-4",
+       "kind": "kanji_write",
+       "topic": "待・持・特",
+       "de": "待つ",
+       "kanji": "待",
+       "reading": "まつ",
+       "pitch": 1,
+       "en": "to wait"
+      },
+      {
+       "id": "w00d7-5",
+       "kind": "kanji_write",
+       "topic": "待・持・特",
+       "de": "持つ",
+       "kanji": "持",
+       "reading": "もつ",
+       "pitch": 1,
+       "en": "to hold"
+      },
+      {
+       "id": "w00d7-6",
+       "kind": "kanji_write",
+       "topic": "待・持・特",
+       "de": "特に",
+       "kanji": "特",
+       "reading": "とくに",
+       "pitch": 1,
+       "en": "especially"
+      },
+      {
+       "id": "w00d7-7",
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{駅|えき}で{友達|ともだち}を{待|ま}っています。",
+       "answers": [
+        "えきでともだちをまっています"
+       ],
+       "en": "I'm waiting for a friend at the station.",
+       "write": {
+        "de": "待つ",
+        "kanji": "待",
+        "reading": "まつ",
+        "en": "to wait"
+       }
+      },
+      {
+       "id": "w00d7-8",
+       "kind": "multiple_choice",
+       "topic": "待・持・特",
+       "prompt": "{荷物|にもつ}を___ってあげましょうか。",
+       "options": [
+        "持",
+        "待",
+        "特"
+       ],
+       "answer": 0,
+       "explanation": "持つ = to hold/carry (扌 hand)."
+      }
+     ]
+    },
+    {
+     "type": "writing",
+     "prompt": "In 3–4 sentences, write about a place you lived in Japan. Write it by hand on paper first, then type it here.",
+     "modelAnswer": "{私|わたし}は{東京|とうきょう}の{中野|なかの}に{住|す}んでいました。{駅|えき}の{近|ちか}くに{安|やす}くておいしい{店|みせ}がたくさんありました。"
+    }
+   ]
+  }
+ ],
+ "cards": []
+}
