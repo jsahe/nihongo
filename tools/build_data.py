@@ -31,6 +31,16 @@ def load_pitch(path):
         by_pair.setdefault((w, r), int(a)); by_word.setdefault(w, (r, int(a)))
     return by_pair, by_word
 
+PAREN_RE = re.compile(r"\s*[(（][^)）]*[)）]\s*")
+def clean_entry(w, r):
+    """Readings are what the learner types, so they must be the bare word:
+    'べんきょう (する)' / 'うんどうする' → 'べんきょう'/'うんどう'; '(を) とお' → 'とお'; 'パート (タイム)' → 'パート'."""
+    w2 = PAREN_RE.sub("", w).strip() or w.strip()
+    r2 = PAREN_RE.sub("", r).strip() or r.strip()
+    if "する" not in w2 and r2.endswith("する") and len(r2) > 2 and r2 != w2:
+        r2 = r2[:-2]
+    return w2, r2
+
 def load_vocab(src, pitch):
     by_pair, by_word = pitch
     out, seen = [], set()
@@ -40,6 +50,7 @@ def load_vocab(src, pitch):
             rs = [x.strip() for x in row["reading"].split(";")]
             w = ws[0].replace("～", "").replace("〜", "")
             r = (rs[0] if len(rs) != len(ws) else rs[0]).replace("～", "").replace("〜", "")
+            w, r = clean_entry(w, r)
             if not w or (w, r) in seen: continue
             seen.add((w, r))
             p = by_pair.get((w, r))

@@ -1,0 +1,2755 @@
+{
+ "week": 1,
+ "startDate": "2026-11-23",
+ "level": "N4→N3",
+ "theme": "Daily life, self-introduction (reactivation)",
+ "days": [
+  {
+   "day": 1,
+   "title": "{毎日|まいにち}の{生活|せいかつ}",
+   "goals": [
+    "Hear [0] vs odaka: the particle after the word tells them apart (your Week 0 question)",
+    "～てから: do one thing, and only then the next",
+    "Write 時・毎・行・飲"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "ピッチ: [0] vs [2] in two-mora words",
+     "explanation": "You noticed that はし[0] and はし[2] sound the same. **On their own, they do.** Both go low → high.\n\nThe number says **where the pitch drops**: [2] means \"drop after the 2nd mora\". A two-mora word has nothing after its 2nd mora, so the drop lands on **whatever comes next**: the particle.\n\n| | word | + が | what you hear |\n|---|---|---|---|\n| {端|はし} edge | はし[0] | は し **が** | が stays **high** |\n| {橋|はし} bridge | はし[2] | は し が | が drops **low** |\n\nSame for longer words: [0] (heiban) never drops, even on the particle; **odaka** (the number = the mora count) drops only on the particle. {友達|ともだち}[0] が = flat, high が; {弟|おとうと}[4] が = low が.\n\nSo: in isolation you can't hear it, and native speakers rely on context too. The color and number on the card tell you how a **following particle** will sound. In 練習 → ピッチ, nouns are played with が so you can hear it.\n\nNext: play each pair with が. Listen to the が only."
+    },
+    {
+     "type": "vocab",
+     "title": "Listen to the が",
+     "words": [
+      {
+       "de": "端",
+       "reading": "はし",
+       "pitch": 0,
+       "en": "edge (が stays high)",
+       "particle": "が"
+      },
+      {
+       "de": "橋",
+       "reading": "はし",
+       "pitch": 2,
+       "en": "bridge (が drops)",
+       "particle": "が"
+      },
+      {
+       "de": "鼻",
+       "reading": "はな",
+       "pitch": 0,
+       "en": "nose (が stays high)",
+       "particle": "が"
+      },
+      {
+       "de": "花",
+       "reading": "はな",
+       "pitch": 2,
+       "en": "flower (が drops)",
+       "particle": "が"
+      },
+      {
+       "de": "友達",
+       "reading": "ともだち",
+       "pitch": 0,
+       "en": "friend: heiban (が high)",
+       "particle": "が"
+      },
+      {
+       "de": "弟",
+       "reading": "おとうと",
+       "pitch": 4,
+       "en": "younger brother: odaka (が low)",
+       "particle": "が"
+      }
+     ]
+    },
+    {
+     "type": "grammar",
+     "title": "～てから",
+     "explanation": "**Vて + から** = after doing V (and only then). The first action is finished, or is a condition, before the second.\n\n| | meaning | note |\n|---|---|---|\n| {食|た}べてから{出|で}かける | go out **after** eating | order matters |\n| {食|た}べて{出|で}かける | eat and go out | plain sequence |\n| {食|た}べた{後|あと}で{出|で}かける | go out after eating | looser \"at some point after\" |\n| {食|た}べるから{出|で}かけない | I'm eating, **so** I won't go out | plain form + から = **because** |\n\n**～てから + time + になる / たつ** = it's been (time) since: {日本|にほん}に{来|き}てから{三|さん}か{月|げつ}になります.\n\nRegister: neutral; works in plain and です・ます.",
+     "examples": [
+      "{朝|あさ}ご{飯|はん}を{食|た}べてから、{歯|は}を{磨|みが}きます。",
+      "{手|て}を{洗|あら}ってから{食|た}べてください。",
+      "{日本|にほん}に{来|き}てから、{三|さん}か{月|げつ}になります。",
+      "{仕事|しごと}が{終|お}わってから、ジムに{行|い}きます。"
+     ]
+    },
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "時",
+       "de": "時間",
+       "reading": "じかん",
+       "en": "time; hours",
+       "components": [
+        "日",
+        "寺"
+       ],
+       "mnemonic": "The **temple** (寺) bell rings each time the **sun** (日) moves an hour: **time**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "毎",
+       "de": "毎日",
+       "reading": "まいにち",
+       "en": "every day",
+       "components": [
+        "𠂉",
+        "毋"
+       ],
+       "mnemonic": "**Every** day, **mother** (毋) puts on her **hat** (𠂉). Inside, 母's two dots become one long line.",
+       "pitch": 1
+      },
+      {
+       "kanji": "行",
+       "de": "行く",
+       "reading": "いく",
+       "en": "to go",
+       "components": [
+        "彳"
+       ],
+       "mnemonic": "**Left foot** (彳), **right foot** (亍): walking, so **go**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "飲",
+       "de": "飲む",
+       "reading": "のむ",
+       "en": "to drink",
+       "components": [
+        "飠",
+        "欠"
+       ],
+       "mnemonic": "Open your **yawning mouth** (欠) next to the **food** radical (飠): **drink**.",
+       "pitch": 1
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "multiple_choice",
+       "topic": "pitch [0] vs odaka",
+       "prompt": "{橋|はし}が and {端|はし}が: in which one is が **lower** than し?",
+       "options": [
+        "{端|はし}が (はし[0])",
+        "{橋|はし}が (はし[2])",
+        "Both",
+        "Neither"
+       ],
+       "answer": 1,
+       "explanation": "[2] on a 2-mora word = odaka: the drop falls on the particle. [0] never drops.",
+       "id": "w01d1-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "pitch [0] vs odaka",
+       "prompt": "{弟|おとうと} is おとうと[4]. In {弟|おとうと}が{来|き}た, where does the pitch drop?",
+       "options": [
+        "After お (1st mora)",
+        "After と (2nd mora)",
+        "No drop: が stays high",
+        "After the last と, so が is low"
+       ],
+       "answer": 3,
+       "explanation": "おとうと has 4 morae (お・と・う・と). [4] = drop after the 4th: on the following が.",
+       "id": "w01d1-2"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～てから",
+       "prompt": "{宿題|しゅくだい}をし___{遊|あそ}びに{行|い}きなさい。 (Do your homework first, then go play.)",
+       "answers": [
+        [
+         "てから"
+        ]
+       ],
+       "explanation": "しなさい = plain command, parent to child.",
+       "id": "w01d1-3"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～てから vs から",
+       "prompt": "{雨|あめ}が{降|ふ}っている（　）、{傘|かさ}を{持|も}って{行|い}きます。",
+       "options": [
+        "てから",
+        "あとで",
+        "から",
+        "まえに"
+       ],
+       "answer": 2,
+       "explanation": "Plain form + から = **because**. 降っているてから isn't a form; ～てから attaches to the bare て-form.",
+       "id": "w01d1-4"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～てから + time",
+       "prompt": "{日本|にほん}に{来|き}___、もう{一年|いちねん}になります。 (It's been a year since I came to Japan.)",
+       "answers": [
+        [
+         "てから"
+        ]
+       ],
+       "id": "w01d1-5"
+      },
+      {
+       "kind": "order",
+       "topic": "～てから",
+       "answer": "{毎朝|まいあさ} シャワーを {浴|あ}びてから {朝|あさ}ご{飯|はん}を {食|た}べます。",
+       "words": [
+        "{毎朝|まいあさ}",
+        "シャワーを",
+        "{浴|あ}びてから",
+        "{朝|あさ}ご{飯|はん}を",
+        "{食|た}べます。"
+       ],
+       "id": "w01d1-6"
+      },
+      {
+       "kind": "translate",
+       "topic": "～てから",
+       "direction": "en-ja",
+       "prompt": "I'll call you after I get home.",
+       "acceptable": [
+        "うちにかえってからでんわします",
+        "いえにかえってからでんわします",
+        "かえってからでんわします",
+        "うちにかえってからでんわをします",
+        "いえにかえってからでんわをします",
+        "うちにかえってからでんわをかけます",
+        "いえにかえってからでんわをかけます",
+        "うちにかえってからでんわする",
+        "いえにかえってからでんわする"
+       ],
+       "modelAnswer": "{家|いえ}に{帰|かえ}ってから{電話|でんわ}します。",
+       "id": "w01d1-7"
+      },
+      {
+       "kind": "match",
+       "topic": "today's kanji",
+       "pairs": [
+        [
+         "{時間|じかん}",
+         "time"
+        ],
+        [
+         "{毎日|まいにち}",
+         "every day"
+        ],
+        [
+         "{行|い}く",
+         "to go"
+        ],
+        [
+         "{飲|の}む",
+         "to drink"
+        ]
+       ],
+       "id": "w01d1-8"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "待・持・特 (review)",
+       "de": "待つ",
+       "kanji": "待",
+       "reading": "まつ",
+       "en": "to wait",
+       "pitch": 1,
+       "id": "w01d1-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "飲む",
+       "kanji": "飲",
+       "reading": "のむ",
+       "en": "to drink",
+       "pitch": 1,
+       "id": "w01d1-10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "title": "{健康|けんこう}のために",
+   "goals": [
+    "～ようにする / ～ようにしている: make an effort, make a point of",
+    "～ようにしてください: polite instructions",
+    "Write 元・気・出・分"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "～ようにする / ～ようにしている",
+     "explanation": "**V (dictionary or ない form) + ようにする** = make an effort to, make sure to.\n\n- **～ようにしている**: an ongoing habit you work at. \"I make a point of …\"\n- **～ようにしてください**: \"please make sure to …\" Common in instructions at work and school; politer than ～てください.\n- **～ないようにする**: make sure **not** to.\n\nCompare: **～ことにしている** (Thursday) = a fixed rule you decided on. ようにしている = you try; ことにしている = it's settled.\n\nWithout する, **～ように** means **so that**: {忘|わす}れないように、メモする (I write it down so that I won't forget). It usually follows a potential or a negative form, or a verb you can't control.",
+     "examples": [
+      "{毎日|まいにち}{野菜|やさい}を{食|た}べるようにしています。",
+      "{夜|よる}{遅|おそ}く{甘|あま}いものを{食|た}べないようにしています。",
+      "{明日|あした}は{遅|おく}れないようにしてください。",
+      "{忘|わす}れないように、メモしておきます。"
+     ]
+    },
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "元",
+       "de": "元気",
+       "reading": "げんき",
+       "en": "healthy, energetic",
+       "components": [
+        "二",
+        "儿"
+       ],
+       "mnemonic": "A **head** (二) on **legs** (儿): a person at their **origin**, full of 元気.",
+       "pitch": 1
+      },
+      {
+       "kanji": "気",
+       "de": "天気",
+       "reading": "てんき",
+       "en": "weather",
+       "components": [
+        "气",
+        "乂"
+       ],
+       "mnemonic": "**Steam** (气) rising over the field (乂): air, **spirit**, weather.",
+       "pitch": 1
+      },
+      {
+       "kanji": "出",
+       "de": "出す",
+       "reading": "だす",
+       "en": "to take out; to hand in",
+       "components": [
+        "山",
+        "凵"
+       ],
+       "mnemonic": "A sprout pushes **out** of the **box** (凵), up through two levels (山): **go out / take out**.",
+       "pitch": 1
+      },
+      {
+       "kanji": "分",
+       "de": "自分",
+       "reading": "じぶん",
+       "en": "oneself",
+       "components": [
+        "八",
+        "刀"
+       ],
+       "mnemonic": "A **knife** (刀) **splits** (八) things into **parts**: divide, minute, one's own share (自分).",
+       "pitch": 0
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{毎朝|まいあさ}{早|はや}く{起|お}きるようにしています。",
+       "answers": [
+        "まいあさはやくおきるようにしています"
+       ],
+       "en": "I make a point of getting up early every morning.",
+       "write": {
+        "de": "毎朝",
+        "kanji": "毎",
+        "reading": "まいあさ",
+        "en": "every morning"
+       },
+       "id": "w01d2-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ように (so that)",
+       "prompt": "{日本語|にほんご}が{話|はな}せる（　）、{毎日|まいにち}{練習|れんしゅう}しています。",
+       "options": [
+        "ために",
+        "ことに",
+        "ように",
+        "ところに"
+       ],
+       "answer": 2,
+       "explanation": "After a potential form (話せる), purpose is ～ように. ～ために needs a verb you control: {話|はな}すために.",
+       "id": "w01d2-2"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～ないようにする",
+       "prompt": "{寝|ね}る{前|まえ}は、スマホを{見|み}___ようにしています。 (I make a point of not looking at my phone before bed.)",
+       "answers": [
+        [
+         "ない"
+        ]
+       ],
+       "id": "w01d2-3"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ようにしてください",
+       "prompt": "Your teacher wants everyone on time tomorrow. Most natural:",
+       "options": [
+        "{明日|あした}は{遅|おく}れないようになってください。",
+        "{明日|あした}は{遅|おく}れないようにしてください。",
+        "{明日|あした}は{遅|おく}れないことにしてください。",
+        "{明日|あした}は{遅|おく}れないようにします。"
+       ],
+       "answer": 1,
+       "explanation": "ようにしてください = please make sure to. ようになってください isn't used for requests.",
+       "id": "w01d2-4"
+      },
+      {
+       "kind": "translate",
+       "topic": "～ようにしている",
+       "direction": "en-ja",
+       "prompt": "I try to go to bed before midnight.",
+       "acceptable": [
+        "じゅうにじまえにねるようにしています",
+        "じゅうにじまでにねるようにしています",
+        "12じまえにねるようにしています",
+        "12じまでにねるようにしています",
+        "じゅうにじまえにねるようにしている",
+        "じゅうにじまでにねるようにしている",
+        "れいじまえにねるようにしています",
+        "まよなかまえにねるようにしています"
+       ],
+       "modelAnswer": "{十二時|じゅうにじ}{前|まえ}に{寝|ね}るようにしています。",
+       "id": "w01d2-5"
+      },
+      {
+       "kind": "order",
+       "topic": "～ようにしている",
+       "answer": "{健康|けんこう}の ために {毎日|まいにち} {歩|ある}く ように しています。",
+       "words": [
+        "{健康|けんこう}の",
+        "ために",
+        "{毎日|まいにち}",
+        "{歩|ある}く",
+        "ように",
+        "しています。"
+       ],
+       "id": "w01d2-6"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ようにしている vs ことにしている",
+       "prompt": "Which one says it's a **fixed rule** you decided on, not just an effort?",
+       "options": [
+        "{毎晩|まいばん}{日記|にっき}を{書|か}くことにしている。",
+        "{毎晩|まいばん}{日記|にっき}を{書|か}くようにしている。",
+        "{毎晩|まいばん}{日記|にっき}を{書|か}くようになった。",
+        "{毎晩|まいばん}{日記|にっき}を{書|か}いてから{寝|ね}る。"
+       ],
+       "answer": 0,
+       "explanation": "ことにしている = a rule you set yourself. You'll meet it properly on Thursday.",
+       "id": "w01d2-7"
+      },
+      {
+       "kind": "match",
+       "topic": "today's kanji",
+       "pairs": [
+        [
+         "{元気|げんき}",
+         "healthy, energetic"
+        ],
+        [
+         "{天気|てんき}",
+         "weather"
+        ],
+        [
+         "{出|だ}す",
+         "to take out; to hand in"
+        ],
+        [
+         "{自分|じぶん}",
+         "oneself"
+        ]
+       ],
+       "id": "w01d2-8"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "毎日",
+       "kanji": "毎",
+       "reading": "まいにち",
+       "en": "every day",
+       "pitch": 1,
+       "id": "w01d2-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "時間",
+       "kanji": "時",
+       "reading": "じかん",
+       "en": "time; hours",
+       "pitch": 0,
+       "id": "w01d2-10"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "自分",
+       "kanji": "分",
+       "reading": "じぶん",
+       "en": "oneself",
+       "pitch": 0,
+       "id": "w01d2-11"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "title": "{話|はな}せるようになった",
+   "goals": [
+    "～ようになる: a change in ability or habit",
+    "～なくなる: stop doing / no longer",
+    "Write 校・語・先・外"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "～ようになる",
+     "explanation": "**V (dictionary or potential) + ようになる** = come to (do / be able to). A **change** that happened over time, not by one decision.\n\n| form | meaning |\n|---|---|\n| {話|はな}せるようになった | I became able to speak |\n| {野菜|やさい}を{食|た}べるようになった | I started eating vegetables (a new habit) |\n| {本|ほん}を{読|よ}まなくなった | I stopped reading books |\n| {話|はな}せるようになりたい | I want to become able to speak |\n\n**Negative change: ～なくなる** is the normal form (～ないようになる exists but is rarer).\n\n**する vs なる:** ようにする = your effort; ようになる = the result. {毎日|まいにち}{練習|れんしゅう}するようにしたら、{話|はな}せるようになった.\n\nListening: in fast speech ようになりたい can blur. Placement d05 you heard なり as み. Today's dictation trains that.",
+     "examples": [
+      "{日本|にほん}に{来|き}てから、{納豆|なっとう}が{食|た}べられるようになりました。",
+      "{最近|さいきん}、{漢字|かんじ}が{少|すこ}しずつ{書|か}けるようになってきた。",
+      "{子|こ}どもが{一人|ひとり}で{学校|がっこう}に{行|い}くようになった。",
+      "{忙|いそが}しくて、{本|ほん}を{読|よ}まなくなった。"
+     ]
+    },
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "校",
+       "de": "学校",
+       "reading": "がっこう",
+       "en": "school",
+       "components": [
+        "木",
+        "交"
+       ],
+       "mnemonic": "People **mix** (交) under the **trees** (木): **school**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "語",
+       "de": "日本語",
+       "reading": "にほんご",
+       "en": "Japanese (language)",
+       "components": [
+        "言",
+        "吾"
+       ],
+       "mnemonic": "**Words** (言) that **I** (吾) speak: **language**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "先",
+       "de": "先月",
+       "reading": "せんげつ",
+       "en": "last month",
+       "components": [
+        "儿"
+       ],
+       "mnemonic": "**Legs** (儿) walking **ahead** with a sprout on the head: ahead, previous (先月 = the month before).",
+       "pitch": 1
+      },
+      {
+       "kanji": "外",
+       "de": "外国",
+       "reading": "がいこく",
+       "en": "foreign country",
+       "components": [
+        "夕",
+        "卜"
+       ],
+       "mnemonic": "Fortune-telling (卜) at **evening** (夕) happens **outside**.",
+       "pitch": 0
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{早|はや}く{日本語|にほんご}がぺらぺら{話|はな}せるようになりたいです。",
+       "answers": [
+        "はやくにほんごがぺらぺらはなせるようになりたいです"
+       ],
+       "en": "I want to be able to speak Japanese fluently soon.",
+       "write": {
+        "de": "日本語",
+        "kanji": "語",
+        "reading": "にほんご",
+        "en": "Japanese (language)"
+       },
+       "id": "w01d3-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ようになる vs ようにする",
+       "prompt": "{毎日|まいにち}{練習|れんしゅう}して、{泳|およ}げる（　）。",
+       "options": [
+        "ようにした",
+        "ようになった",
+        "ことにした",
+        "ことになった"
+       ],
+       "answer": 1,
+       "explanation": "Potential (泳げる) + ようになった = became able to. A result, not an effort.",
+       "id": "w01d3-2"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ようになる vs ようにする",
+       "prompt": "{健康|けんこう}のために、{毎朝|まいあさ}{歩|ある}く（　）。",
+       "options": [
+        "ようになっている",
+        "ようでいる",
+        "ようになる",
+        "ようにしている"
+       ],
+       "answer": 3,
+       "explanation": "のために signals a deliberate effort: ようにしている.",
+       "id": "w01d3-3"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～ようになる",
+       "prompt": "{前|まえ}は{辛|から}いものが{苦手|にがて}でしたが、{今|いま}は{食|た}べられる___になりました。",
+       "answers": [
+        [
+         "よう"
+        ]
+       ],
+       "id": "w01d3-4"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～なくなる",
+       "prompt": "スマホを{買|か}ってから、{本|ほん}を{読|よ}ま___なりました。 (Since I bought a smartphone, I've stopped reading books.)",
+       "answers": [
+        [
+         "なく"
+        ]
+       ],
+       "id": "w01d3-5"
+      },
+      {
+       "kind": "translate",
+       "topic": "～ようになる",
+       "direction": "en-ja",
+       "prompt": "I've become able to read Japanese newspapers.",
+       "acceptable": [
+        "にほんごのしんぶんがよめるようになりました",
+        "にほんごのしんぶんをよめるようになりました",
+        "にほんごのしんぶんがよめるようになった",
+        "にほんごのしんぶんをよめるようになった",
+        "にほんのしんぶんがよめるようになりました",
+        "にほんのしんぶんがよめるようになった"
+       ],
+       "modelAnswer": "{日本語|にほんご}の{新聞|しんぶん}が{読|よ}めるようになりました。",
+       "id": "w01d3-6"
+      },
+      {
+       "kind": "order",
+       "topic": "～ようになる",
+       "answer": "{一人|ひとり}で {料理|りょうり}が できる ように なりました。",
+       "words": [
+        "{一人|ひとり}で",
+        "{料理|りょうり}が",
+        "できる",
+        "ように",
+        "なりました。"
+       ],
+       "id": "w01d3-7"
+      },
+      {
+       "kind": "match",
+       "topic": "today's kanji",
+       "pairs": [
+        [
+         "{学校|がっこう}",
+         "school"
+        ],
+        [
+         "{日本語|にほんご}",
+         "Japanese"
+        ],
+        [
+         "{先月|せんげつ}",
+         "last month"
+        ],
+        [
+         "{外国|がいこく}",
+         "foreign country"
+        ]
+       ],
+       "id": "w01d3-8"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "元気",
+       "kanji": "元",
+       "reading": "げんき",
+       "en": "healthy, energetic",
+       "pitch": 1,
+       "id": "w01d3-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "飲む",
+       "kanji": "飲",
+       "reading": "のむ",
+       "en": "to drink",
+       "pitch": 1,
+       "id": "w01d3-10"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "行く",
+       "kanji": "行",
+       "reading": "いく",
+       "en": "to go",
+       "pitch": 0,
+       "id": "w01d3-11"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "title": "{週末|しゅうまつ}の{予定|よてい}",
+   "goals": [
+    "～ことにする: I decide",
+    "～ことになる: it's decided (by others, or said modestly)",
+    "Write 曜・火・金・円"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "～ことにする / ～ことになる",
+     "explanation": "| form | meaning | who decides |\n|---|---|---|\n| ～ことにした | I decided to | me |\n| ～ことにしている | I've made it my rule to | me (ongoing) |\n| ～ことになった | it's been decided / arranged that | others, circumstances |\n| ～ことになっている | the rule / schedule is that | rules, plans |\n\n**Register:** Japanese often uses ことになりました even for their **own** decisions (marriage, quitting, moving). It sounds modest and less self-centered. {結婚|けっこん}することになりました is the standard announcement.\n\nCompare Tuesday: ようにしている = I try; ことにしている = it's my rule.",
+     "examples": [
+      "{来年|らいねん}、{日本|にほん}に{留学|りゅうがく}することにしました。",
+      "{来月|らいげつ}から{東京|とうきょう}に{転勤|てんきん}することになりました。",
+      "{毎週|まいしゅう}{土曜日|どようび}は{掃除|そうじ}をすることにしています。",
+      "ここではタバコを{吸|す}ってはいけないことになっています。"
+     ]
+    },
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "曜",
+       "de": "火曜日",
+       "reading": "かようび",
+       "en": "Tuesday",
+       "components": [
+        "日",
+        "翟"
+       ],
+       "mnemonic": "The **sun** (日) and a bird with big **feathers** (翟) mark the **days of the week**.",
+       "pitch": 2
+      },
+      {
+       "kanji": "火",
+       "de": "火",
+       "reading": "ひ",
+       "en": "fire",
+       "components": [],
+       "mnemonic": "A **fire** with sparks flying out on both sides.",
+       "pitch": 1
+      },
+      {
+       "kanji": "金",
+       "de": "お金",
+       "reading": "おかね",
+       "en": "money",
+       "components": [],
+       "mnemonic": "Under a **roof** (𠆢), a **king** (王) guards two **gold** nuggets (丷): gold, **money**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "円",
+       "de": "円",
+       "reading": "えん",
+       "en": "yen; circle",
+       "components": [
+        "冂"
+       ],
+       "mnemonic": "A **frame** (冂) around a coin: **yen**, circle.",
+       "pitch": 1
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{毎週|まいしゅう}{金曜日|きんようび}は{外|そと}で{食|た}べることにしています。",
+       "answers": [
+        "まいしゅうきんようびはそとでたべることにしています"
+       ],
+       "en": "I make it a rule to eat out every Friday.",
+       "write": {
+        "de": "金曜日",
+        "kanji": "金",
+        "reading": "きんようび",
+        "en": "Friday"
+       },
+       "id": "w01d4-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ことにする vs ことになる",
+       "prompt": "{会社|かいしゃ}の{命令|めいれい}で、{来月|らいげつ}から{大阪|おおさか}で{働|はたら}く（　）。",
+       "options": [
+        "ことにした",
+        "ようになった",
+        "ことになった",
+        "ようにした"
+       ],
+       "answer": 2,
+       "explanation": "会社の命令 (company order): someone else decided → ことになった.",
+       "id": "w01d4-2"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ことにする vs ことになる",
+       "prompt": "{自分|じぶん}で{決|き}めました。{今年|ことし}から{毎日|まいにち}{日記|にっき}を{書|か}く（　）。",
+       "options": [
+        "ことにしました",
+        "ことになりました",
+        "ようになりました",
+        "ようでした"
+       ],
+       "answer": 0,
+       "explanation": "自分で決めました: your own decision → ことにしました.",
+       "id": "w01d4-3"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "ことになる (modest)",
+       "prompt": "Announcing your own wedding at work, the usual phrase is:",
+       "options": [
+        "{結婚|けっこん}するようになりました。",
+        "{結婚|けっこん}することにしました。",
+        "{結婚|けっこん}しようと{思|おも}います。",
+        "{結婚|けっこん}することになりました。"
+       ],
+       "answer": 3,
+       "explanation": "ことになりました frames it as something that came about. ことにしました is grammatical but sounds like you decided alone.",
+       "id": "w01d4-4"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～ことになっている",
+       "prompt": "この{寮|りょう}では、{夜|よる}{十時|じゅうじ}{以降|いこう}は{料理|りょうり}をしてはいけない___になっている。 (In this dorm, the rule is no cooking after 10 p.m.)",
+       "answers": [
+        [
+         "こと"
+        ]
+       ],
+       "id": "w01d4-5"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "～ことにした",
+       "prompt": "{雨|あめ}なので、{旅行|りょこう}は{来週|らいしゅう}に{行|い}く___にした。 (It's raining, so we decided to go next week.)",
+       "answers": [
+        [
+         "こと"
+        ]
+       ],
+       "id": "w01d4-6"
+      },
+      {
+       "kind": "translate",
+       "topic": "～ことにした",
+       "direction": "en-ja",
+       "prompt": "I've decided to quit smoking.",
+       "acceptable": [
+        "たばこをやめることにしました",
+        "たばこをやめることにした",
+        "きんえんすることにしました",
+        "きんえんすることにした"
+       ],
+       "modelAnswer": "タバコをやめることにしました。",
+       "id": "w01d4-7"
+      },
+      {
+       "kind": "order",
+       "topic": "～ことになる",
+       "answer": "{今度|こんど}の {土曜日|どようび}に {友達|ともだち}と {会|あ}う ことに なりました。",
+       "words": [
+        "{今度|こんど}の",
+        "{土曜日|どようび}に",
+        "{友達|ともだち}と",
+        "{会|あ}う",
+        "ことに",
+        "なりました。"
+       ],
+       "id": "w01d4-8"
+      },
+      {
+       "kind": "match",
+       "topic": "today's kanji",
+       "pairs": [
+        [
+         "{火曜日|かようび}",
+         "Tuesday"
+        ],
+        [
+         "{金曜日|きんようび}",
+         "Friday"
+        ],
+        [
+         "お{金|かね}",
+         "money"
+        ],
+        [
+         "{千円|せんえん}",
+         "1,000 yen"
+        ]
+       ],
+       "id": "w01d4-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "学校",
+       "kanji": "校",
+       "reading": "がっこう",
+       "en": "school",
+       "pitch": 0,
+       "id": "w01d4-10"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "日本語",
+       "kanji": "語",
+       "reading": "にほんご",
+       "en": "Japanese (language)",
+       "pitch": 0,
+       "id": "w01d4-11"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "待・持・特 (review)",
+       "de": "待つ",
+       "kanji": "待",
+       "reading": "まつ",
+       "en": "to wait",
+       "pitch": 1,
+       "id": "w01d4-12"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "title": "{窓|まど}が{開|あ}いている",
+   "goals": [
+    "自動詞＋ている: a state, no one implied",
+    "他動詞＋てある: a state someone set up on purpose",
+    "Write 万・七・四・九"
+   ],
+   "sections": [
+    {
+     "type": "grammar",
+     "title": "自動詞＋ている vs 他動詞＋てある",
+     "explanation": "Placement item g04 tested this, and you missed it.\n\n| sentence | meaning |\n|---|---|\n| {窓|まど}が{開|あ}いている | the window **is open** (just a state) |\n| {窓|まど}が{開|あ}けてある | the window **has been opened**, by someone, on purpose (e.g. to air the room) |\n| {窓|まど}を{開|あ}けている | someone **is opening** the window (action in progress) |\n\n- **自動詞 (intransitive) + ている**: result state. No agent in mind.\n- **他動詞 (transitive) + てある**: result state **plus** the idea that someone did it deliberately, often as preparation. The object takes **が** (sometimes を).\n- **他動詞 + ている**: an action in progress.\n\nCommon pairs:\n\n| 自動詞 | 他動詞 |\n|---|---|\n| {開|あ}く | {開|あ}ける |\n| {閉|し}まる | {閉|し}める |\n| {付|つ}く | {付|つ}ける |\n| {始|はじ}まる | {始|はじ}める |\n| {止|と}まる | {止|と}める |\n| {並|なら}ぶ | {並|なら}べる |\n| {決|き}まる | {決|き}める |\n| {入|はい}る | {入|い}れる |",
+     "examples": [
+      "{窓|まど}が{開|あ}いています。",
+      "{窓|まど}が{開|あ}けてあります。",
+      "{電気|でんき}が{付|つ}いている。だれか{部屋|へや}にいるのかな。",
+      "{壁|かべ}に{地図|ちず}が{貼|は}ってある。",
+      "{会議|かいぎ}の{資料|しりょう}はもうコピーしてあります。"
+     ]
+    },
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "万",
+       "de": "万",
+       "reading": "まん",
+       "en": "ten thousand",
+       "components": [
+        "一"
+       ],
+       "mnemonic": "**One** (一) roof beam with a big **hook**: ten thousand coins hang from it.",
+       "pitch": 1
+      },
+      {
+       "kanji": "七",
+       "de": "七つ",
+       "reading": "ななつ",
+       "en": "seven (things)",
+       "components": [
+        "一",
+        "乙"
+       ],
+       "mnemonic": "A **cross** (十) whose tail bends (乙): **seven**. Horizontal stroke first.",
+       "pitch": 2
+      },
+      {
+       "kanji": "四",
+       "de": "四日",
+       "reading": "よっか",
+       "en": "the 4th (of the month); four days",
+       "components": [
+        "囗",
+        "儿",
+        "囗"
+       ],
+       "mnemonic": "A **box** (囗) with **legs** (儿) inside: **four** corners.",
+       "pitch": 0
+      },
+      {
+       "kanji": "九",
+       "de": "九日",
+       "reading": "ここのか",
+       "en": "the 9th (of the month); nine days",
+       "components": [
+        "丿",
+        "乙"
+       ],
+       "mnemonic": "An **arm** (丿) with a bent **elbow** (乙): **nine**, one short of ten.",
+       "pitch": 4
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{九時|くじ}に{会議|かいぎ}が{始|はじ}まるので、{資料|しりょう}はもう{並|なら}べてあります。",
+       "answers": [
+        "くじにかいぎがはじまるので、しりょうはもうならべてあります"
+       ],
+       "en": "The meeting starts at nine, so the materials are already laid out.",
+       "write": {
+        "de": "九時",
+        "kanji": "九",
+        "reading": "くじ",
+        "en": "nine o'clock"
+       },
+       "id": "w01d5-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ている vs ～てある",
+       "prompt": "パーティーの{準備|じゅんび}はできています。{飲|の}み{物|もの}も{冷蔵庫|れいぞうこ}に（　）。",
+       "options": [
+        "{入|い}れています",
+        "{入|い}れてあります",
+        "{入|はい}ってあります",
+        "{入|はい}れます"
+       ],
+       "answer": 1,
+       "explanation": "Preparations are done: someone put them there on purpose → 入れてあります. 入れています = someone is putting them in right now. 入ってあります isn't a form (てある needs a transitive verb).",
+       "id": "w01d5-2"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ている vs ～てある",
+       "prompt": "{窓|まど}を{開|あ}けている means:",
+       "options": [
+        "The window is open.",
+        "The window was opened on purpose.",
+        "Someone is opening the window.",
+        "The window will open."
+       ],
+       "answer": 2,
+       "id": "w01d5-3"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "他動詞＋てある",
+       "prompt": "{窓|まど}を{開|あ}けました。 → {窓|まど}が___あります。",
+       "answers": [
+        [
+         "あけて"
+        ]
+       ],
+       "id": "w01d5-4"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "自動詞＋ている",
+       "prompt": "{風|かぜ}で{窓|まど}が___います。 (The window is open because of the wind.)",
+       "answers": [
+        [
+         "あいて"
+        ]
+       ],
+       "id": "w01d5-5"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ている vs ～てある",
+       "prompt": "{誰|だれ}もいないのに、{電気|でんき}が（　）。{消|け}し{忘|わす}れたのかな。",
+       "options": [
+        "{付|つ}けている",
+        "{付|つ}く",
+        "{付|つ}いている",
+        "{付|つ}けた"
+       ],
+       "answer": 2,
+       "explanation": "No one is around and someone forgot it: no purpose, just a state → 付いている.",
+       "id": "w01d5-6"
+      },
+      {
+       "kind": "match",
+       "topic": "自動詞・他動詞",
+       "prompt": "Match each verb with its meaning.",
+       "pairs": [
+        [
+         "{開|あ}く",
+         "(it) opens"
+        ],
+        [
+         "{開|あ}ける",
+         "(I) open it"
+        ],
+        [
+         "{閉|し}まる",
+         "(it) closes"
+        ],
+        [
+         "{閉|し}める",
+         "(I) close it"
+        ]
+       ],
+       "id": "w01d5-7"
+      },
+      {
+       "kind": "order",
+       "topic": "他動詞＋てある",
+       "answer": "{壁|かべ}に {大|おお}きな {地図|ちず}が {貼|は}って あります。",
+       "words": [
+        "{壁|かべ}に",
+        "{大|おお}きな",
+        "{地図|ちず}が",
+        "{貼|は}って",
+        "あります。"
+       ],
+       "id": "w01d5-8"
+      },
+      {
+       "kind": "translate",
+       "topic": "自動詞＋ている",
+       "direction": "en-ja",
+       "prompt": "The door is locked.",
+       "acceptable": [
+        "かぎがかかっています",
+        "ドアにかぎがかかっています",
+        "ドアのかぎがかかっています",
+        "どあにかぎがかかっている",
+        "かぎがかかっている",
+        "ドアのかぎがかかっている",
+        "かぎがかけてあります",
+        "ドアにかぎがかけてあります"
+       ],
+       "modelAnswer": "ドアに{鍵|かぎ}がかかっています。",
+       "explanation": "鍵がかかる (intransitive) / 鍵をかける (transitive). 鍵がかけてある adds \"someone locked it on purpose\".",
+       "id": "w01d5-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "火曜日",
+       "kanji": "曜",
+       "reading": "かようび",
+       "en": "Tuesday",
+       "pitch": 2,
+       "id": "w01d5-10"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "外国",
+       "kanji": "外",
+       "reading": "がいこく",
+       "en": "foreign country",
+       "pitch": 0,
+       "id": "w01d5-11"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "出す",
+       "kanji": "出",
+       "reading": "だす",
+       "en": "to take out; to hand in",
+       "pitch": 1,
+       "id": "w01d5-12"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "title": "マリアさんの{一日|いちにち}",
+   "goals": [
+    "Read a passage that uses all of this week's grammar",
+    "Answer questions in Japanese",
+    "Write 女・男・北 and fix 五"
+   ],
+   "sections": [
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "女",
+       "de": "女の子",
+       "reading": "おんなのこ",
+       "en": "girl",
+       "components": [],
+       "mnemonic": "A **woman** kneeling with crossed arms. Order: く, ノ, then the long 一.",
+       "pitch": 3
+      },
+      {
+       "kanji": "男",
+       "de": "男の子",
+       "reading": "おとこのこ",
+       "en": "boy",
+       "components": [
+        "田",
+        "力"
+       ],
+       "mnemonic": "**Power** (力) in the **rice field** (田): **man**.",
+       "pitch": 3
+      },
+      {
+       "kanji": "北",
+       "de": "北",
+       "reading": "きた",
+       "en": "north",
+       "components": [
+        "匕"
+       ],
+       "mnemonic": "Two people sitting **back to back**: they turned their backs on the cold **north**.",
+       "pitch": 0
+      },
+      {
+       "kanji": "五",
+       "de": "五日",
+       "reading": "いつか",
+       "en": "the 5th (of the month); five days",
+       "components": [
+        "二",
+        "二"
+       ],
+       "mnemonic": "**Stroke fix** (1 wrong stroke in placement). Order: top 一, the vertical, the ㇕ (across and down), bottom 一.",
+       "pitch": 3
+      }
+     ]
+    },
+    {
+     "type": "reading",
+     "title": "マリアさんの{一日|いちにち}",
+     "text": "{私|わたし}はマリアです。メキシコの{出身|しゅっしん}で、{今|いま}は{東京|とうきょう}に{住|す}んでいます。{日本|にほん}に{来|き}てから、もう{一年|いちねん}になります。\n\n{毎朝|まいあさ}{六時|ろくじ}に{起|お}きて、{少|すこ}し{運動|うんどう}をしてから{朝|あさ}ご{飯|はん}を{食|た}べます。{体|からだ}のために、{朝|あさ}ご{飯|はん}はいつも{食|た}べるようにしています。{仕事|しごと}は{九時|くじ}からです。{会社|かいしゃ}までは{電車|でんしゃ}で{四十分|よんじゅっぷん}ぐらいかかります。\n\n{来|き}たばかりのころは、{日本語|にほんご}がほとんど{話|はな}せませんでした。でも、{毎日|まいにち}{少|すこ}しずつ{勉強|べんきょう}して、{今|いま}は{会社|かいしゃ}の{人|ひと}と{日本語|にほんご}で{話|はな}せるようになりました。\n\n{先月|せんげつ}、{会社|かいしゃ}で{新|あたら}しい{仕事|しごと}を{始|はじ}めることになりました。{前|まえ}より{大変|たいへん}になったので、{週末|しゅうまつ}は{仕事|しごと}のメールを{見|み}ないことにしました。{土曜日|どようび}は{友達|ともだち}と{会|あ}ったり、{近|ちか}くの{公園|こうえん}を{歩|ある}いたりしています。",
+     "translation": "I'm María. I'm from Mexico and now live in Tokyo. It's already been a year since I came to Japan.\n\nEvery morning I get up at six, do a little exercise, and then eat breakfast. For my health, I always make a point of eating breakfast. Work starts at nine. It takes about forty minutes by train to the office.\n\nWhen I had just arrived, I could hardly speak Japanese. But I studied a little every day, and now I can talk with people at work in Japanese.\n\nLast month it was decided that I'd start a new job at the company. It's harder than before, so I decided not to look at work email on weekends. On Saturdays I meet friends or walk in the park nearby."
+    },
+    {
+     "type": "exercises",
+     "items": [
+      {
+       "kind": "multiple_choice",
+       "topic": "reading",
+       "prompt": "マリアさんは{日本|にほん}に{来|き}てから、どのぐらいになりますか。",
+       "options": [
+        "{四十分|よんじゅっぷん}",
+        "{六|ろく}か{月|げつ}",
+        "{一年|いちねん}",
+        "{一|いっ}か{月|げつ}"
+       ],
+       "answer": 2,
+       "id": "w01d6-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "reading",
+       "prompt": "マリアさんは{朝|あさ}ご{飯|はん}の{前|まえ}に{何|なに}をしますか。",
+       "options": [
+        "{仕事|しごと}のメールを{見|み}る",
+        "{運動|うんどう}をする",
+        "{公園|こうえん}を{歩|ある}く",
+        "{日本語|にほんご}を{勉強|べんきょう}する"
+       ],
+       "answer": 1,
+       "id": "w01d6-2"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "reading",
+       "prompt": "どうして{週末|しゅうまつ}に{仕事|しごと}のメールを{見|み}ないことにしましたか。",
+       "options": [
+        "{友達|ともだち}と{会|あ}うから",
+        "{会社|かいしゃ}が{遠|とお}いから",
+        "{日本語|にほんご}が{話|はな}せないから",
+        "{仕事|しごと}が{前|まえ}より{大変|たいへん}になったから"
+       ],
+       "answer": 3,
+       "id": "w01d6-3"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "～ことになる vs ～ことにする",
+       "prompt": "In the text, {新|あたら}しい{仕事|しごと}を{始|はじ}めることになりました tells us that:",
+       "options": [
+        "The company (or circumstances) arranged it.",
+        "María decided it alone.",
+        "María is trying to start it.",
+        "María became able to do it."
+       ],
+       "answer": 0,
+       "id": "w01d6-4"
+      },
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{公園|こうえん}で{女|おんな}の{子|こ}が{二人|ふたり}と{男|おとこ}の{子|こ}が{一人|ひとり}{遊|あそ}んでいます。",
+       "answers": [
+        "こうえんでおんなのこがふたりとおとこのこがひとりあそんでいます"
+       ],
+       "en": "Two girls and one boy are playing in the park.",
+       "write": {
+        "de": "女の子",
+        "kanji": "女",
+        "reading": "おんなのこ",
+        "en": "girl"
+       },
+       "id": "w01d6-5"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "review: ～てから",
+       "prompt": "{少|すこ}し{運動|うんどう}をし___{朝|あさ}ご{飯|はん}を{食|た}べます。",
+       "answers": [
+        [
+         "てから"
+        ]
+       ],
+       "id": "w01d6-6"
+      },
+      {
+       "kind": "fill_blank",
+       "topic": "review: ～ようになる",
+       "prompt": "{今|いま}は{会社|かいしゃ}の{人|ひと}と{日本語|にほんご}で{話|はな}せる___になりました。",
+       "answers": [
+        [
+         "よう"
+        ]
+       ],
+       "id": "w01d6-7"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "先月",
+       "kanji": "先",
+       "reading": "せんげつ",
+       "en": "last month",
+       "pitch": 1,
+       "id": "w01d6-8"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "自分",
+       "kanji": "分",
+       "reading": "じぶん",
+       "en": "oneself",
+       "pitch": 0,
+       "id": "w01d6-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "天気",
+       "kanji": "気",
+       "reading": "てんき",
+       "en": "weather",
+       "pitch": 1,
+       "id": "w01d6-10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "title": "{振|ふ}り{返|かえ}り・{自己紹介|じこしょうかい}",
+   "goals": [
+    "Mixed review of the week",
+    "Write a self-introduction with this week's grammar",
+    "Fix 月・下"
+   ],
+   "sections": [
+    {
+     "type": "kanji",
+     "items": [
+      {
+       "kanji": "月",
+       "de": "今月",
+       "reading": "こんげつ",
+       "en": "this month",
+       "components": [],
+       "mnemonic": "**Stroke fix.** The **moon**: left curve first, then the hooked frame, then the two inside lines.",
+       "pitch": 0
+      },
+      {
+       "kanji": "下",
+       "de": "下",
+       "reading": "した",
+       "en": "under, below",
+       "components": [
+        "一",
+        "卜"
+       ],
+       "mnemonic": "**Stroke fix.** A line with something hanging **below** it: 一, then the vertical, then the dot.",
+       "pitch": 0
+      }
+     ]
+    },
+    {
+     "type": "exercises",
+     "title": "{今週|こんしゅう}の{復習|ふくしゅう}",
+     "items": [
+      {
+       "kind": "multiple_choice",
+       "topic": "review: mixed",
+       "prompt": "{日本|にほん}に{来|き}て（　）、{料理|りょうり}をするようになった。",
+       "options": [
+        "ように",
+        "ことに",
+        "から",
+        "あとに"
+       ],
+       "answer": 2,
+       "id": "w01d7-1"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "review: mixed",
+       "prompt": "{医者|いしゃ}に{言|い}われてから、{毎晩|まいばん}お{酒|さけ}を{飲|の}まない（　）。",
+       "options": [
+        "ようになる",
+        "ようにしている",
+        "ようでいる",
+        "ようにしてある"
+       ],
+       "answer": 1,
+       "explanation": "毎晩 + an effort since the doctor's advice: ようにしている. ようにしてある isn't a pattern; ようになる would need a change, not an effort.",
+       "id": "w01d7-2"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "review: ～ている vs ～てある",
+       "prompt": "{明日|あした}のお{客|きゃく}さんのために、{部屋|へや}に{花|はな}が（　）。",
+       "options": [
+        "{飾|かざ}ってあります",
+        "{飾|かざ}っています",
+        "{飾|かざ}ります",
+        "{飾|かざ}られます"
+       ],
+       "answer": 0,
+       "explanation": "ために = on purpose, prepared in advance → てある.",
+       "id": "w01d7-3"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "review: ことにする vs ことになる",
+       "prompt": "{部長|ぶちょう}が{決|き}めたので、{会議|かいぎ}は{三時|さんじ}から{始|はじ}める（　）。",
+       "options": [
+        "ことにしました",
+        "ようになりました",
+        "ようにしました",
+        "ことになりました"
+       ],
+       "answer": 3,
+       "id": "w01d7-4"
+      },
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{今月|こんげつ}から{一人暮|ひとりぐ}らしを{始|はじ}めることにしました。",
+       "answers": [
+        "こんげつからひとりぐらしをはじめることにしました"
+       ],
+       "en": "I've decided to start living alone this month.",
+       "write": {
+        "de": "今月",
+        "kanji": "月",
+        "reading": "こんげつ",
+        "en": "this month"
+       },
+       "id": "w01d7-5"
+      },
+      {
+       "kind": "dictation",
+       "topic": "dictation",
+       "audio": "{机|つくえ}の{下|した}に{鍵|かぎ}が{落|お}ちていました。",
+       "answers": [
+        "つくえのしたにかぎがおちていました"
+       ],
+       "en": "The key was (lying) under the desk.",
+       "write": {
+        "de": "下",
+        "kanji": "下",
+        "reading": "した",
+        "en": "under, below"
+       },
+       "id": "w01d7-6"
+      },
+      {
+       "kind": "translate",
+       "topic": "review: ～ようになる",
+       "direction": "en-ja",
+       "prompt": "Since I started living alone, I've become able to cook.",
+       "acceptable": [
+        "ひとりぐらしをはじめてから、りょうりができるようになりました",
+        "ひとりぐらしをはじめてからりょうりができるようになった",
+        "ひとりぐらしをはじめてから、りょうりがつくれるようになりました",
+        "ひとりぐらしをはじめてからりょうりをつくれるようになりました",
+        "ひとりぐらしをしてから、りょうりができるようになりました",
+        "ひとりぐらしをはじめてから、りょうりができるようになった"
+       ],
+       "modelAnswer": "{一人暮|ひとりぐ}らしを{始|はじ}めてから、{料理|りょうり}ができるようになりました。",
+       "id": "w01d7-7"
+      },
+      {
+       "kind": "multiple_choice",
+       "topic": "pitch [0] vs odaka",
+       "prompt": "{花|はな}[2] and {鼻|はな}[0]. You hear は**な**が with が high. Which word was it?",
+       "options": [
+        "{鼻|はな} (nose)",
+        "{花|はな} (flower)",
+        "Can't tell, even with が",
+        "Both sound like this"
+       ],
+       "answer": 0,
+       "explanation": "が stays high only after heiban [0]. After odaka (花[2]) it drops.",
+       "id": "w01d7-8"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "毎日",
+       "kanji": "毎",
+       "reading": "まいにち",
+       "en": "every day",
+       "pitch": 1,
+       "id": "w01d7-9"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "お金",
+       "kanji": "金",
+       "reading": "おかね",
+       "en": "money",
+       "pitch": 0,
+       "id": "w01d7-10"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "七つ",
+       "kanji": "七",
+       "reading": "ななつ",
+       "en": "seven (things)",
+       "pitch": 2,
+       "id": "w01d7-11"
+      },
+      {
+       "kind": "kanji_write",
+       "topic": "漢字",
+       "de": "北",
+       "kanji": "北",
+       "reading": "きた",
+       "en": "north",
+       "pitch": 0,
+       "id": "w01d7-12"
+      }
+     ]
+    },
+    {
+     "type": "writing",
+     "prompt": "**自己紹介.** Write 5–7 sentences about yourself. Use at least three of: ～てから, ～ようにしている, ～ようになった, ～ことにした / ～ことになった, 自動詞＋ている.\n\nWrite it **by hand first**, then type it here. Paste it into the weekly chat for corrections.",
+     "modelAnswer": "{私|わたし}はホセです。メキシコの{出身|しゅっしん}で、{今|いま}はアメリカの{大学院|だいがくいん}で{機械工学|きかいこうがく}を{研究|けんきゅう}しています。{日本|にほん}の{語学学校|ごがくがっこう}で{勉強|べんきょう}してから、{日本語|にほんご}が{好|す}きになりました。{最近|さいきん}は、{毎日|まいにち}{少|すこ}しずつ{漢字|かんじ}を{手|て}で{書|か}くようにしています。{前|まえ}は{書|か}けなかった{漢字|かんじ}も、{少|すこ}しずつ{書|か}けるようになりました。{来年|らいねん}の{十二月|じゅうにがつ}に{日本語能力試験|にほんごのうりょくしけん}を{受|う}けることにしました。よろしくお{願|ねが}いします。"
+    }
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "id": "w01-01",
+   "day": 1,
+   "type": "read",
+   "en": "the 10th (of the month); ten days",
+   "de": "十日",
+   "reading": "とおか",
+   "pitch": 0,
+   "example": "{十日|とおか}に{国|くに}へ{帰|かえ}ります。",
+   "exampleEn": "I'm going back to my country on the 10th.",
+   "notes": "Special reading. Dates 1–10 are native Japanese: ついたち, ふつか … とおか; from 11 on, Sino-Japanese (じゅういちにち)."
+  },
+  {
+   "id": "w01-02",
+   "day": 1,
+   "type": "write",
+   "en": "time; hours",
+   "de": "時間",
+   "kanji": "時",
+   "reading": "じかん",
+   "pitch": 0,
+   "components": [
+    "日",
+    "寺"
+   ],
+   "mnemonic": "The **temple** (寺) bell rings each time the **sun** (日) moves an hour: **time**.",
+   "example": "{時間|じかん}がありません。",
+   "exampleEn": "I don't have time."
+  },
+  {
+   "id": "w01-03",
+   "day": 1,
+   "type": "read",
+   "en": "two (things)",
+   "de": "二つ",
+   "reading": "ふたつ",
+   "pitch": 3,
+   "example": "りんごを{二|ふた}つください。",
+   "exampleEn": "Two apples, please.",
+   "notes": "Native counter: ひとつ, ふたつ, みっつ … とお. Used for objects with no special counter."
+  },
+  {
+   "id": "w01-04",
+   "day": 1,
+   "type": "write",
+   "en": "every day",
+   "de": "毎日",
+   "kanji": "毎",
+   "reading": "まいにち",
+   "pitch": 1,
+   "components": [
+    "𠂉",
+    "毋"
+   ],
+   "mnemonic": "**Every** day, **mother** (毋) puts on her **hat** (𠂉). Inside, 母's two dots become one long line.",
+   "example": "{毎日|まいにち}{漢字|かんじ}を{書|か}いています。",
+   "exampleEn": "I write kanji every day."
+  },
+  {
+   "id": "w01-05",
+   "day": 1,
+   "type": "read",
+   "en": "the 5th; five days",
+   "de": "五日",
+   "reading": "いつか",
+   "pitch": 3,
+   "example": "{五日|いつか}{間|かん}、{東京|とうきょう}にいました。",
+   "exampleEn": "I was in Tokyo for five days."
+  },
+  {
+   "id": "w01-06",
+   "day": 1,
+   "type": "write",
+   "en": "to go",
+   "de": "行く",
+   "kanji": "行",
+   "reading": "いく",
+   "pitch": 0,
+   "components": [
+    "彳"
+   ],
+   "mnemonic": "**Left foot** (彳), **right foot** (亍): walking, so **go**.",
+   "example": "{明日|あした}{図書館|としょかん}に{行|い}く。",
+   "exampleEn": "I'm going to the library tomorrow."
+  },
+  {
+   "id": "w01-07",
+   "day": 1,
+   "type": "read",
+   "en": "eight (things)",
+   "de": "八つ",
+   "reading": "やっつ",
+   "pitch": 3,
+   "example": "{八|やっ}つ{目|め}の{駅|えき}で{降|お}ります。",
+   "exampleEn": "I get off at the eighth station.",
+   "notes": "Small っ: や-っ-つ, three morae."
+  },
+  {
+   "id": "w01-08",
+   "day": 1,
+   "type": "write",
+   "en": "to drink",
+   "de": "飲む",
+   "kanji": "飲",
+   "reading": "のむ",
+   "pitch": 1,
+   "components": [
+    "飠",
+    "欠"
+   ],
+   "mnemonic": "Open your **yawning mouth** (欠) next to the **food** radical (飠): **drink**.",
+   "example": "コーヒーを{飲|の}みませんか。",
+   "exampleEn": "Would you like some coffee?"
+  },
+  {
+   "id": "w01-09",
+   "day": 1,
+   "type": "read",
+   "en": "the 6th; six days",
+   "de": "六日",
+   "reading": "むいか",
+   "pitch": 0,
+   "example": "{六日|むいか}から{学校|がっこう}が{始|はじ}まります。",
+   "exampleEn": "School starts on the 6th."
+  },
+  {
+   "id": "w01-10",
+   "day": 1,
+   "type": "read",
+   "en": "daily life, living",
+   "de": "生活",
+   "reading": "せいかつ",
+   "pitch": 0,
+   "example": "{東京|とうきょう}での{生活|せいかつ}にもう{慣|な}れました。",
+   "exampleEn": "I've already gotten used to life in Tokyo.",
+   "notes": "生活する = to live (one's daily life). 住む = to reside somewhere."
+  },
+  {
+   "id": "w01-11",
+   "day": 1,
+   "type": "read",
+   "en": "habit, custom",
+   "de": "習慣",
+   "reading": "しゅうかん",
+   "pitch": 0,
+   "example": "{早起|はやお}きの{習慣|しゅうかん}をつけたい。",
+   "exampleEn": "I want to get into the habit of getting up early.",
+   "notes": "習慣をつける = form a habit."
+  },
+  {
+   "id": "w01-12",
+   "day": 2,
+   "type": "read",
+   "en": "three thousand",
+   "de": "三千",
+   "reading": "さんぜん",
+   "pitch": 3,
+   "example": "この{本|ほん}は{三千円|さんぜんえん}です。",
+   "exampleEn": "This book is 3,000 yen.",
+   "notes": "Sound change: さん + せん → さんぜん (also さんびゃく)."
+  },
+  {
+   "id": "w01-13",
+   "day": 2,
+   "type": "write",
+   "en": "healthy, energetic",
+   "de": "元気",
+   "kanji": "元",
+   "reading": "げんき",
+   "pitch": 1,
+   "components": [
+    "二",
+    "儿"
+   ],
+   "mnemonic": "A **head** (二) on **legs** (儿): a person at their **origin**, full of 元気.",
+   "example": "お{元気|げんき}ですか。",
+   "exampleEn": "How are you?"
+  },
+  {
+   "id": "w01-14",
+   "day": 2,
+   "type": "read",
+   "en": "half",
+   "de": "半分",
+   "reading": "はんぶん",
+   "pitch": 3,
+   "example": "ケーキを{半分|はんぶん}{食|た}べた。",
+   "exampleEn": "I ate half the cake."
+  },
+  {
+   "id": "w01-15",
+   "day": 2,
+   "type": "write",
+   "en": "weather",
+   "de": "天気",
+   "kanji": "気",
+   "reading": "てんき",
+   "pitch": 1,
+   "components": [
+    "气",
+    "乂"
+   ],
+   "mnemonic": "**Steam** (气) rising over the field (乂): air, **spirit**, weather.",
+   "example": "{今日|きょう}はいい{天気|てんき}ですね。",
+   "exampleEn": "Nice weather today."
+  },
+  {
+   "id": "w01-16",
+   "day": 2,
+   "type": "read",
+   "en": "Saturday",
+   "de": "土曜日",
+   "reading": "どようび",
+   "pitch": 2,
+   "example": "{土曜日|どようび}はたいてい{家|いえ}にいます。",
+   "exampleEn": "I'm usually at home on Saturdays."
+  },
+  {
+   "id": "w01-17",
+   "day": 2,
+   "type": "write",
+   "en": "to take out; to hand in",
+   "de": "出す",
+   "kanji": "出",
+   "reading": "だす",
+   "pitch": 1,
+   "components": [
+    "山",
+    "凵"
+   ],
+   "mnemonic": "A sprout pushes **out** of the **box** (凵), up through two levels (山): **go out / take out**.",
+   "example": "{宿題|しゅくだい}を{出|だ}してください。",
+   "exampleEn": "Please hand in your homework."
+  },
+  {
+   "id": "w01-18",
+   "day": 2,
+   "type": "read",
+   "en": "essay, composition",
+   "de": "作文",
+   "reading": "さくぶん",
+   "pitch": 0,
+   "example": "{日本語|にほんご}で{作文|さくぶん}を{書|か}きました。",
+   "exampleEn": "I wrote an essay in Japanese."
+  },
+  {
+   "id": "w01-19",
+   "day": 2,
+   "type": "write",
+   "en": "oneself",
+   "de": "自分",
+   "kanji": "分",
+   "reading": "じぶん",
+   "pitch": 0,
+   "components": [
+    "八",
+    "刀"
+   ],
+   "mnemonic": "A **knife** (刀) **splits** (八) things into **parts**: divide, minute, one's own share (自分).",
+   "example": "{自分|じぶん}でやります。",
+   "exampleEn": "I'll do it myself."
+  },
+  {
+   "id": "w01-20",
+   "day": 2,
+   "type": "read",
+   "en": "friend",
+   "de": "友達",
+   "reading": "ともだち",
+   "pitch": 0,
+   "example": "{大学|だいがく}の{友達|ともだち}と{会|あ}いました。",
+   "exampleEn": "I met a friend from university.",
+   "notes": "友人 ゆうじん is the formal word."
+  },
+  {
+   "id": "w01-21",
+   "day": 2,
+   "type": "read",
+   "en": "health",
+   "de": "健康",
+   "reading": "けんこう",
+   "pitch": 0,
+   "example": "{健康|けんこう}のために{毎日|まいにち}{歩|ある}いています。",
+   "exampleEn": "I walk every day for my health.",
+   "notes": "健康のために = for (the sake of) health."
+  },
+  {
+   "id": "w01-22",
+   "day": 2,
+   "type": "read",
+   "en": "getting up early",
+   "de": "早起き",
+   "reading": "はやおき",
+   "pitch": 2,
+   "example": "{明日|あした}は{早起|はやお}きしなければならない。",
+   "exampleEn": "I have to get up early tomorrow.",
+   "notes": "早起きする (verb)."
+  },
+  {
+   "id": "w01-23",
+   "day": 3,
+   "type": "read",
+   "en": "correct, right",
+   "de": "正しい",
+   "reading": "ただしい",
+   "pitch": 3,
+   "example": "{正|ただ}しい{答|こた}えを{選|えら}んでください。",
+   "exampleEn": "Please choose the correct answer."
+  },
+  {
+   "id": "w01-24",
+   "day": 3,
+   "type": "write",
+   "en": "school",
+   "de": "学校",
+   "kanji": "校",
+   "reading": "がっこう",
+   "pitch": 0,
+   "components": [
+    "木",
+    "交"
+   ],
+   "mnemonic": "People **mix** (交) under the **trees** (木): **school**.",
+   "example": "{学校|がっこう}まで{歩|ある}いて{十分|じゅっぷん}です。",
+   "exampleEn": "It's a ten-minute walk to school."
+  },
+  {
+   "id": "w01-25",
+   "day": 3,
+   "type": "read",
+   "en": "to sell",
+   "de": "売る",
+   "reading": "うる",
+   "pitch": 0,
+   "example": "{駅|えき}の{前|まえ}で{花|はな}を{売|う}っている。",
+   "exampleEn": "They're selling flowers in front of the station.",
+   "notes": "Opposite: 買う かう."
+  },
+  {
+   "id": "w01-26",
+   "day": 3,
+   "type": "write",
+   "en": "Japanese (language)",
+   "de": "日本語",
+   "kanji": "語",
+   "reading": "にほんご",
+   "pitch": 0,
+   "components": [
+    "言",
+    "吾"
+   ],
+   "mnemonic": "**Words** (言) that **I** (吾) speak: **language**.",
+   "example": "{日本語|にほんご}が{上手|じょうず}になりたい。",
+   "exampleEn": "I want to get good at Japanese."
+  },
+  {
+   "id": "w01-27",
+   "day": 3,
+   "type": "read",
+   "en": "to live (somewhere)",
+   "de": "住む",
+   "reading": "すむ",
+   "pitch": 1,
+   "example": "どこに{住|す}んでいますか。",
+   "exampleEn": "Where do you live?",
+   "notes": "Always ～に住んでいる for where you live now."
+  },
+  {
+   "id": "w01-28",
+   "day": 3,
+   "type": "write",
+   "en": "last month",
+   "de": "先月",
+   "kanji": "先",
+   "reading": "せんげつ",
+   "pitch": 1,
+   "components": [
+    "儿"
+   ],
+   "mnemonic": "**Legs** (儿) walking **ahead** with a sprout on the head: ahead, previous (先月 = the month before).",
+   "example": "{先月|せんげつ}、{東京|とうきょう}に{行|い}きました。",
+   "exampleEn": "I went to Tokyo last month."
+  },
+  {
+   "id": "w01-29",
+   "day": 3,
+   "type": "read",
+   "en": "good at, skilled",
+   "de": "上手",
+   "reading": "じょうず",
+   "pitch": 3,
+   "example": "{料理|りょうり}が{上手|じょうず}ですね。",
+   "exampleEn": "You're a good cook!",
+   "notes": "Said about others. About yourself, 得意 とくい sounds less boastful."
+  },
+  {
+   "id": "w01-30",
+   "day": 3,
+   "type": "write",
+   "en": "foreign country",
+   "de": "外国",
+   "kanji": "外",
+   "reading": "がいこく",
+   "pitch": 0,
+   "components": [
+    "夕",
+    "卜"
+   ],
+   "mnemonic": "Fortune-telling (卜) at **evening** (夕) happens **outside**.",
+   "example": "{外国|がいこく}に{住|す}んだことがありますか。",
+   "exampleEn": "Have you ever lived abroad?"
+  },
+  {
+   "id": "w01-31",
+   "day": 3,
+   "type": "read",
+   "en": "tomorrow",
+   "de": "明日",
+   "reading": "あした",
+   "pitch": 3,
+   "example": "{明日|あした}また{来|き}ます。",
+   "exampleEn": "I'll come again tomorrow.",
+   "notes": "あす is the formal reading (news, announcements)."
+  },
+  {
+   "id": "w01-32",
+   "day": 3,
+   "type": "read",
+   "en": "studying abroad",
+   "de": "留学",
+   "reading": "りゅうがく",
+   "pitch": 0,
+   "example": "{去年|きょねん}、{日本|にほん}に{留学|りゅうがく}しました。",
+   "exampleEn": "Last year I studied abroad in Japan.",
+   "notes": "留学生 = international student."
+  },
+  {
+   "id": "w01-33",
+   "day": 3,
+   "type": "read",
+   "en": "major (field of study)",
+   "de": "専攻",
+   "reading": "せんこう",
+   "pitch": 0,
+   "example": "{専攻|せんこう}は{何|なん}ですか。",
+   "exampleEn": "What's your major?",
+   "notes": "専攻する = to major in."
+  },
+  {
+   "id": "w01-34",
+   "day": 4,
+   "type": "read",
+   "en": "famous",
+   "de": "有名",
+   "reading": "ゆうめい",
+   "pitch": 0,
+   "example": "この{店|みせ}はラーメンで{有名|ゆうめい}です。",
+   "exampleEn": "This shop is famous for its ramen.",
+   "notes": "～で有名 = famous for ～. な-adjective."
+  },
+  {
+   "id": "w01-35",
+   "day": 4,
+   "type": "write",
+   "en": "Tuesday",
+   "de": "火曜日",
+   "kanji": "曜",
+   "reading": "かようび",
+   "pitch": 2,
+   "components": [
+    "日",
+    "翟"
+   ],
+   "mnemonic": "The **sun** (日) and a bird with big **feathers** (翟) mark the **days of the week**.",
+   "example": "{火曜日|かようび}は{授業|じゅぎょう}がありません。",
+   "exampleEn": "I have no classes on Tuesday."
+  },
+  {
+   "id": "w01-36",
+   "day": 4,
+   "type": "read",
+   "en": "to take (a person) along",
+   "de": "連れる",
+   "reading": "つれる",
+   "pitch": 0,
+   "example": "{子|こ}どもを{公園|こうえん}に{連|つ}れて{行|い}きました。",
+   "exampleEn": "I took my child to the park.",
+   "notes": "連れて行く (take someone), 連れて来る (bring someone). For things: 持って行く."
+  },
+  {
+   "id": "w01-37",
+   "day": 4,
+   "type": "write",
+   "en": "fire",
+   "de": "火",
+   "kanji": "火",
+   "reading": "ひ",
+   "pitch": 1,
+   "components": [],
+   "mnemonic": "A **fire** with sparks flying out on both sides.",
+   "example": "{火|ひ}を{消|け}してください。",
+   "exampleEn": "Please turn off the flame."
+  },
+  {
+   "id": "w01-38",
+   "day": 4,
+   "type": "read",
+   "en": "long ago, the old days",
+   "de": "昔",
+   "reading": "むかし",
+   "pitch": 0,
+   "example": "{昔|むかし}はこの{町|まち}に{川|かわ}があった。",
+   "exampleEn": "Long ago there was a river in this town."
+  },
+  {
+   "id": "w01-39",
+   "day": 4,
+   "type": "write",
+   "en": "money",
+   "de": "お金",
+   "kanji": "金",
+   "reading": "おかね",
+   "pitch": 0,
+   "components": [],
+   "mnemonic": "Under a **roof** (𠆢), a **king** (王) guards two **gold** nuggets (丷): gold, **money**.",
+   "example": "お{金|かね}が{足|た}りない。",
+   "exampleEn": "I don't have enough money."
+  },
+  {
+   "id": "w01-40",
+   "day": 4,
+   "type": "read",
+   "en": "doctor",
+   "de": "医者",
+   "reading": "いしゃ",
+   "pitch": 0,
+   "example": "{熱|ねつ}があるなら{医者|いしゃ}に{行|い}ったほうがいい。",
+   "exampleEn": "If you have a fever, you'd better see a doctor.",
+   "notes": "Addressing one: 先生."
+  },
+  {
+   "id": "w01-41",
+   "day": 4,
+   "type": "write",
+   "en": "yen; circle",
+   "de": "円",
+   "kanji": "円",
+   "reading": "えん",
+   "pitch": 1,
+   "components": [
+    "冂"
+   ],
+   "mnemonic": "A **frame** (冂) around a coin: **yen**, circle.",
+   "example": "{全部|ぜんぶ}で{千円|せんえん}です。",
+   "exampleEn": "That's 1,000 yen in total."
+  },
+  {
+   "id": "w01-42",
+   "day": 4,
+   "type": "read",
+   "en": "to hurry",
+   "de": "急ぐ",
+   "reading": "いそぐ",
+   "pitch": 2,
+   "example": "{急|いそ}がないと{遅|おく}れるよ。",
+   "exampleEn": "If you don't hurry, you'll be late.",
+   "notes": "急いでください = please hurry."
+  },
+  {
+   "id": "w01-43",
+   "day": 4,
+   "type": "read",
+   "en": "plan, schedule",
+   "de": "予定",
+   "reading": "よてい",
+   "pitch": 0,
+   "example": "{週末|しゅうまつ}の{予定|よてい}は？",
+   "exampleEn": "Any plans for the weekend?",
+   "notes": "～予定です = I plan to / it's scheduled."
+  },
+  {
+   "id": "w01-44",
+   "day": 4,
+   "type": "read",
+   "en": "job transfer (to another office)",
+   "de": "転勤",
+   "reading": "てんきん",
+   "pitch": 0,
+   "example": "{父|ちち}が{大阪|おおさか}に{転勤|てんきん}することになった。",
+   "exampleEn": "My father is being transferred to Osaka.",
+   "notes": "Typical with ことになる: the company decides."
+  },
+  {
+   "id": "w01-45",
+   "day": 5,
+   "type": "read",
+   "en": "Buddhist temple",
+   "de": "お寺",
+   "reading": "おてら",
+   "pitch": 0,
+   "example": "{京都|きょうと}で{古|ふる}いお{寺|てら}を{見|み}ました。",
+   "exampleEn": "I saw an old temple in Kyoto.",
+   "notes": "Shinto shrine = 神社 じんじゃ.",
+   "img": "Buddhist temple Japan"
+  },
+  {
+   "id": "w01-46",
+   "day": 5,
+   "type": "write",
+   "en": "ten thousand",
+   "de": "万",
+   "kanji": "万",
+   "reading": "まん",
+   "pitch": 1,
+   "components": [
+    "一"
+   ],
+   "mnemonic": "**One** (一) roof beam with a big **hook**: ten thousand coins hang from it.",
+   "example": "{一万円|いちまんえん}で{払|はら}います。",
+   "exampleEn": "I'll pay with a 10,000-yen bill."
+  },
+  {
+   "id": "w01-47",
+   "day": 5,
+   "type": "read",
+   "en": "exercise",
+   "de": "運動",
+   "reading": "うんどう",
+   "pitch": 0,
+   "example": "{最近|さいきん}{運動|うんどう}{不足|ぶそく}です。",
+   "exampleEn": "Lately I don't get enough exercise.",
+   "notes": "運動する. 運動不足 = lack of exercise. (Placement scored this wrong because of the する bug.)"
+  },
+  {
+   "id": "w01-48",
+   "day": 5,
+   "type": "write",
+   "en": "seven (things)",
+   "de": "七つ",
+   "kanji": "七",
+   "reading": "ななつ",
+   "pitch": 2,
+   "components": [
+    "一",
+    "乙"
+   ],
+   "mnemonic": "A **cross** (十) whose tail bends (乙): **seven**. Horizontal stroke first.",
+   "example": "りんごが{七|なな}つあります。",
+   "exampleEn": "There are seven apples."
+  },
+  {
+   "id": "w01-49",
+   "day": 5,
+   "type": "read",
+   "en": "goods, items",
+   "de": "品物",
+   "reading": "しなもの",
+   "pitch": 0,
+   "example": "この{店|みせ}は{品物|しなもの}がいい。",
+   "exampleEn": "This shop has good goods.",
+   "img": "shop goods shelf"
+  },
+  {
+   "id": "w01-50",
+   "day": 5,
+   "type": "write",
+   "en": "the 4th (of the month); four days",
+   "de": "四日",
+   "kanji": "四",
+   "reading": "よっか",
+   "pitch": 0,
+   "components": [
+    "囗",
+    "儿",
+    "囗"
+   ],
+   "mnemonic": "A **box** (囗) with **legs** (儿) inside: **four** corners.",
+   "example": "{四日|よっか}に{会|あ}いましょう。",
+   "exampleEn": "Let's meet on the 4th."
+  },
+  {
+   "id": "w01-51",
+   "day": 5,
+   "type": "read",
+   "en": "front side, surface; outside",
+   "de": "表",
+   "reading": "おもて",
+   "pitch": 3,
+   "example": "{紙|かみ}の{表|おもて}に{名前|なまえ}を{書|か}いてください。",
+   "exampleEn": "Please write your name on the front of the sheet.",
+   "notes": "Opposite: 裏 うら (back). As a suffix, ～表 ひょう = table, chart (時間表)."
+  },
+  {
+   "id": "w01-52",
+   "day": 5,
+   "type": "write",
+   "en": "the 9th (of the month); nine days",
+   "de": "九日",
+   "kanji": "九",
+   "reading": "ここのか",
+   "pitch": 4,
+   "components": [
+    "丿",
+    "乙"
+   ],
+   "mnemonic": "An **arm** (丿) with a bent **elbow** (乙): **nine**, one short of ten.",
+   "example": "{九日|ここのか}は{休|やす}みです。",
+   "exampleEn": "The 9th is a day off."
+  },
+  {
+   "id": "w01-53",
+   "day": 5,
+   "type": "read",
+   "en": "cafeteria, dining hall",
+   "de": "食堂",
+   "reading": "しょくどう",
+   "pitch": 0,
+   "example": "{昼|ひる}ご{飯|はん}は{大学|だいがく}の{食堂|しょくどう}で{食|た}べる。",
+   "exampleEn": "I eat lunch at the university cafeteria.",
+   "img": "university cafeteria"
+  },
+  {
+   "id": "w01-54",
+   "day": 5,
+   "type": "read",
+   "en": "materials, documents",
+   "de": "資料",
+   "reading": "しりょう",
+   "pitch": 1,
+   "example": "{会議|かいぎ}の{資料|しりょう}をコピーしておきます。",
+   "exampleEn": "I'll copy the materials for the meeting.",
+   "notes": "You heard しりょう as しお in the placement dictation."
+  },
+  {
+   "id": "w01-55",
+   "day": 5,
+   "type": "read",
+   "en": "preparation",
+   "de": "準備",
+   "reading": "じゅんび",
+   "pitch": 1,
+   "example": "パーティーの{準備|じゅんび}はできていますか。",
+   "exampleEn": "Are the party preparations done?",
+   "notes": "準備する."
+  },
+  {
+   "id": "w01-56",
+   "day": 6,
+   "type": "read",
+   "en": "question",
+   "de": "質問",
+   "reading": "しつもん",
+   "pitch": 0,
+   "example": "{質問|しつもん}があったら、{聞|き}いてください。",
+   "exampleEn": "If you have a question, please ask.",
+   "notes": "質問する."
+  },
+  {
+   "id": "w01-57",
+   "day": 6,
+   "type": "write",
+   "en": "girl",
+   "de": "女の子",
+   "kanji": "女",
+   "reading": "おんなのこ",
+   "pitch": 3,
+   "components": [],
+   "mnemonic": "A **woman** kneeling with crossed arms. Order: く, ノ, then the long 一.",
+   "example": "{女|おんな}の{子|こ}が{歌|うた}っている。",
+   "exampleEn": "A girl is singing."
+  },
+  {
+   "id": "w01-58",
+   "day": 6,
+   "type": "read",
+   "en": "anxiety, worry",
+   "de": "不安",
+   "reading": "ふあん",
+   "pitch": 0,
+   "example": "{初|はじ}めての{一人暮|ひとりぐ}らしで{少|すこ}し{不安|ふあん}です。",
+   "exampleEn": "I'm a bit anxious about living alone for the first time.",
+   "notes": "な-adjective: 不安な気持ち."
+  },
+  {
+   "id": "w01-59",
+   "day": 6,
+   "type": "write",
+   "en": "boy",
+   "de": "男の子",
+   "kanji": "男",
+   "reading": "おとこのこ",
+   "pitch": 3,
+   "components": [
+    "田",
+    "力"
+   ],
+   "mnemonic": "**Power** (力) in the **rice field** (田): **man**.",
+   "example": "{男|おとこ}の{子|こ}が{走|はし}っている。",
+   "exampleEn": "A boy is running."
+  },
+  {
+   "id": "w01-60",
+   "day": 6,
+   "type": "read",
+   "en": "factory",
+   "de": "工場",
+   "reading": "こうじょう",
+   "pitch": 3,
+   "example": "{父|ちち}は{車|くるま}の{工場|こうじょう}で{働|はたら}いています。",
+   "exampleEn": "My father works at a car factory.",
+   "notes": "Also read こうば for small workshops.",
+   "img": "factory"
+  },
+  {
+   "id": "w01-61",
+   "day": 6,
+   "type": "write",
+   "en": "north",
+   "de": "北",
+   "kanji": "北",
+   "reading": "きた",
+   "pitch": 0,
+   "components": [
+    "匕"
+   ],
+   "mnemonic": "Two people sitting **back to back**: they turned their backs on the cold **north**.",
+   "example": "{北|きた}の{方|ほう}は{寒|さむ}い。",
+   "exampleEn": "It's cold in the north."
+  },
+  {
+   "id": "w01-62",
+   "day": 6,
+   "type": "read",
+   "en": "graduation",
+   "de": "卒業",
+   "reading": "そつぎょう",
+   "pitch": 0,
+   "example": "{来年|らいねん}、{大学院|だいがくいん}を{卒業|そつぎょう}します。",
+   "exampleEn": "I graduate from grad school next year.",
+   "notes": "～を卒業する."
+  },
+  {
+   "id": "w01-63",
+   "day": 6,
+   "type": "write",
+   "en": "the 5th (of the month); five days",
+   "de": "五日",
+   "kanji": "五",
+   "reading": "いつか",
+   "pitch": 3,
+   "components": [
+    "二",
+    "二"
+   ],
+   "mnemonic": "**Stroke fix** (1 wrong stroke in placement). Order: top 一, the vertical, the ㇕ (across and down), bottom 一.",
+   "example": "{五日|いつか}に{国|くに}へ{帰|かえ}ります。",
+   "exampleEn": "I'm going home on the 5th."
+  },
+  {
+   "id": "w01-64",
+   "day": 6,
+   "type": "read",
+   "en": "(green) tea",
+   "de": "お茶",
+   "reading": "おちゃ",
+   "pitch": 0,
+   "example": "お{茶|ちゃ}でもどうですか。",
+   "exampleEn": "How about some tea?",
+   "notes": "～でも softens an offer.",
+   "img": "green tea cup"
+  },
+  {
+   "id": "w01-65",
+   "day": 6,
+   "type": "read",
+   "en": "place of origin",
+   "de": "出身",
+   "reading": "しゅっしん",
+   "pitch": 0,
+   "example": "{出身|しゅっしん}はどちらですか。",
+   "exampleEn": "Where are you from?",
+   "notes": "メキシコ出身です. どちら is the polite どこ."
+  },
+  {
+   "id": "w01-66",
+   "day": 6,
+   "type": "read",
+   "en": "hobby",
+   "de": "趣味",
+   "reading": "しゅみ",
+   "pitch": 1,
+   "example": "{趣味|しゅみ}は{写真|しゃしん}を{撮|と}ることです。",
+   "exampleEn": "My hobby is taking photos.",
+   "notes": "趣味は＋noun / Vること."
+  },
+  {
+   "id": "w01-67",
+   "day": 7,
+   "type": "read",
+   "en": "kitchen",
+   "de": "台所",
+   "reading": "だいどころ",
+   "pitch": 0,
+   "example": "{台所|だいどころ}で{料理|りょうり}をしている。",
+   "exampleEn": "I'm cooking in the kitchen.",
+   "notes": "キッチン is just as common.",
+   "img": "kitchen"
+  },
+  {
+   "id": "w01-68",
+   "day": 7,
+   "type": "write",
+   "en": "this month",
+   "de": "今月",
+   "kanji": "月",
+   "reading": "こんげつ",
+   "pitch": 0,
+   "components": [],
+   "mnemonic": "**Stroke fix.** The **moon**: left curve first, then the hooked frame, then the two inside lines.",
+   "example": "{今月|こんげつ}は{忙|いそが}しい。",
+   "exampleEn": "This month is busy."
+  },
+  {
+   "id": "w01-69",
+   "day": 7,
+   "type": "read",
+   "en": "to send",
+   "de": "送る",
+   "reading": "おくる",
+   "pitch": 0,
+   "example": "{母|はは}に{写真|しゃしん}を{送|おく}りました。",
+   "exampleEn": "I sent the photos to my mother.",
+   "notes": "Also: to see someone off (駅まで送る)."
+  },
+  {
+   "id": "w01-70",
+   "day": 7,
+   "type": "write",
+   "en": "under, below",
+   "de": "下",
+   "kanji": "下",
+   "reading": "した",
+   "pitch": 0,
+   "components": [
+    "一",
+    "卜"
+   ],
+   "mnemonic": "**Stroke fix.** A line with something hanging **below** it: 一, then the vertical, then the dot.",
+   "example": "{机|つくえ}の{下|した}に{猫|ねこ}がいる。",
+   "exampleEn": "There's a cat under the desk."
+  },
+  {
+   "id": "w01-71",
+   "day": 7,
+   "type": "read",
+   "en": "within",
+   "de": "以内",
+   "reading": "いない",
+   "pitch": 1,
+   "example": "{三日|みっか}{以内|いない}に{返事|へんじ}をください。",
+   "exampleEn": "Please reply within three days."
+  },
+  {
+   "id": "w01-72",
+   "day": 7,
+   "type": "read",
+   "en": "diary",
+   "de": "日記",
+   "reading": "にっき",
+   "pitch": 0,
+   "example": "{毎晩|まいばん}{日記|にっき}をつけています。",
+   "exampleEn": "I keep a diary every night.",
+   "notes": "日記をつける / 書く."
+  },
+  {
+   "id": "w01-73",
+   "day": 7,
+   "type": "read",
+   "en": "weekend",
+   "de": "週末",
+   "reading": "しゅうまつ",
+   "pitch": 0,
+   "example": "{週末|しゅうまつ}は{何|なに}をしますか。",
+   "exampleEn": "What do you do on weekends?"
+  },
+  {
+   "id": "w01-74",
+   "day": 7,
+   "type": "read",
+   "en": "self-introduction",
+   "de": "自己紹介",
+   "reading": "じこしょうかい",
+   "pitch": 3,
+   "example": "{簡単|かんたん}に{自己紹介|じこしょうかい}をお{願|ねが}いします。",
+   "exampleEn": "Please introduce yourself briefly.",
+   "notes": "自己紹介する."
+  },
+  {
+   "id": "w01-75",
+   "day": 7,
+   "type": "read",
+   "en": "living alone",
+   "de": "一人暮らし",
+   "reading": "ひとりぐらし",
+   "pitch": 4,
+   "example": "{大学|だいがく}に{入|はい}ってから{一人暮|ひとりぐ}らしをしています。",
+   "exampleEn": "I've lived alone since I started university."
+  }
+ ],
+ "extras": {
+  "readings": [
+   {
+    "id": "w01x1",
+    "day": 3,
+    "title": "{漢字|かんじ}の{勉強|べんきょう}",
+    "text": "{田中|たなか}さんはアメリカの{大学|だいがく}で{日本語|にほんご}を{教|おし}えています。{学生|がくせい}はみんな{漢字|かんじ}が{読|よ}めますが、{手|て}で{書|か}くのは{苦手|にがて}です。そこで{田中|たなか}さんは、{毎週|まいしゅう}{金曜日|きんようび}に{小|ちい}さいテストをすることにしました。\n\n{最初|さいしょ}は{学生|がくせい}たちも{大変|たいへん}そうでしたが、{今|いま}は{前|まえ}より{早|はや}く{書|か}けるようになりました。{田中|たなか}さんは「{書|か}く{前|まえ}に、まず{形|かたち}をよく{見|み}るようにしてください」と{言|い}っています。",
+    "translation": "Mr./Ms. Tanaka teaches Japanese at an American university. All the students can read kanji, but they're bad at writing them by hand. So Tanaka decided to give a small test every Friday.\n\nAt first it seemed hard for the students, but now they can write faster than before. Tanaka says: \"Before you write, please make sure to look carefully at the shape first.\"",
+    "questions": [
+     {
+      "q": "{学生|がくせい}たちは{何|なに}が{苦手|にがて}ですか。",
+      "options": [
+       "{漢字|かんじ}を{読|よ}むこと",
+       "{漢字|かんじ}を{手|て}で{書|か}くこと",
+       "{日本語|にほんご}を{話|はな}すこと",
+       "テストを{作|つく}ること"
+      ],
+      "answer": 1
+     },
+     {
+      "q": "テストをすることにしたのは{誰|だれ}ですか。",
+      "options": [
+       "{学生|がくせい}たち",
+       "{大学|だいがく}",
+       "{田中|たなか}さん",
+       "アメリカの{先生|せんせい}たち"
+      ],
+      "answer": 2
+     },
+     {
+      "q": "{田中|たなか}さんは、{書|か}く{前|まえ}に{何|なに}をするように{言|い}っていますか。",
+      "options": [
+       "{形|かたち}をよく{見|み}る",
+       "{早|はや}く{書|か}く",
+       "テストを{受|う}ける",
+       "{読|よ}み{方|かた}を{調|しら}べる"
+      ],
+      "answer": 0
+     }
+    ]
+   },
+   {
+    "id": "w01x2",
+    "day": 6,
+    "title": "{山田|やまだ}さんの{引|ひ}っ{越|こ}し",
+    "text": "{山田|やまだ}さんは{来月|らいげつ}から{北海道|ほっかいどう}で{働|はたら}くことになりました。{山田|やまだ}さんではなく、{会社|かいしゃ}が{決|き}めたことです。{今|いま}、{山田|やまだ}さんの{部屋|へや}には{箱|はこ}がたくさん{置|お}いてあります。{本|ほん}はもう{全部|ぜんぶ}{箱|はこ}に{入|い}れてありますが、{台所|だいどころ}はまだそのままです。\n\n{北海道|ほっかいどう}は{冬|ふゆ}がとても{寒|さむ}いので、{山田|やまだ}さんは{新|あたら}しいコートを{買|か}うことにしました。",
+    "translation": "Yamada is going to work in Hokkaido from next month. It wasn't Yamada's decision; the company decided it. Right now there are lots of boxes in Yamada's room (put there on purpose). The books have all been packed into boxes already, but the kitchen is still as it was.\n\nWinter in Hokkaido is very cold, so Yamada decided to buy a new coat.",
+    "questions": [
+     {
+      "q": "{北海道|ほっかいどう}で{働|はたら}くことを{決|き}めたのは{誰|だれ}ですか。",
+      "options": [
+       "{山田|やまだ}さん",
+       "{山田|やまだ}さんの{家族|かぞく}",
+       "{北海道|ほっかいどう}の{友達|ともだち}",
+       "{会社|かいしゃ}"
+      ],
+      "answer": 3
+     },
+     {
+      "q": "{本|ほん}はどうなっていますか。",
+      "options": [
+       "もう{箱|はこ}に{入|い}れてある",
+       "まだ{本棚|ほんだな}にある",
+       "{台所|だいどころ}に{置|お}いてある",
+       "{北海道|ほっかいどう}に{送|おく}った"
+      ],
+      "answer": 0
+     },
+     {
+      "q": "{山田|やまだ}さんはどうしてコートを{買|か}うことにしましたか。",
+      "options": [
+       "{今|いま}のコートが{古|ふる}いから",
+       "{北海道|ほっかいどう}の{冬|ふゆ}は{寒|さむ}いから",
+       "{会社|かいしゃ}が{決|き}めたから",
+       "{引|ひ}っ{越|こ}しの{箱|はこ}が{多|おお}いから"
+      ],
+      "answer": 1
+     }
+    ]
+   }
+  ],
+  "dictations": [
+   {
+    "id": "w01xd1",
+    "day": 1,
+    "audio": "{仕事|しごと}が{終|お}わってから、{友達|ともだち}と{飲|の}みに{行|い}きます。",
+    "answers": [
+     "しごとがおわってから、ともだちとのみにいきます"
+    ],
+    "en": "After work, I'm going for drinks with friends."
+   },
+   {
+    "id": "w01xd2",
+    "day": 2,
+    "audio": "{忘|わす}れないように、{手|て}にメモを{書|か}きました。",
+    "answers": [
+     "わすれないように、てにめもをかきました"
+    ],
+    "en": "I wrote a note on my hand so I wouldn't forget."
+   },
+   {
+    "id": "w01xd3",
+    "day": 3,
+    "audio": "{子|こ}どもが{自分|じぶん}で{服|ふく}を{着|き}られるようになりました。",
+    "answers": [
+     "こどもがじぶんでふくをきられるようになりました"
+    ],
+    "en": "My child has become able to get dressed by himself."
+   },
+   {
+    "id": "w01xd4",
+    "day": 4,
+    "audio": "{来週|らいしゅう}の{火曜日|かようび}に{先生|せんせい}と{会|あ}うことになりました。",
+    "answers": [
+     "らいしゅうのかようびにせんせいとあうことになりました"
+    ],
+    "en": "It's been arranged that I'll meet the teacher next Tuesday."
+   },
+   {
+    "id": "w01xd5",
+    "day": 5,
+    "audio": "{冷蔵庫|れいぞうこ}にビールが{七本|ななほん}{冷|ひ}やしてあります。",
+    "answers": [
+     "れいぞうこにびーるがななほんひやしてあります"
+    ],
+    "en": "There are seven bottles of beer chilling in the fridge (someone put them there)."
+   }
+  ]
+ }
+}

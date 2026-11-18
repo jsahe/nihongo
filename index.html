@@ -169,6 +169,17 @@ input[type=number]{font:inherit;font-size:17px;min-height:44px;border-radius:10p
 .comps{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;font-size:16px}
 .comps div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
 .comps b{font-size:22px;margin-right:8px;font-weight:500}
+/* practice */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.chips button{min-height:40px;padding:6px 14px;border-radius:20px;font-size:15px}
+.chips button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.pmode{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px;padding:10px 12px;min-height:76px}
+.pmode b{font-size:20px}
+.kbtn{font-size:34px;min-width:64px;min-height:64px}
+.kbtn.sel-ok,.opt.sel-ok{background:var(--ok-bg);border-color:var(--ok)}
+.kbtn.sel-bad{background:var(--bad-bg);border-color:var(--bad)}
+.pitch .m.pt{opacity:.55}
 </style>
 </head>
 <body>
@@ -179,7 +190,7 @@ input[type=number]{font:inherit;font-size:17px;min-height:44px;border-radius:10p
   <button data-tab="cards"><span class="ic">🂠</span>カード</button>
   <button data-tab="week"><span class="ic">▦</span>週</button>
   <button data-tab="kanji"><span class="ic">字</span>漢字</button>
-  <button data-tab="report"><span class="ic">✓</span>報告</button>
+  <button data-tab="practice"><span class="ic">練</span>練習</button>
   <button data-tab="settings"><span class="ic">⚙︎</span>設定</button>
 </nav>
 
@@ -2315,7 +2326,7 @@ async function loadWeekFile(entry){
   }catch(e){ S.offline=true; return getWeek(entry.week); }
 }
 /* static data (kanji dictionary, components): cached in localStorage under a version key */
-const DATA_V="1";
+const DATA_V="2";
 async function loadData(name){
   const key="data_"+name;
   try{ const d=await fetchJSON("data/"+name+".json?v="+DATA_V,false); store.set(key,d); return d; }
@@ -2335,6 +2346,7 @@ async function boot(){
   const [kdb,comps] = await Promise.all([loadData("kanji"),loadData("components"),Promise.all(list.map(e=>loadWeekFile(e)))]);
   S.kdb=kdb||{}; S.comps=comps||[];
   render();
+  rescorePlacement().catch(()=>{});
   setTimeout(prefetchCardStrokes,1500);
 }
 
@@ -2369,13 +2381,20 @@ function norm(s,keepCase){
   t=t.replace(/[.!?,;:…。！？]+$/,"").trim();
   return keepCase ? t : t.toLowerCase();
 }
+/* a stored reading like "べんきょう (する)" or "うんどうする" also accepts the bare noun, and vice versa */
+function readingForms(a){
+  const raw=String(a==null?"":a); const out=new Set([jnorm(raw)]);
+  const noParen=jnorm(raw.replace(/[(（][^)）]*[)）]/g,"")); if(noParen) out.add(noParen);
+  Array.from(out).forEach(x=>{ if(x.length>2 && /する$/.test(x)) out.add(x.slice(0,-2)); });
+  return Array.from(out);
+}
 /* returns {ok, kanji:true if the answer was typed with kanji (rejected: readings are typed in kana)} */
 function checkAnswer(user, accepted, keepCase){
   const ja=accepted.some(isJa);
   if(ja){
     const u=jnorm(user); if(!u) return {ok:false};
     if(hasKanji(user) && !accepted.some(a=>hasKanji(a) && jnorm(a)===u)) return {ok:false,kanji:true};
-    return {ok:accepted.some(a=>jnorm(kanaOf(a))===u || jnorm(a)===u)};
+    return {ok:accepted.some(a=>jnorm(a)===u || readingForms(kanaOf(a)).indexOf(u)>-1)};
   }
   const u=norm(user,keepCase); if(!u) return {ok:false};
   return {ok:accepted.some(a=>norm(a,keepCase)===u)};
@@ -2418,14 +2437,15 @@ const SMALL_KANA="ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ";
 function morae(r){ const out=[]; for(const ch of String(r||"")){ if(SMALL_KANA.indexOf(ch)>-1 && out.length) out[out.length-1]+=ch; else out.push(ch); } return out; }
 function pitchKind(n,p){ if(p===0) return "0"; if(p===1) return "1"; if(p===n) return "o"; return "n"; }
 const PITCH_NAMES={"0":"heiban (flat)","1":"atamadaka","n":"nakadaka","o":"odaka"};
-function pitchHTML(r,p){
-  if(p===undefined||p===null||p===""||isNaN(+p)) return "<span>"+esc(r)+"</span>";
+/* particle (optional, e.g. "が"): drawn after the word in grey so heiban [0] (particle high) and odaka (particle low) look different */
+function pitchHTML(r,p,particle){
+  if(p===undefined||p===null||p===""||isNaN(+p)) return "<span>"+esc(r)+(particle?esc(particle):"")+"</span>";
   p=+p; const m=morae(r); const n=m.length; const kind=pitchKind(n,p);
   let html="<span class='pitch pa-"+kind+"' title='"+PITCH_NAMES[kind]+"'>";
-  m.forEach((x,i)=>{
+  m.concat(particle?[particle]:[]).forEach((x,i)=>{
     let hi; if(p===0) hi=i>0; else if(p===1) hi=i===0; else hi=i>0 && i<p;
     const drop = p>0 && i===p-1;
-    html+="<span class='m"+(hi?" hi":"")+(drop?" drop":"")+"'>"+esc(x)+"</span>";
+    html+="<span class='m"+(hi?" hi":"")+(drop?" drop":"")+(i>=n?" pt":"")+"'>"+esc(x)+"</span>";
   });
   return html+"<span class='pn'>["+p+"]</span></span>";
 }
@@ -2546,7 +2566,13 @@ const TTS={
     try{
       const a=new Audio("audio/"+mode+"/"+key+".mp3"); this.cur=a;
       try{ a.preservesPitch=true; a.playbackRate=getCfg().rate||1; }catch(e){}
-      let fell=false; const fb=()=>{ if(fell || this.cur!==a) return; fell=true; this.cur=null; this.device(fallbackText); };
+      let fell=false; const fb=()=>{ if(fell || this.cur!==a) return; fell=true; this.cur=null;
+        /* some files exist in one voice only (N5 practice words are recorded with 冥鳴ひまり only) */
+        const alt=Object.keys(FILE_VOICES).find(v=>v!==mode);
+        if(!alt){ this.device(fallbackText); return; }
+        const b=new Audio("audio/"+alt+"/"+key+".mp3"); this.cur=b; try{ b.preservesPitch=true; b.playbackRate=getCfg().rate||1; }catch(e){}
+        let fell2=false; const fb2=()=>{ if(fell2 || this.cur!==b) return; fell2=true; this.cur=null; this.device(fallbackText); };
+        b.addEventListener("error",fb2); const p2=b.play(); if(p2 && p2.catch) p2.catch(err=>{ if(err && err.name==="NotAllowedError") return; fb2(); }); };
       a.addEventListener("error",fb);
       const p=a.play(); if(p && p.catch) p.catch(err=>{ if(err && err.name==="NotAllowedError") return; fb(); });
     }catch(e){ this.device(fallbackText); }
@@ -2565,7 +2591,7 @@ function render(){
   KNOWN=null;
   document.querySelectorAll("#tabbar button").forEach(b=>b.classList.toggle("on",b.dataset.tab===S.tab));
   const app=$("app"); app.innerHTML="";
-  ({today:renderToday,cards:renderCards,week:renderWeek,kanji:renderKanji,report:renderReport,settings:renderSettings})[S.tab](app);
+  ({today:renderToday,cards:renderCards,week:renderWeek,kanji:renderKanji,practice:renderPractice,settings:renderSettings})[S.tab](app);
   window.scrollTo(0,0);
 }
 document.querySelectorAll("#tabbar button").forEach(b=>b.addEventListener("click",()=>{ S.tab=b.dataset.tab; render(); }));
@@ -2625,6 +2651,7 @@ function renderWeek(app){
     if(!day) b.disabled=true;
     app.appendChild(b);
   }
+  renderReport(app,week);
 }
 
 /* ---------- report ---------- */
@@ -2672,17 +2699,15 @@ function buildReport(week){
   lines.push("Weak words (missed ≥1x): "+(weak.size?Array.from(weak).join(", "):"none"));
   lines.push("Self-ratings: writing "+avg(rate.writing)+", speaking "+avg(rate.speaking));
   cr.lines.forEach(l=>lines.push(l));
+  practiceReportLines(week).forEach(l=>lines.push(l));
   const ks=weekKeys(week); const lk={}; (store.get("lookups",[])||[]).forEach(r=>{ if(ks.has(dayKeyOf(r[1]*1000))) lk[r[0]]=(lk[r[0]]||0)+1; });
   const lkl=Object.keys(lk).sort((a,b)=>lk[b]-lk[a]);
   lines.push("Reading lookups (tapped for furigana): "+(lkl.length?lkl.map(w=>w+" ×"+lk[w]).join(", "):"none"));
   lines.push("My notes: "+(notes.length?notes.join(" | "):"–"));
   return lines.join("\n");
 }
-function renderReport(app){
-  app.appendChild(h("h1",null,"報告"));
-  weekSelect(app,render);
-  const week=S.viewWeek!==null?getWeek(S.viewWeek):null;
-  if(!week){ app.appendChild(h("div",{class:"card"},"<p>No week loaded yet.</p>")); return; }
+function renderReport(app,week){
+  app.appendChild(h("h2",null,"報告"));
   const txt=buildReport(week);
   app.appendChild(h("button",{class:"primary big",onclick:()=>copyText(txt)},"Copy progress report"));
   app.appendChild(h("p",{class:"muted small"},"Paste it into the weekly chat after “Progress report:”."));
@@ -2835,9 +2860,11 @@ function renderVocab(body,s){
   (s.words||[]).forEach(w=>{
     let back=false;
     const b=h("button",{class:"flip"});
-    const draw=()=>{ b.classList.toggle("back",back); b.innerHTML = back ? (w.reading?"<span style='font-size:21px'>"+pitchHTML(w.reading,w.pitch)+"</span><br>":"")+esc(w.en)+(w.example?"<span class='ex jp'>"+inline(w.example)+"</span>":"") : esc(baseOf(w.de)); };
+    /* optional "particle" (e.g. が): shown and played after the word, so [0] and odaka can be heard apart */
+    const pt=w.particle||"";
+    const draw=()=>{ b.classList.toggle("back",back); b.innerHTML = back ? (w.reading?"<span style='font-size:21px'>"+pitchHTML(w.reading,w.pitch,pt)+"</span><br>":"")+esc(w.en)+(w.example?"<span class='ex jp'>"+inline(w.example)+"</span>":"") : esc(baseOf(w.de))+(pt?"<span class='muted'>"+esc(pt)+"</span>":""); };
     b.addEventListener("click",(e)=>{ if(e.target.closest(".fw")) return; back=!back; draw(); }); draw();
-    const row=h("div",{class:"vrow"}); row.appendChild(b); row.appendChild(wordBtn(w.de,w.reading,w.pitch)); body.appendChild(row);
+    const row=h("div",{class:"vrow"}); row.appendChild(b); row.appendChild(wordBtn(baseOf(w.de)+pt,(w.reading||"")+pt,w.pitch)); body.appendChild(row);
   });
 }
 function renderKanjiSection(body,s){
@@ -2878,10 +2905,16 @@ function renderExercises(body,s){
   const card=h("div",{class:"card"}); body.appendChild(card);
   s.items.forEach((it,k)=>{
     const box=h("div",{class:"item"}); card.appendChild(box);
-    box.appendChild(h("div",{class:"muted small"},(k+1)+" · "+esc(it.topic||"")));
+    /* the topic can give the answer away (～ようにする above "___にする"), so it only shows once the item is answered */
+    const lab=h("div",{class:"muted small"},(k+1)+" · "+KIND_LABEL[it.kind]); box.appendChild(lab);
+    const reveal=()=>{ if(P.dr.items[it.id] && it.topic && !lab.dataset.on){ lab.dataset.on="1"; lab.innerHTML=(k+1)+" · "+KIND_LABEL[it.kind]+" · "+inline(it.topic); } };
     ({multiple_choice:exMC,fill_blank:exFill,translate:exTrans,match:exMatch,order:exOrder,dictation:exDict,kanji_write:exKanji})[it.kind](box,it,P.dr.items[it.id]);
+    reveal(); ["click","pointerup","keyup"].forEach(t=>box.addEventListener(t,()=>setTimeout(reveal,0)));
   });
 }
+const KIND_LABEL={multiple_choice:"選ぶ",fill_blank:"穴埋め",translate:"翻訳",match:"合わせる",order:"並べる",dictation:"書き取り",kanji_write:"漢字を書く"};
+/* stable per-item shuffle: same order every time the item is shown, independent of where the author put the answer */
+function itemRng(id){ let x=0x811C9DC5; for(const ch of String(id)) x=Math.imul(x^ch.codePointAt(0),0x01000193)>>>0; return rng(x||1); }
 function explain(it){ return it.explanation?inline(it.explanation):""; }
 function exMC(box,it,prev){
   box.appendChild(h("div",{class:"prompt jp"},inline(it.prompt)));
@@ -2890,7 +2923,8 @@ function exMC(box,it,prev){
     btns.forEach((b,j)=>{ b.disabled=true; if(j===it.answer) b.classList.add("sel-ok"); else if(j===pick) b.classList.add("sel-bad"); });
     fbw.innerHTML=""; fbw.appendChild(fbBox(ok, ok?explain(it):"Answer: <strong>"+inline(it.options[it.answer])+"</strong>. "+explain(it)));
   };
-  it.options.forEach((o,j)=>{ const b=h("button",{class:"opt jp",onclick:()=>{ const ok=j===it.answer; record(it,ok,baseOf(o),false); finish(j,ok); }},inline(o)); btns.push(b); box.appendChild(b); });
+  const order=it.fixedOrder ? it.options.map((o,j)=>j) : shuffle(it.options.map((o,j)=>j),itemRng(it.id));
+  order.forEach(j=>{ const o=it.options[j]; const b=h("button",{class:"opt jp",onclick:()=>{ const ok=j===it.answer; record(it,ok,baseOf(o),false); finish(j,ok); }},inline(o)); btns[j]=b; box.appendChild(b); });
   box.appendChild(fbw);
   if(prev){ const j=it.options.map(baseOf).indexOf(prev.userAnswer); finish(j,prev.correct); }
 }
@@ -3191,8 +3225,10 @@ const DAY_START_HOUR = 4;
 function studyDay(d){ const x=new Date(d===undefined?Date.now():d); x.setHours(x.getHours()-DAY_START_HOUR); return new Date(x.getFullYear(),x.getMonth(),x.getDate()); }
 function dayKeyOf(d){ const x=studyDay(d); return x.getFullYear()+"-"+pad2(x.getMonth()+1)+"-"+pad2(x.getDate()); }
 function endOfStudyDay(){ const s=studyDay(); return new Date(s.getFullYear(),s.getMonth(),s.getDate()+1,DAY_START_HOUR); }
-const CFG_DEFAULT={ newRead:7, newWrite:3, retention:0.9, autoplay:true, voice:"", rate:1, writeMode:"strict", leniency:1, furigana:"auto" };
+const CFG_DEFAULT={ newRead:7, newWrite:4, retention:0.9, autoplay:true, voice:"", rate:1, writeMode:"strict", leniency:1, furigana:"auto" };
 function getCfg(){ return Object.assign({},CFG_DEFAULT,store.get("cfg",{})||{}); }
+/* Phase A uses 4 kanji cards/day (decided Nov 16); move a saved 3 (the old default) up once */
+(function(){ const c=store.get("cfg",null); if(c && !c.v2){ if(c.newWrite===3) c.newWrite=4; c.v2=1; store.set("cfg",c); } })();
 function setCfg(patch){ store.set("cfg",Object.assign(getCfg(),patch)); SCHED=null; KNOWN=null; }
 let SCHED=null;
 function sched(){
@@ -3534,6 +3570,275 @@ function openKanjiSheet(k){
   $("xFoot").appendChild(h("button",{class:"primary big",onclick:()=>{ pz.innerHTML=""; makePad(pz,{kanji:k,mode:"strict",practice:true,onDone:()=>{}}); pz.scrollIntoView({behavior:"smooth"}); }},"✍︎ Practice writing"));
 }
 
+/* ================= 練習 PRACTICE (free practice; never touches FSRS) =================
+   Pool = material already met: started cards, N5 words, placement-known kanji, past sentences and passages.
+   Log: nh_plog [mode, key, unixSec, ok]   (key = the word, the kanji, or "s:<id>" for a sentence)
+        nh_psess [startSec, seconds, mode, items]                                                   */
+let LOOKALIKE=null, AUDIO_WORDS=null;
+async function ensurePracticeData(){
+  await ensurePlacementData();
+  if(!LOOKALIKE){ const d=await cachedJSON("data/lookalikes.json?v="+DATA_V); LOOKALIKE=(d&&d.groups)||[]; }
+  if(!AUDIO_WORDS){ const d=await cachedJSON("audio/words.json"); AUDIO_WORDS=new Set((d&&d.words)||[]); }
+}
+const PMODES={
+  vocab:{ja:"単語",en:"Vocab flip",desc:"Word in kanji → reading, pitch, meaning"},
+  read:{ja:"読み",en:"Kanji reading",desc:"Type the key word's reading in kana"},
+  write:{ja:"書き",en:"Kanji writing",desc:"Handwrite the blanked kanji"},
+  listen:{ja:"聞く",en:"Listen → pick",desc:"Hear a word, pick how it's written (or what it means)"},
+  pitch:{ja:"ピッチ",en:"Pitch",desc:"Hear a word, pick its pitch pattern"},
+  alike:{ja:"似てる",en:"Look-alikes",desc:"Pick the right kanji from its look-alike group"},
+  dict:{ja:"文",en:"Sentence dictation",desc:"Hear a past sentence, type it in kana"}
+};
+const PX={ filter:"all", len:10, mode:null, items:[], i:0, right:0, misses:[], t0:0, mixed:false };
+function plog(mode,key,ok){ const l=store.get("plog",[])||[]; l.push([mode,key,Math.round(Date.now()/1000),ok?1:0]); if(l.length>20000) l.splice(0,l.length-20000); store.set("plog",l); }
+/* nouns get a particle in Pitch mode so heiban [0] and odaka [n] can be told apart */
+function nounish(w,m){ return !/^to\s/i.test(String(m||"")) && !(hasKanji(w) && /い$/.test(w)); }
+function recorded(r,p){ return !!AUDIO_WORDS && AUDIO_WORDS.has("w|"+r+"|"+(p===undefined||p===null?"":p)); }
+function weekStartedDays(w){ const s=parseDate(w.startDate); const d=daysBetween(s,today())+1; return d<1?0:Math.min(7,d); }
+
+function practicePool(){
+  const srs=store.get("srs",{}); const cards=allCards(); const kdb=S.kdb||{}; const pl=getPL();
+  const P0={vocab:[],read:[],write:[],sent:[],passages:[]}; const seenW=new Set(), seenR=new Set(), seenK=new Set();
+  const addWord=(o)=>{ const id=o.w+"|"+o.r; if(seenW.has(id)) return; seenW.add(id); P0.vocab.push(o); };
+  cards.forEach(c=>{ const s=srs[c.id]; if(!s) return;   // left the "new" state
+    const w=baseOf(c.de);
+    if(c.type!=="write" && hasKanji(w) && c.reading) addWord({key:w,w,r:c.reading,p:c.pitch,m:c.en,week:c.week,lapses:s.l||0});
+    if(c.type==="write" && c.kanji && !seenK.has(c.kanji)){ seenK.add(c.kanji); P0.write.push({key:c.kanji,k:c.kanji,de:w,r:c.reading,p:c.pitch,m:c.en,week:c.week,lapses:s.l||0}); }
+    kanjiIn(w).forEach(k=>{ if(!seenR.has(k) && kdb[k] && kdb[k].kw){ seenR.add(k); P0.read.push({key:k,k,week:c.week,lapses:s.l||0}); } });
+  });
+  (VOCAB||[]).forEach(e=>{ if(e.l===5 && hasKanji(e.w) && /^[ぁ-ゟァ-ヿー]+$/.test(e.r)) addWord({key:e.w,w:e.w,r:e.r,p:e.p,m:e.m,week:null,lapses:0}); });
+  Object.keys(pl.parts||{}).forEach(p=>{ const a=pl.parts[p].ans||{}; Object.keys(a).forEach(k=>{ if(k.length!==1 || !kdb[k] || !kdb[k].kw) return;
+    if(a[k].read===true && !seenR.has(k)){ seenR.add(k); P0.read.push({key:k,k,week:null,lapses:0}); }
+    if(a[k].write===true && !seenK.has(k)){ seenK.add(k); const kw=kdb[k].kw; P0.write.push({key:k,k,de:kw.w,r:kw.r,p:kw.p,m:kw.m,week:null,lapses:0}); } }); });
+  knownWeeks().forEach(e=>{ const w=getWeek(e.week); if(!w) return; const upto=weekStartedDays(w); if(!upto) return;
+    w.days.filter(d=>d.day<=upto).forEach(d=>d.sections.forEach((s,si)=>{
+      if(s.type==="reading" && s.text) P0.passages.push({key:"r:w"+pad2(w.week)+"d"+d.day+"-"+si,title:s.title||"読む",text:s.text,translation:s.translation,week:w.week});
+      if(s.type==="exercises") s.items.forEach(it=>{ if(it.kind==="dictation") P0.sent.push({key:"s:"+it.id,audio:it.audio,answers:it.answers,en:it.en,week:w.week}); });
+    }));
+    const x=w.extras||{};
+    (x.readings||[]).forEach((r,i)=>{ if((r.day||1)<=upto) P0.passages.push({key:"r:"+(r.id||("w"+pad2(w.week)+"x"+i)),title:r.title||"読む",text:r.text,translation:r.translation,questions:r.questions,week:w.week,extra:true}); });
+    (x.dictations||[]).forEach((t,i)=>{ if((t.day||1)<=upto) P0.sent.push({key:"s:"+(t.id||("w"+pad2(w.week)+"xd"+i)),audio:t.audio,answers:t.answers,en:t.en,week:w.week}); });
+  });
+  /* look-alike items: a known word with one kanji from a group blanked */
+  P0.alike=[]; const knownK=new Set(P0.read.map(x=>x.k).concat(P0.write.map(x=>x.k)));
+  (LOOKALIKE||[]).forEach(g=>{ g.forEach(k=>{ if(!knownK.has(k)) return;
+    const words=P0.vocab.filter(v=>v.w.indexOf(k)>-1).slice(0,6); const kw=kdb[k]&&kdb[k].kw;
+    if(kw && !words.some(v=>v.w===kw.w)) words.push({w:kw.w,r:kw.r,p:kw.p,m:kw.m,week:null});
+    words.forEach(v=>P0.alike.push({key:v.w,k,group:g,w:v.w,r:v.r,p:v.p,m:v.m,week:v.week})); }); });
+  return P0;
+}
+function weakKeys(){
+  const out=new Set(); const since=Date.now()/1000-14*86400;
+  (store.get("plog",[])||[]).forEach(r=>{ if(r[2]>=since && !r[3]) out.add(r[1]); });
+  (store.get("lookups",[])||[]).forEach(r=>{ if(r[1]>=since) out.add(r[0]); });
+  const srs=store.get("srs",{}); allCards().forEach(c=>{ const s=srs[c.id]; if(s && (s.l||0)>=2){ out.add(baseOf(c.de)); if(c.kanji) out.add(c.kanji); } });
+  return out;
+}
+function applyFilter(list,f,weak){
+  if(f==="week"){ const cw=S.currentWeek!==null?S.currentWeek:S.viewWeek; return list.filter(x=>x.week===cw); }
+  if(f==="weak") return list.filter(x=>weak.has(x.key) || (x.k && weak.has(x.k)) || (x.w && kanjiIn(x.w).some(k=>weak.has(k))) || (x.lapses||0)>=2);
+  return list;
+}
+function modeList(P0,mode){
+  switch(mode){
+    case "vocab": return P0.vocab;
+    case "read": return P0.read;
+    case "write": return P0.write;
+    case "listen": return P0.vocab.filter(v=>recorded(v.r,v.p));
+    case "pitch": return P0.vocab.filter(v=>v.p!==undefined && v.p!==null && recorded(nounish(v.w,v.m)?v.r+"が":v.r,v.p));
+    case "alike": return P0.alike;
+    case "dict": return P0.sent;
+  }
+  return [];
+}
+function renderPractice(app){
+  app.appendChild(h("h1",null,"練習"));
+  app.appendChild(h("p",{class:"muted small"},"Free practice with material you've already met. It never changes your flashcard schedule; results go to the weekly report."));
+  const box=h("div"); app.appendChild(box); box.innerHTML="<p class='muted'>Loading…</p>";
+  ensurePracticeData().then(()=>{ if(S.tab!=="practice") return; box.innerHTML=""; drawPracticeHome(box); });
+}
+function drawPracticeHome(box){
+  const P0=practicePool(); const weak=weakKeys();
+  const chips=h("div",{class:"chips"});
+  [["all","All"],["week","This week"],["weak","Weak"]].forEach(([v,l])=>chips.appendChild(h("button",{class:PX.filter===v?"on":"",onclick:()=>{ PX.filter=v; box.innerHTML=""; drawPracticeHome(box); }},l)));
+  box.appendChild(chips);
+  const lens=h("div",{class:"chips"}); lens.appendChild(h("span",{class:"muted small",style:"align-self:center"},"Session:"));
+  [[10,"10 items"],[0,"∞"]].forEach(([v,l])=>lens.appendChild(h("button",{class:PX.len===v?"on":"",onclick:()=>{ PX.len=v; box.innerHTML=""; drawPracticeHome(box); }},l)));
+  box.appendChild(lens);
+  const counts={}; Object.keys(PMODES).forEach(m=>counts[m]=applyFilter(modeList(P0,m),PX.filter,weak).length);
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  const mx=h("button",{class:"primary big",style:"margin:8px 0",onclick:()=>startPractice(null)},"Mixed practice"+(total?"":" (nothing yet)")); if(!total) mx.disabled=true; box.appendChild(mx);
+  const grid=h("div",{class:"pgrid"});
+  Object.keys(PMODES).forEach(m=>{ const M=PMODES[m]; const b=h("button",{class:"pmode",onclick:()=>startPractice(m)},"<b>"+M.ja+"</b><span>"+esc(M.en)+"</span><span class='muted small'>"+counts[m]+" items</span>"); if(!counts[m]) b.disabled=true; grid.appendChild(b); });
+  box.appendChild(grid);
+  if(PX.filter==="weak" && !total) box.appendChild(h("p",{class:"muted small"},"No weak items yet: they come from cards lapsed twice, 練習 misses in the last 14 days and furigana lookups."));
+  const pass=applyFilter(P0.passages,PX.filter,weak);
+  const rc=h("div",{class:"card"},"<h2 style='margin-top:0'>読む · Reading</h2>"+(pass.length?"":"<p class='muted small'>Passages from lessons you've started appear here.</p>"));
+  pass.slice().reverse().forEach(p=>rc.appendChild(h("button",{class:"day",onclick:()=>openPassage(p)},"<span class='grow'><strong class='jp' style='font-size:17px'>"+inline(p.title)+"</strong><br><span class='small muted'>Week "+p.week+(p.extra?" · extra":"")+(p.questions?" · "+p.questions.length+" questions":"")+"</span></span>")));
+  box.appendChild(rc);
+  const today0=new Date(); today0.setHours(0,0,0,0); const ts=today0/1000;
+  const todays=(store.get("plog",[])||[]).filter(r=>r[2]>=ts); if(todays.length) box.appendChild(h("p",{class:"muted small"},"Today: "+todays.length+" items, "+todays.filter(r=>r[3]).length+" right."));
+}
+function startPractice(mode){
+  const P0=practicePool(); const weak=weakKeys();
+  PX.mixed=!mode; PX.mode=mode; PX.i=0; PX.right=0; PX.misses=[]; PX.t0=Date.now(); PX.pools={};
+  const modes=mode?[mode]:Object.keys(PMODES);
+  modes.forEach(m=>{ const l=applyFilter(modeList(P0,m),PX.filter,weak); if(l.length) PX.pools[m]=shuffle(l); });
+  PX.all=P0; PX.order=Object.keys(PX.pools); PX.ptr={}; PX.order.forEach(m=>PX.ptr[m]=0);
+  if(!PX.order.length){ toast("Nothing to practice with this filter"); return; }
+  openSheet(mode?PMODES[mode].ja+" · "+PMODES[mode].en:"練習 · Mixed",()=>{ endPractice(); render(); });
+  if(PX.len) $("xBarWrap").style.display="";
+  practiceNext();
+}
+function endPractice(){ if(!PX.t0) return; const n=PX.i; const s=store.get("psess",[])||[]; s.push([Math.round(PX.t0/1000),Math.round((Date.now()-PX.t0)/1000),PX.mixed?"mixed":PX.mode,n]); store.set("psess",s); PX.t0=0; }
+function practiceNext(){
+  TTS.stop(); const b=$("xBody"), f=$("xFoot"); b.innerHTML=""; f.innerHTML=""; b.scrollTop=0;
+  if(PX.len && PX.i>=PX.len){ practiceSummary(); return; }
+  const m=PX.order[PX.i % PX.order.length]; const pool=PX.pools[m];
+  const it=pool[PX.ptr[m] % pool.length]; PX.ptr[m]++; if(PX.ptr[m]%pool.length===0) PX.pools[m]=shuffle(pool);
+  $("xCount").textContent=PX.len?(PX.i+1)+"/"+PX.len:String(PX.i+1); if(PX.len) $("xBar").style.width=Math.round(100*PX.i/PX.len)+"%";
+  b.appendChild(h("div",{class:"fc-tag",style:"text-align:center;margin-top:6px"},PMODES[m].ja+" · "+esc(PMODES[m].en)));
+  f.appendChild(h("button",{class:"big",onclick:()=>{ if(PX.i){ practiceSummary(); } else closeSheet(); }},"End"));
+  const done=(ok,label)=>{ plog(m,it.key,ok); if(ok) PX.right++; else PX.misses.push(label||it.key); PX.i++;
+    f.innerHTML=""; f.appendChild(h("button",{class:"big",onclick:practiceSummary},"End")); const nx=h("button",{class:"primary big",onclick:practiceNext},"Next ›"); f.appendChild(nx); setTimeout(()=>nx.focus&&nx.focus(),30); };
+  ({vocab:pxVocab,read:pxRead,write:pxWrite,listen:pxListen,pitch:pxPitch,alike:pxAlike,dict:pxDict})[m](b,it,done);
+}
+function practiceSummary(){
+  TTS.stop(); const b=$("xBody"), f=$("xFoot"); b.innerHTML=""; f.innerHTML=""; endPractice();
+  b.appendChild(h("div",{class:"card",style:"text-align:center"},"<h2 style='margin-top:0'>お疲れさま</h2><p><strong>"+PX.right+" / "+PX.i+"</strong> right</p>"+(PX.misses.length?"<p class='small'>Missed: <span class='jp'>"+PX.misses.map(esc).join("、")+"</span></p>":"")));
+  f.appendChild(h("button",{class:"big",onclick:closeSheet},"Close"));
+  f.appendChild(h("button",{class:"primary big",onclick:()=>{ closeSheet(); setTimeout(()=>startPractice(PX.mixed?null:PX.mode),0); }},"Again"));
+}
+function okBad(b,ok,html){ b.appendChild(h("div",{class:"fb "+(ok?"ok":"bad")},(ok?"<strong>正解。</strong> ":"<strong>惜しい。</strong> ")+(html||""))); }
+/* 1 · vocab flip, self-marked */
+function pxVocab(b,it,done){
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-jp"},esc(it.w)));
+  c.appendChild(h("p",{class:"muted small"},"Say the reading and meaning, then check."));
+  const f=$("xFoot"); const show=h("button",{class:"primary big",onclick:()=>{
+    show.remove(); c.appendChild(h("div",{class:"fc-read"},pitchHTML(it.r,it.p))); c.appendChild(h("div",{class:"fc-en"},esc(it.m)));
+    const sp=wordBtn(it.w,it.r,it.p); c.appendChild(sp); TTS.word(it.w,it.r,it.p);
+    const row=h("div",{class:"row",style:"margin-top:12px"}); c.appendChild(row);
+    row.appendChild(h("button",{class:"big",onclick:()=>{ row.remove(); done(false,it.w); }},"✗ Didn't know"));
+    row.appendChild(h("button",{class:"primary big",onclick:()=>{ row.remove(); done(true); }},"✓ Knew it"));
+  }},"Show"); f.appendChild(show);
+}
+/* 2 · kanji reading: key word → kana */
+function pxRead(b,it,done){
+  const kd=(S.kdb||{})[it.k]||{}; const kw=kd.kw; const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-jp"},esc(kw.w)));
+  const inp=kanaInput({placeholder:"reading in kana"}); c.appendChild(inp); const fb=h("div"); c.appendChild(fb);
+  const chk=h("button",{class:"primary big",style:"margin-top:10px",onclick:()=>{
+    const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; }
+    const ok=checkAnswer(v,kwAccepted(it.k,kd)).ok; inp.disabled=true; chk.remove(); fb.innerHTML="";
+    okBad(fb,ok,pitchHTML(kw.r,kw.p)+" — "+esc(kw.m)); fb.appendChild(wordBtn(kw.w,kw.r,kw.p)); TTS.word(kw.w,kw.r,kw.p); done(ok,kw.w);
+  }},"Check"); c.appendChild(chk);
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter" && !e.isComposing) chk.click(); }); setTimeout(()=>inp.focus(),50);
+}
+/* 3 · kanji writing: same pass rule as cards (no hint, no give-up, ≤1 mistake) */
+function pxWrite(b,it,done){
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-en"},esc(it.m))); c.appendChild(h("div",{class:"fc-read"},pitchHTML(it.r||"",it.p))); c.appendChild(blankWord(it.de,it.k));
+  const pz=h("div"); b.appendChild(pz); const fb=h("div"); b.appendChild(fb);
+  makePad(pz,{kanji:it.k,onDone:(r)=>{ const ok=r.self?r.selfOk:(!r.gaveUp && r.hints===0 && r.mistakes<=1);
+    if(!r.self && !ok){ const mv=h("div"); fb.appendChild(mv); modelSVG(mv,it.k,true); }
+    okBad(fb,ok,esc(it.de)+(r.self?"":" · "+r.mistakes+" mistake"+(r.mistakes===1?"":"s")+(r.hints?" · "+r.hints+" hint"+(r.hints>1?"s":""):"")+(r.gaveUp?" · gave up":"")));
+    done(ok,it.de+"("+it.k+")"); }});
+}
+/* 4 · listen → pick the written form (2 of 3) or the meaning (1 of 3) */
+function pxDistractors(it,pool,n){
+  const lk=new Set(); (LOOKALIKE||[]).forEach(g=>{ if(kanjiIn(it.w).some(k=>g.indexOf(k)>-1)) g.forEach(k=>lk.add(k)); });
+  const ks=kanjiIn(it.w); const L=Array.from(it.w).length;
+  const sc=pool.filter(v=>v.w!==it.w && v.m!==it.m).map(v=>{ let s=Math.random()*3; if(v.r===it.r) s+=10; if(kanjiIn(v.w).some(k=>lk.has(k)&&ks.indexOf(k)<0)) s+=5; if(kanjiIn(v.w).some(k=>ks.indexOf(k)>-1)) s+=4; if(Array.from(v.w).length===L) s+=2; return {v,s}; });
+  sc.sort((a,b)=>b.s-a.s); const out=[]; const seen=new Set([it.w]);
+  for(const x of sc){ if(seen.has(x.v.w)) continue; seen.add(x.v.w); out.push(x.v); if(out.length>=n) break; }
+  return out;
+}
+function pxListen(b,it,done){
+  const meaning=(PX.i%3===2);
+  const play=()=>TTS.word(it.w,it.r,it.p);
+  b.appendChild(h("p",{class:"muted",style:"text-align:center"},meaning?"What does it mean?":"Which word is it?"));
+  const pr=h("div",{class:"row",style:"justify-content:center"}); pr.appendChild(h("button",{class:"primary",onclick:play},"🔊 Play")); b.appendChild(pr);
+  const ds=pxDistractors(it,PX.all.vocab,3); const opts=shuffle([it].concat(ds)); const btns=[]; const fb=h("div");
+  opts.forEach((o,j)=>{ const x=h("button",{class:"opt"+(meaning?"":" jp"),onclick:()=>{
+    const ok=o===it; btns.forEach((y,q)=>{ y.disabled=true; if(opts[q]===it) y.classList.add("sel-ok"); else if(q===j) y.classList.add("sel-bad"); });
+    okBad(fb,ok,"<span class='jp'>"+esc(it.w)+"</span> "+pitchHTML(it.r,it.p)+" — "+esc(it.m)); done(ok,it.w); }},esc(meaning?o.m:o.w)); btns.push(x); b.appendChild(x); });
+  b.appendChild(fb); setTimeout(play,250);
+}
+/* 5 · pitch: nouns are played with が so heiban and odaka differ */
+function pitchOptions(n){ const o=[["0","[0] heiban"],["1","[1] atamadaka"]]; if(n>=3) o.push(["n","nakadaka"]); if(n>=2) o.push(["o","["+n+"] odaka"]); return o; }
+function pxPitch(b,it,done){
+  const noun=nounish(it.w,it.m); const r=noun?it.r+"が":it.r; const n=morae(it.r).length; const kind=pitchKind(n,+it.p);
+  const play=()=>TTS.word(noun?it.w+"が":it.w,r,it.p);
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-jp",style:"font-size:32px"},esc(it.w)+(noun?"<span class='muted'>が</span>":"")));
+  c.appendChild(h("div",{class:"fc-read"},esc(it.r)+(noun?"<span class='muted'>が</span>":"")+" <span class='muted small'>"+n+" mora"+(n>1?"e":"")+"</span>"));
+  c.appendChild(h("button",{class:"primary",onclick:play},"🔊 Play"));
+  if(noun) c.appendChild(h("p",{class:"muted small"},"Listen to が: high after [0], low after odaka."));
+  const btns=[]; const fb=h("div"); const opts=pitchOptions(n);
+  opts.forEach(([k,l],j)=>{ const x=h("button",{class:"opt pa-"+k,onclick:()=>{
+    const ok=k===kind; btns.forEach((y,q)=>{ y.disabled=true; if(opts[q][0]===kind) y.classList.add("sel-ok"); else if(q===j) y.classList.add("sel-bad"); });
+    okBad(fb,ok,"<span style='font-size:22px'>"+pitchHTML(it.r,+it.p,noun?"が":"")+"</span> — "+esc(it.m)+(noun?"<br><span class='small muted'>Pitch number refers to the word; が shown for the drop.</span>":"")); done(ok,it.w); }},esc(l)); btns.push(x); b.appendChild(x); });
+  b.appendChild(fb); setTimeout(play,250);
+}
+/* 6 · look-alikes: pick the kanji that fits the blank */
+function pxAlike(b,it,done){
+  const c=h("div",{class:"fc"}); b.appendChild(c);
+  c.appendChild(h("div",{class:"fc-en"},esc(it.m))); c.appendChild(h("div",{class:"fc-read"},pitchHTML(it.r,it.p)));
+  c.appendChild(blankWord(it.w,it.k));
+  const opts=shuffle(it.group.slice(),itemRng(it.w+it.k)); const row=h("div",{class:"row",style:"justify-content:center;margin-top:10px"}); c.appendChild(row); const fb=h("div"); c.appendChild(fb);
+  const btns=[];
+  opts.forEach((k,j)=>{ const x=h("button",{class:"kbtn",onclick:()=>{
+    const ok=k===it.k; btns.forEach((y,q)=>{ y.disabled=true; if(opts[q]===it.k) y.classList.add("sel-ok"); else if(q===j) y.classList.add("sel-bad"); });
+    const kd=(S.kdb||{}); okBad(fb,ok,"<span class='jp'>"+esc(it.w)+"</span> · "+opts.map(x=>esc(x)+" "+esc(((kd[x]||{}).m||[])[0]||"")).join(" · ")); fb.appendChild(wordBtn(it.w,it.r,it.p)); done(ok,it.w+"("+it.k+")"); }},esc(k)); btns.push(x); row.appendChild(x); });
+}
+/* 7 · sentence dictation */
+function pxDict(b,it,done){
+  const pr=h("div",{class:"row",style:"justify-content:center;margin-top:8px"}); pr.appendChild(h("button",{class:"primary",onclick:()=>TTS.say(it.audio)},"🔊 Play"));
+  pr.appendChild(h("button",{onclick:()=>{ const r=getCfg().rate; setCfg({rate:0.7}); TTS.say(it.audio); setCfg({rate:r}); }},"🐢 Slow")); b.appendChild(pr);
+  const inp=kanaInput({style:"margin-top:10px",placeholder:"type what you hear in kana"}); b.appendChild(inp); const fb=h("div"); b.appendChild(fb);
+  const chk=h("button",{class:"primary big",style:"margin-top:10px",onclick:()=>{
+    const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; }
+    const u=jnorm(v); let best=0; (it.answers||[]).forEach(a=>{ best=Math.max(best,similarity(u,jnorm(a))); });
+    const ok=best===1; inp.disabled=true; chk.remove(); fb.innerHTML="";
+    okBad(fb,ok,(ok?"":"Match "+Math.round(100*best)+"%. ")+"<span class='jp'>"+inline(it.audio)+"</span>"+(it.en?"<br><span class='muted'>"+esc(it.en)+"</span>":"")); done(ok,baseOf(it.audio));
+  }},"Check"); b.appendChild(chk);
+  inp.addEventListener("keydown",e=>{ if(e.key==="Enter" && !e.isComposing) chk.click(); });
+  setTimeout(()=>TTS.say(it.audio),300);
+}
+/* 8 · reading view for a past passage or an extra reading */
+function openPassage(p){
+  openSheet(baseOf(p.title)); const b=$("xBody"); const t0=Date.now();
+  SHEET_CLOSE=()=>{ const s=store.get("psess",[])||[]; s.push([Math.round(t0/1000),Math.round((Date.now()-t0)/1000),"passage",(p.questions||[]).length]); store.set("psess",s); render(); };
+  b.appendChild(h("h2",null,inline(p.title)));
+  b.appendChild(h("div",{class:"card jp"},md(p.text)));
+  b.appendChild(h("p",{class:"muted small"},"Words without furigana: tap to see the reading."));
+  b.appendChild(h("button",{class:"big",style:"margin-bottom:10px",onclick:()=>TTS.say(p.text)},"🔊 Read aloud"));
+  (p.questions||[]).forEach((q,qi)=>{ const c=h("div",{class:"card"}); c.appendChild(h("div",{class:"prompt jp"},(qi+1)+". "+inline(q.q)));
+    const order=shuffle(q.options.map((o,j)=>j),itemRng(p.key+qi)); const btns=[]; const fb=h("div");
+    order.forEach(j=>{ const x=h("button",{class:"opt jp",onclick:()=>{ const ok=j===q.answer; plog("passage",p.key+"#"+(qi+1),ok);
+      btns.forEach((y,jj)=>{ if(!y) return; y.disabled=true; if(jj===q.answer) y.classList.add("sel-ok"); else if(jj===j) y.classList.add("sel-bad"); });
+      fb.innerHTML=""; okBad(fb,ok,q.explanation?inline(q.explanation):""); }},inline(q.options[j])); btns[j]=x; c.appendChild(x); });
+    c.appendChild(fb); b.appendChild(c); });
+  if(p.translation){ const tr=h("div",{class:"card muted"},md(p.translation)); tr.style.display="none";
+    const tb=h("button",{class:"big",onclick:()=>{ const on=tr.style.display==="none"; tr.style.display=on?"block":"none"; tb.textContent=on?"Hide translation":"Show translation"; }},"Show translation");
+    b.appendChild(tb); b.appendChild(tr); }
+  $("xFoot").appendChild(h("button",{class:"big",onclick:closeSheet},"Close"));
+}
+/* weekly report lines */
+function practiceReportLines(week){
+  const ks=weekKeys(week); const log=(store.get("plog",[])||[]).filter(r=>ks.has(dayKeyOf(r[2]*1000)));
+  const ses=(store.get("psess",[])||[]).filter(r=>ks.has(dayKeyOf(r[0]*1000)));
+  if(!log.length && !ses.length) return ["練習: none"];
+  const mins=Math.round(ses.reduce((a,r)=>a+Math.min(r[1],3600),0)/60);
+  const per={}; log.forEach(r=>{ const m=r[0]; per[m]=per[m]||[0,0]; per[m][1]++; if(r[3]) per[m][0]++; });
+  const name=m=>(PMODES[m]?PMODES[m].ja:(m==="passage"?"読む":m));
+  const miss={}; log.forEach(r=>{ if(!r[3]) miss[r[1]]=(miss[r[1]]||0)+1; });
+  const top=Object.keys(miss).sort((a,b)=>miss[b]-miss[a]).slice(0,15);
+  return ["練習: "+mins+" min, "+log.length+" items ("+Object.keys(per).map(m=>name(m)+" "+per[m][0]+"/"+per[m][1]).join(" · ")+")",
+          "練習 most missed: "+(top.length?top.map(k=>k+" ×"+miss[k]).join(", "):"none")];
+}
+
 /* ================= PLACEMENT TEST (Week 0) ================= */
 const PL_PARTS={1:{name:"Genki / N5–N4 kanji · 1 of 3",kind:"kanji"},2:{name:"Genki / N5–N4 kanji · 2 of 3",kind:"kanji"},3:{name:"Genki / N5–N4 kanji · 3 of 3",kind:"kanji"},
   4:{name:"N3 + N2 kanji sample (reading)",kind:"read"},5:{name:"Vocabulary N4–N2",kind:"vocab"},6:{name:"Grammar + dictation",kind:"gd"}};
@@ -3637,10 +3942,29 @@ function plKanji(b,it,kd){
     else row.appendChild(h("button",{class:"primary big",onclick:goWrite},it.kind==="read"?"Next ›":"Now write it ›"));
   };
   row.appendChild(h("button",{onclick:()=>done(false,"")},"Don't know"));
-  const chk=h("button",{class:"primary",onclick:()=>{ const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; } const acc=[kw.r].concat((VOCAB||[]).filter(e=>e.w===kw.w).map(e=>e.r)); done(checkAnswer(v,acc).ok,v); }},"Check");
+  const chk=h("button",{class:"primary",onclick:()=>{ const v=inp.value; if(!v.trim()) return; if(hasKanji(v)){ fb.innerHTML=""; fb.appendChild(kanjiWarn()); return; } done(checkAnswer(v,kwAccepted(it.id,kd)).ok,v); }},"Check");
   row.appendChild(chk);
   inp.addEventListener("keydown",e=>{ if(e.key==="Enter" && !e.isComposing) chk.click(); });
   setTimeout(()=>inp.focus(),50);
+}
+/* every reading of the key word that counts: its own, any other JLPT-list reading of the same word,
+   and for one-kanji words the kanji's kun readings (何 なに/なん, 明日 あした/あす) */
+function kwAccepted(k,kd){
+  const kw=(kd||{}).kw; if(!kw) return [];
+  const acc=new Set([kw.r]); (VOCAB||[]).filter(e=>e.w===kw.w).forEach(e=>acc.add(e.r));
+  ((kd.kun)||[]).forEach(x=>{ const t=String(x).replace(/-/g,""); const i=t.indexOf(".");
+    const stem=i<0?t:t.slice(0,i), oku=i<0?"":t.slice(i+1);
+    if(kw.w===k+oku && stem) acc.add(stem+oku); });
+  return Array.from(acc);
+}
+/* the Nov 16 placement was scored before the する / alternate-reading fixes: re-check the stored typed answers once */
+async function rescorePlacement(){
+  const pl=store.get("placement",null); if(!pl || !pl.parts || pl.rescored>=2) return;
+  await ensurePlacementData(); if(!VOCAB) return;
+  PLS=null; const P2=getPL(); const kdb=S.kdb||{}; let n=0;
+  [1,2,3,4].forEach(p=>{ const a=(P2.parts[p]||{}).ans||{}; Object.keys(a).forEach(id=>{ const x=a[id];
+    if(x.read===false && x.ua && kdb[id] && checkAnswer(x.ua,kwAccepted(id,kdb[id])).ok){ x.read=true; x.rs=1; n++; } }); });
+  P2.rescored=2; savePL(); if(n) render();
 }
 function plWrite(b,it,kd){
   const kw=kd.kw; b.innerHTML=""; const f=$("xFoot"); f.innerHTML=""; f.appendChild(h("button",{class:"big",onclick:closeSheet},"Pause"));
@@ -3710,13 +4034,16 @@ function placementSummary(){
   L.push("  Can write: "+wr.join(""));
   L.push("  Can read, can't write ("+readNoWrite.length+"): "+readNoWrite.join(""));
   L.push("  Can't read ("+noRead.length+"): "+noRead.join(""));
+  const typed=noRead.map(k=>k+"「"+(ans[k].ua?ans[k].ua:"—")+"」"+(kdb[k]&&kdb[k].kw?"="+kdb[k].kw.r:""));
+  if(typed.length) L.push("  Can't read, what was typed (— = Don't know) and the key word's reading: "+typed.join(" "));
+  const res=answered.filter(k=>ans[k].rs); if(res.length) L.push("  Re-scored as read after the Nov 17 checker fix ("+res.length+"): "+res.join(""));
   const strictW=answered.filter(k=>ans[k].write===true && ans[k].wm!==undefined);
   if(strictW.length) L.push("  Written with 1 stroke mistake: "+(strictW.filter(k=>ans[k].wm===1).join("")||"none"));
   const a4=A(4); const it4=plItems(4)||[];
   [3,2].forEach(lv=>{ const its=it4.filter(x=>x.lv===lv); const an=its.filter(x=>a4[x.id]); const ok=an.filter(x=>a4[x.id].read===true);
     const total=Object.keys(kdb).filter(k=>kdb[k].l===lv).length; const inBase=base.filter(k=>kdb[k].l===lv).length;
     const est=an.length?Math.round((ok.length/an.length)*(total-inBase)+inBase*(answered.length?rd.length/answered.length:0)):null;
-    L.push("N"+lv+" kanji sample (reading): "+ok.length+"/"+an.length+(est!==null?" → est. ~"+est+" of "+total+" N"+lv+" kanji readable":"")+(an.length?" · missed: "+an.filter(x=>a4[x.id].read!==true).map(x=>x.id).join(""):""));
+    L.push("N"+lv+" kanji sample (reading): "+ok.length+"/"+an.length+(est!==null?" → est. ~"+est+" of "+total+" N"+lv+" kanji readable":"")+(an.length?" · missed: "+an.filter(x=>a4[x.id].read!==true).map(x=>x.id+(a4[x.id].ua?"「"+a4[x.id].ua+"」":"")).join(" "):""));
   });
   const a5=A(5); const it5=plItems(5)||[];
   const vline=[]; let estWords=0;

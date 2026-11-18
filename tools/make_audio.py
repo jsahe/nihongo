@@ -13,6 +13,7 @@ Sentences are synthesized from the kanji text (better prosody) unless Open JTalk
 disagrees with the furigana in the file; then the kana version is used. Words are synthesized
 from kana with the pitch-accent nucleus set explicitly (0 = heiban).
 Voices: VOICEVOX:冥鳴ひまり, VOICEVOX:玄野武宏 (credit required; shown in the app).
+練習 extras (冥鳴ひまり only): all N5 kanji words, and word+が for nouns (N5 + week cards); manifest in audio/words.json.
 """
 import argparse, glob, json, os, re, subprocess, sys, tempfile
 
@@ -60,7 +61,7 @@ def collect(root):
             for sec in d.get("sections", []):
                 t = sec.get("type")
                 if t == "vocab":
-                    for v in sec.get("words", []): w(v.get("de"), v.get("reading"), v.get("pitch"))
+                    for v in sec.get("words", []): w(v.get("de"), (v.get("reading") or "") + v.get("particle", ""), v.get("pitch"))
                 if t == "kanji":
                     for v in sec.get("items", []): w(v.get("de"), v.get("reading"), v.get("pitch"))
                 if t == "reading": s(sec.get("text", ""))
@@ -74,6 +75,27 @@ def collect(root):
         for d in json.load(open(pl, encoding="utf-8")).get("dictation", []): s(d["audio"])
     s("{日本語|にほんご}を{少|すこ}し{話|はな}します。")   # Settings → Test voice
     return words, sents
+
+KANJI = re.compile(r"[㐀-鿿々]")
+KANA_ONLY = re.compile(r"^[ぁ-ゟァ-ヿー]+$")
+def nounish(w, m):
+    """same rule as nounish() in index.html: nouns are also recorded with が for 練習 → ピッチ"""
+    return not re.match(r"(?i)to\s", m or "") and not (KANJI.search(w) and w.endswith("い"))
+
+def collect_practice(root, words):
+    """練習 extras, one voice (冥鳴ひまり): every N5 kanji word, plus word+が for nouns with pitch
+    (N5 words and the weeks' card words), so Listen and Pitch work from Week 1."""
+    extra = {}
+    def add(r, p):
+        if r and KANA_ONLY.match(r): extra[key("w|%s|%s" % (r, "" if p is None else p))] = (r, p)
+    items = [(e["w"], e["r"], e.get("p"), e.get("m")) for e in json.load(open(os.path.join(root, "data", "vocab.json"), encoding="utf-8")) if e["l"] == 5 and KANJI.search(e["w"])]
+    for f in sorted(glob.glob(os.path.join(root, "weeks", "week-*.json"))):
+        for c in json.load(open(f, encoding="utf-8")).get("cards", []):
+            if c.get("type", "read") == "read" and c.get("reading"): items.append((c["de"], c["reading"], c.get("pitch"), c.get("en")))
+    for w, r, p, m in items:
+        add(r, p)
+        if p is not None and nounish(w, m): add(r + "が", p)
+    return {k: v for k, v in extra.items() if k not in words}
 
 def ensure_vv(vv):
     os.makedirs(vv, exist_ok=True)
@@ -122,15 +144,24 @@ def word_kana(r, p):
     n = len(mor); a = n if (p is None or p == 0 or p > n) else p
     return "".join(mor[:a]) + "'" + "".join(mor[a:])
 
+def write_manifest(root, words):
+    """audio/words.json: the word keys ("w|reading|pitch") recorded in 冥鳴ひまり; 練習 Listen/Pitch only use these"""
+    have = sorted("w|%s|%s" % (r, "" if p is None else p) for k, (r, p) in words.items()
+                  if os.path.exists(os.path.join(root, "audio", "himari", k + ".mp3")))
+    json.dump({"voice": "himari", "words": have}, open(os.path.join(root, "audio", "words.json"), "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--only", default=",".join(VOICES)); ap.add_argument("--vv", default="/tmp/voicevox")
     a = ap.parse_args(); root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     words, sents = collect(root)
+    extra = collect_practice(root, words)
     todo = {v: [] for v in a.only.split(",")}
     for v in todo:
         os.makedirs(os.path.join(root, "audio", v), exist_ok=True)
-        for k in list(words) + list(sents):
+        for k in list(words) + list(sents) + (list(extra) if v == "himari" else []):
             if not os.path.exists(os.path.join(root, "audio", v, k + ".mp3")): todo[v].append(k)
+    words = dict(words, **extra)
+    write_manifest(root, words)
     if not any(todo.values()): print("nothing to do (%d words, %d sentences)" % (len(words), len(sents))); return
     ort_path, dic = ensure_vv(a.vv)
     from voicevox_core.blocking import Onnxruntime, OpenJtalk, Synthesizer, VoiceModelFile
@@ -155,6 +186,7 @@ def main():
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tf: tf.write(wav); tmp = tf.name
             subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", tmp, "-ac", "1", "-b:a", "48k", os.path.join(root, "audio", v, k + ".mp3")], check=True)
             os.unlink(tmp); made += 1
+    write_manifest(root, words)
     print("made %d files (%d words, %d sentences known)" % (made, len(words), len(sents)))
     if fallbacks: print("read from kana (Open JTalk disagreed with the furigana):", *sorted(set(fallbacks)), sep="\n  ")
 
